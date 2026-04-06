@@ -157,16 +157,16 @@ textarea.editable{resize:vertical;min-height:90px}
     "site": "620-658 Terrigal Dr, Erina NSW 2250, Australia",
     "dealValue": 79000,
     "dealValueExGST": 71818,
-    "dateSold": "6 Apr 2026",
+    "dateSold": "5 Apr 2026",
     "salesTaskUrl": "https://app.clickup.com/t/86d26wy6y",
     "folderId": "90169182464",
     "pm": null,
-    "extra": "Joinery manufacture = true"
+    "extra": "Joinery manufacture: Yes"
   },
   "generated": "7 Apr 2026",
   "health": { "status": "green", "label": "ON TRACK" },
   "phase": {
-    "design": "pending",
+    "design": "active",
     "preMfg": "pending",
     "manufacturing": "pending",
     "onSite": "pending",
@@ -174,16 +174,21 @@ textarea.editable{resize:vertical;min-height:90px}
     "closeout": "pending"
   },
   "metrics": {
-    "contractValue": { "value": "$79,000", "sub": "Contract $79,000 + Variations $0", "color": "#1d4ed8" },
-    "schedule": { "value": "0%", "sub": "0 of 6 schedule items", "color": "#6b7280" },
-    "compliance": { "value": "2%", "sub": "1 of 61 items done", "color": "#6b7280" },
-    "siteWorks": { "value": "Not Started", "sub": "0 of 1 tasks", "color": "#6b7280" },
-    "milestone": { "value": "2 of 11", "sub": "Sales entered + Budgets done", "color": "#16a34a" }
+    "contractValue": { "value": "$83,117", "sub": "Contract $79,000 + Variations $4,117", "color": "#1d4ed8" },
+    "schedule": { "value": "Not Set", "sub": "Dates pending", "color": "#6b7280" },
+    "compliance": { "value": "4%", "sub": "1 of 26 items done", "color": "#d97706" },
+    "siteWorks": { "value": "Not Started", "sub": "Pending schedule", "color": "#6b7280" },
+    "milestone": { "value": "2 of 11", "sub": "Sales + Budgets done", "color": "#16a34a" }
   },
   "claims": [
-    { "num": 1, "name": "Deposit Invoice - 10% ($7,900 incl GST)", "amount": 7900, "pct": 10, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "" }
+    { "num": 1, "name": "Progress Claim 1 - Deposit 40%", "amount": 31600, "pct": 40, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "" },
+    { "num": 2, "name": "Progress Claim 2 - Start on Site 30%", "amount": 23700, "pct": 30, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "" },
+    { "num": 3, "name": "Progress Claim 3 - Practical Completion 20%", "amount": 15800, "pct": 20, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "" },
+    { "num": 4, "name": "Progress Claim 4 - Final 10%", "amount": 7900, "pct": 10, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "" }
   ],
-  "variations": [],
+  "variations": [
+    { "num": 1, "name": "V1 - Flooring Removal & Prep", "amount": 4116.96, "pct": null, "workflow": "Variation Approved", "workflowColor": "#16a34a", "status": "Variation Approved", "notes": "Signed by client 6 Apr 2026" }
+  ],
   "budget": {
     "labour": [
       { "code": "300", "name": "BUILD LABOUR", "budget": 9795, "actual": 0, "status": "to do", "assignee": null, "workflow": "Not Started", "workflowColor": "#AF7E2E", "subtasks": [] },
@@ -213,7 +218,6 @@ textarea.editable{resize:vertical;min-height:90px}
     { "name": "10 SITE WORKS [SCHEDULE]", "status": "not started", "start": null, "end": 1738256400000 }
   ],
   "compliance": [
-    {"name":"*SETUP NEW CLICKUP JOB","status":"todo","assignee":null},
     {"name":"Weekly project report to PM","status":"done","assignee":null}
   ],
   "milestoneGroups": [
@@ -221,7 +225,7 @@ textarea.editable{resize:vertical;min-height:90px}
       "title": "Sales & Setup",
       "listNames": "01 Sales \u00b7 03 Admin",
       "nodes": [
-        { "name": "Sales Data\nEntered", "status": "done", "icon": "\u2705", "date": "6 Apr" },
+        { "name": "Sales Data\nEntered", "status": "done", "icon": "\u2705", "date": "5 Apr" },
         { "name": "ClickUp Job\nSetup", "status": "todo", "icon": "\u2699\ufe0f", "date": "" },
         { "name": "Client\nOnboarding", "status": "todo", "icon": "\ud83d\udc4b", "date": "" }
       ]
@@ -239,7 +243,7 @@ textarea.editable{resize:vertical;min-height:90px}
       "title": "Budget & Procurement",
       "listNames": "05 PM \u00b7 08 Procurement",
       "nodes": [
-        { "name": "Build Cost\nSheet", "status": "todo", "icon": "\ud83d\udcca", "date": "" },
+        { "name": "Build Cost\nSheet", "status": "done", "icon": "\u2705", "date": "" },
         { "name": "Procurement\nBudgets", "status": "done", "icon": "\u2705", "date": "7 Apr" },
         { "name": "Schedule\nSent", "status": "todo", "icon": "\ud83d\udcc5", "date": "" }
       ]
@@ -264,17 +268,67 @@ textarea.editable{resize:vertical;min-height:90px}
     }
   ],
   "actions": [
-    { "num": 1, "title": "Complete Sales to PM Handover", "owner": "Michael", "priority": "urgent", "detail": "Handover meeting scheduled with Chadd, Gemma, Gail, Michael. Due 11 Apr 2026." },
-    { "num": 2, "title": "Send Deposit Invoice", "owner": "Gail", "priority": "high", "detail": "Deposit claim created ($7,900 incl GST). Workflow: Not Sent. Gail assigned, due 11 Apr." },
-    { "num": 3, "title": "Setup ClickUp Job from Template", "owner": "Gail", "priority": "high", "detail": "List 03 setup tasks all to do - new project from template, remap dates, copy sales info." },
+    { "num": 1, "title": "Send Deposit Invoice (PC1)", "owner": "Gail", "priority": "urgent", "detail": "PC1 Deposit 40% = </script>1,600 incl GST. Workflow currently Not Sent. Gail assigned, due 11 Apr." },
+    { "num": 2, "title": "Send V1 Flooring Variation Invoice", "owner": "Gail", "priority": "urgent", "detail": "V1 approved and signed by client 6 Apr 2026. Amount $4,116.96 incl GST. Ready to invoice." },
+    { "num": 3, "title": "Complete Sales to PM Handover", "owner": "Michael", "priority": "high", "detail": "Handover meeting with Chadd, Gemma, Gail, Michael. Due 11 Apr 2026." },
     { "num": 4, "title": "Begin Client Onboarding", "owner": "TBD", "priority": "normal", "detail": "Send intro email, request business details, MBA contract. All to do." },
-    { "num": 5, "title": "Confirm Drawing Rev0 with CAD", "owner": "Michael", "priority": "normal", "detail": "Shravan assigned to Drawing Rev0 (List 02). Confirm scope and timeline." },
-    { "num": 6, "title": "Initiate Procurement Quoting", "owner": "TBD", "priority": "normal", "detail": "All cost codes at Not Started. Key budgets: Joinery Materials <script type="application/json" id="project-data">1,740, Build Labour $9,795, Painting $7,182, Electrical $5,237." }
+    { "num": 5, "title": "Confirm Drawing Rev0 with CAD", "owner": "Shravan", "priority": "normal", "detail": "Drawing Rev0 assigned in List 02. Confirm scope and timeline." },
+    { "num": 6, "title": "Initiate Procurement Quoting", "owner": "TBD", "priority": "normal", "detail": "All cost codes at Not Started. Key budgets: Joinery <script type="application/json" id="project-data">1,740, Build Labour $9,795, Painting $7,182, Electrical $5,237." }
   ],
   "projectSummary": [
-    { "title": "Brand New Project - Just Sold", "owner": "MICHAEL", "detail": "Deal closed at $79,000 incl GST. Total cost budget $55,080 ex GST. Joinery manufacture required. Handover, budget and procurement setup completed today.", "color": "#1d4ed8" },
-    { "title": "Deposit Invoice Pending", "owner": "GAIL", "detail": "Deposit claim created for $7,900 (10%). Workflow set to Not Sent. Gail assigned, due 11 Apr 2026.", "color": "#d97706" },
-    { "title": "Budget Entered - $55,080 ex GST", "owner": "MICHAEL", "detail": "All procurement parent task budgets entered from Buildsoft. Labour <script type="application/json" id="project-data">7,770 (32%), Non-labour </script>7,310 (68%). Margin target approx <script type="application/json" id="project-data">6,838.", "color": "#7c3aed" },
+    { "title": "Progress Claims Now Set ($79,000)", "owner": "GAIL", "detail": "PC1 Deposit 40% </script>1,600 / PC2 Start on Site 30% 
+{
+  "project": {
+    "jobNumber": "000000",
+    "name": "Template Project",
+    "type": "Project Type",
+    "client": "Client Name",
+    "email": "",
+    "phone": "",
+    "site": "",
+    "dealValue": 0,
+    "dealValueExGST": 0,
+    "dateSold": "",
+    "salesTaskUrl": "",
+    "folderId": "",
+    "pm": "PM Name",
+    "extra": ""
+  },
+  "generated": "",
+  "health": { "status": "grey", "label": "N/A" },
+  "phase": {
+    "design": "pending",
+    "preMfg": "pending",
+    "manufacturing": "pending",
+    "onSite": "pending",
+    "completion": "pending",
+    "closeout": "pending"
+  },
+  "metrics": {
+    "contractValue": { "value": "$0", "sub": "", "color": "purple" },
+    "schedule": { "value": "0%", "sub": "", "color": "blue" },
+    "compliance": { "value": "0 / 0", "sub": "", "color": "amber" },
+    "siteWorks": { "value": "0 / 0", "sub": "", "color": "blue" },
+    "milestone": { "value": "N/A", "sub": "", "color": "grey" }
+  },
+  "claims": [],
+  "variations": [],
+  "budget": {
+    "labour": [],
+    "nonLabour": [],
+    "totalBudget": 0,
+    "totalActual": 0
+  },
+  "schedule": [],
+  "compliance": [],
+  "milestoneGroups": [],
+  "actions": [],
+  "projectSummary": [],
+  "footer": { "pm": "", "client": "" }
+}
+3,700 / PC3 Practical 20% <script type="application/json" id="project-data">5,800 / PC4 Final 10% $7,900. PC1 ready to send.", "color": "#1d4ed8" },
+    { "title": "V1 Flooring Approved - $4,117", "owner": "GAIL", "detail": "Variation 1 (Flooring Removal & Prep) signed by client 6 Apr 2026. Total contract + variations = $83,117 incl GST.", "color": "#16a34a" },
+    { "title": "Budget Locked - $55,080 ex GST", "owner": "MICHAEL", "detail": "All procurement parent task budgets entered from Buildsoft. Labour <script type="application/json" id="project-data">7,770 (32%), Non-labour </script>7,310 (68%). Margin target ~<script type="application/json" id="project-data">6,838.", "color": "#7c3aed" },
     { "title": "Design - Drawing Rev0 Assigned", "owner": "SHRAVAN", "detail": "Shravan Rajbhar assigned to Drawing Revision 0 in List 02. Construction plans and schedule not yet started.", "color": "#1d4ed8" }
   ],
   "footer": {
