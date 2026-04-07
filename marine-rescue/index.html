@@ -153,15 +153,15 @@ textarea.editable{resize:vertical;min-height:90px}
     "type": "BUILD",
     "client": "Chris Hartcher (Marine Rescue NSW Brisbane Water Unit)",
     "email": "admin.BrisbaneWater@marinerescuensw.com.au",
-    "phone": "+61 2 4337 9600 / 0410 526 916",
-    "site": "Point Clare NSW 2250",
+    "phone": "+61 2 4337 9600",
+    "site": "Point Clare NSW 2250, Australia",
     "dealValue": 10619.18,
-    "dealValueExGST": 9653.80,
+    "dealValueExGST": 9653.8,
     "dateSold": "5 Apr 2026",
     "salesTaskUrl": "https://app.clickup.com/t/86d28ccuu",
     "folderId": "90169185419",
     "pm": "Chadd Hofner",
-    "extra": "Acoustic panel install at Marine Rescue Brisbane Water Unit. Small project, no joinery. 50/50 deposit + final progress claim split."
+    "extra": "Acoustic panel install \u2014 ~40 panels Planobevel 625x625, 6.1m x 5.8m ceiling, 40% coverage"
   },
   "generated": "8 Apr 2026",
   "health": { "status": "green", "label": "ON TRACK" },
@@ -175,14 +175,14 @@ textarea.editable{resize:vertical;min-height:90px}
   },
   "metrics": {
     "contractValue": { "value": "$10,619", "sub": "Contract $10,619 + Variations $0", "color": "#7c3aed" },
-    "schedule": { "value": "Pre-Site", "sub": "Handover today; site works to be scheduled", "color": "#1d4ed8" },
-    "compliance": { "value": "0/8", "sub": "Compliance items pending", "color": "#d97706" },
-    "siteWorks": { "value": "Not Started", "sub": "Awaiting works schedule", "color": "#1d4ed8" },
-    "milestone": { "value": "Handover", "sub": "Sales\u2192PM handover today", "color": "#1d4ed8" }
+    "schedule": { "value": "On Track", "sub": "Procurement 5-12 Apr \u00b7 Site 19-26 Apr", "color": "#16a34a" },
+    "compliance": { "value": "0/8", "sub": "8 admin tasks to start", "color": "#d97706" },
+    "siteWorks": { "value": "0/9", "sub": "9 site tasks scheduled", "color": "#1d4ed8" },
+    "milestone": { "value": "Procurement", "sub": "Window 5-12 Apr", "color": "#1d4ed8" }
   },
   "claims": [
-    { "num": 1, "name": "Progress Claim 1 - Deposit 50%", "amount": 5309.59, "pct": 50, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "Deposit invoice \u2014 Gail assigned, due 10 Apr" },
-    { "num": 2, "name": "Progress Claim 2 - Final 50%", "amount": 5309.59, "pct": 50, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "Final claim on completion" }
+    { "num": 1, "name": "Progress Claim 1 - Deposit 50%", "amount": 5309.59, "pct": 50, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "Deposit invoice not yet sent" },
+    { "num": 2, "name": "Progress Claim 2 - Final 50%", "amount": 5309.59, "pct": 50, "workflow": "Not Sent", "workflowColor": "#94a3b8", "status": "Progress Claims", "notes": "Final invoice on completion" }
   ],
   "variations": [],
   "budget": {
@@ -201,83 +201,84 @@ textarea.editable{resize:vertical;min-height:90px}
   },
   "schedule": [
     { "name": "JOB SOLD", "status": "done", "start": null, "end": 1775520000000 },
-    { "name": "08 Procurement", "status": "active", "start": null, "end": 1736899200000 },
-    { "name": "07 Pre-Manufacture", "status": "todo", "start": null, "end": null },
-    { "name": "09 Manufacturing/Dispatch", "status": "todo", "start": null, "end": 1737158400000 },
-    { "name": "10 SITE WORKS", "status": "todo", "start": null, "end": 1738195200000 }
+    { "name": "08 Procurement", "status": "active", "start": 1775520000000, "end": 1776124800000 },
+    { "name": "07 Pre-Manufacture", "status": "todo", "start": 1776124800000, "end": 1776729600000 },
+    { "name": "09 Manufacturing/Dispatch", "status": "todo", "start": 1776124800000, "end": 1776729600000 },
+    { "name": "10 SITE WORKS", "status": "todo", "start": 1776729600000, "end": 1777334400000 }
   ],
   "compliance": [
     { "name": "*SETUP NEW CLICKUP JOB", "status": "todo", "assignee": null },
     { "name": "Shared Project Folder changes - Won Job", "status": "todo", "assignee": null },
+    { "name": "XERO TASKS", "status": "todo", "assignee": null },
     { "name": "CLIENT FORMS/DOCS", "status": "todo", "assignee": null },
     { "name": "WHS & SWMS", "status": "todo", "assignee": null },
     { "name": "CERTIFICATION CDC, DA", "status": "todo", "assignee": null },
     { "name": "HOME WARRANTY INSURANCE", "status": "todo", "assignee": null },
-    { "name": "XERO TASKS", "status": "todo", "assignee": null }
+    { "name": "Send Google review once job completed", "status": "todo", "assignee": null }
   ],
   "milestoneGroups": [
     {
-      "title": "Sales & Handover",
-      "listNames": "01 Sales \u00b7 03 Compliance \u00b7 05 Admin",
+      "title": "Sales & Setup",
+      "listNames": "01 Sales \u00b7 03 Compliance",
       "nodes": [
-        { "name": "Job\nSold", "status": "done", "icon": "\u2705", "date": "5 Apr" },
-        { "name": "Handover\nMeeting", "status": "wip", "icon": "\ud83e\udd1d", "date": "11 Apr" },
-        { "name": "Client\nOnboarding", "status": "todo", "icon": "\ud83d\udccb", "date": "" }
+        { "name": "Job Sold\nTS260316", "status": "done", "icon": "\u2705", "date": "5 Apr" },
+        { "name": "Sales Data\nEntered", "status": "done", "icon": "\u2705", "date": "5 Apr" },
+        { "name": "Client\nOnboarding", "status": "todo", "icon": "\ud83d\udc4b", "date": "" }
       ]
     },
     {
-      "title": "Setup & Costing",
-      "listNames": "05 Admin \u00b7 08 Procurement",
+      "title": "Build Setup",
+      "listNames": "05 PM \u00b7 08 Procurement",
       "nodes": [
-        { "name": "Build\nCost Sheet", "status": "done", "icon": "\u2705", "date": "8 Apr" },
-        { "name": "Procurement\nBudgets", "status": "done", "icon": "\u2705", "date": "8 Apr" },
-        { "name": "Trade\nPackages", "status": "todo", "icon": "\ud83d\udce6", "date": "" }
+        { "name": "Buildsoft\nBudgets Entered", "status": "done", "icon": "\u2705", "date": "8 Apr" },
+        { "name": "Sales\u2192PM\nHandover", "status": "wip", "icon": "\ud83e\udd1d", "date": "11 Apr" },
+        { "name": "Team Intro\nEmail", "status": "todo", "icon": "\ud83d\udce7", "date": "" }
       ]
     },
     {
       "title": "Financials",
       "listNames": "04 Claims",
       "nodes": [
-        { "name": "Deposit\nInvoice", "status": "todo", "icon": "\ud83d\udcb5", "date": "11 Apr" },
-        { "name": "Final\nInvoice", "status": "todo", "icon": "\ud83d\udcb8", "date": "" }
+        { "name": "Deposit Invoice\n50% / $5,309.59", "status": "todo", "icon": "\ud83d\udcb5", "date": "11 Apr" },
+        { "name": "Final Invoice\n50% / $5,309.59", "status": "todo", "icon": "\ud83d\udcb8", "date": "26 Apr" }
       ]
     },
     {
-      "title": "Pre-Site & Schedule",
+      "title": "Procurement & Pre-Site",
       "listNames": "06 Schedule \u00b7 07 Pre-Mfg",
       "nodes": [
-        { "name": "Works\nSchedule", "status": "todo", "icon": "\ud83d\udcc5", "date": "" },
-        { "name": "Material\nTakeoff", "status": "todo", "icon": "\ud83d\udcd0", "date": "" },
-        { "name": "Client\nTimeline Email", "status": "todo", "icon": "\ud83d\udce7", "date": "" }
+        { "name": "Procurement\n5-12 Apr", "status": "active", "icon": "\ud83d\udce6", "date": "5 Apr" },
+        { "name": "Pre-Mfg\n12-19 Apr", "status": "todo", "icon": "\ud83d\udd27", "date": "12 Apr" },
+        { "name": "Manufacturing\n12-19 Apr", "status": "todo", "icon": "\ud83c\udfed", "date": "12 Apr" }
       ]
     },
     {
-      "title": "On Site & Closeout",
+      "title": "Site & Closeout",
       "listNames": "10 Site Works",
       "nodes": [
-        { "name": "Site Works\nStart", "status": "todo", "icon": "\ud83d\udd28", "date": "" },
-        { "name": "Punchlist\nComplete", "status": "todo", "icon": "\u2714\ufe0f", "date": "" },
-        { "name": "Final\nReview", "status": "todo", "icon": "\ud83c\udf1f", "date": "" }
+        { "name": "Site Works\nStart", "status": "todo", "icon": "\ud83d\udd28", "date": "19 Apr" },
+        { "name": "Panel\nInstall", "status": "todo", "icon": "\ud83d\udd29", "date": "23 Apr" },
+        { "name": "Demob &\nWalkthrough", "status": "todo", "icon": "\ud83c\udfc1", "date": "26 Apr" }
       ]
     }
   ],
   "actions": [
-    { "num": 1, "title": "Send Deposit Invoice (50% / $5,309.59)", "owner": "Gail", "priority": "urgent", "detail": "Progress Claim 1 created and assigned to Gail, due 11 Apr. Workflow currently Not Sent \u2014 needs to be moved to Invoice Sent once Xero invoice issued." },
-    { "num": 2, "title": "Complete Sales\u2192PM Handover Meeting", "owner": "Chadd", "priority": "urgent", "detail": "Handover task in List 05 due 11 Apr. Attendees: Chadd, Gemma, Gail, Michael." },
-    { "num": 3, "title": "Schedule Site Works Dates", "owner": "Chadd", "priority": "high", "detail": "List 06 has 5 placeholder schedule tasks but no real dates set. Need to confirm install dates with client." },
-    { "num": 4, "title": "Set Up Trade Packages in Procurement", "owner": "Chadd", "priority": "high", "detail": "Materials budget $5,156 in code 310 needs to be broken down to suppliers (acoustic panels, install hardware)." },
-    { "num": 5, "title": "Compliance Pack: WHS, SWMS, HWI, Xero", "owner": "Gemma", "priority": "normal", "detail": "All List 03 compliance items still pending. WHS/SWMS and Home Warranty Insurance required before site works." },
-    { "num": 6, "title": "Send Client Timeline / Intro Email", "owner": "Chadd", "priority": "normal", "detail": "Welcome client to project and confirm next steps." }
+    { "num": 1, "title": "Send Deposit Invoice to Marine Rescue", "owner": "Gail", "priority": "urgent", "detail": "Progress Claim 1 (50% = $5,309.59 incl GST) is sitting in Not Sent. Procurement window has started \u2014 deposit needs to land before materials are ordered." },
+    { "num": 2, "title": "Complete Sales\u2192PM Handover", "owner": "Chadd / Michael", "priority": "high", "detail": "Handover meeting due 11 Apr. Chadd needs full brief on acoustic panel scope (~40 Planobevel 625x625 panels, 40% ceiling coverage at Brisbane Water Unit, Point Clare)." },
+    { "num": 3, "title": "Order Acoustic Panels & Adhesive", "owner": "Chadd", "priority": "high", "detail": "310 BUILD MATERIALS budget $5,156 ex GST. Procurement window 5-12 Apr \u2014 orders must be placed this week to hit 19 Apr site start." },
+    { "num": 4, "title": "Site Measure & Mark Out Ceiling Grid", "owner": "Chadd", "priority": "normal", "detail": "Pre-site task \u2014 confirm 6.1m x 5.8m ceiling area and 40% coverage layout before final panel quantity is locked in." },
+    { "num": 5, "title": "Stand Up Compliance Pack (WHS, SWMS, HWI, Xero)", "owner": "Gail / Gemma", "priority": "normal", "detail": "All 8 compliance tasks still in 'to do'. Need WHS & SWMS, Home Warranty Insurance check, and ClickUp setup before crew goes on site 19 Apr." },
+    { "num": 6, "title": "Send Client Schedule + Intro Email", "owner": "Chadd", "priority": "normal", "detail": "Client (Chris Hartcher) needs the works schedule (19-26 Apr site window) and PM intro before site mobilisation." }
   ],
   "projectSummary": [
-    { "title": "Small Fast-Turnaround Project", "owner": "MICHAEL", "detail": "$10,619 incl GST acoustic panel install at Marine Rescue Brisbane Water Unit, Point Clare. ~16m\u00b2 coverage, ~40 Planobevel panels. No joinery, no design phase. Sold 5 Apr 2026.", "color": "#1d4ed8" },
-    { "title": "Budget Set: $7,426 cost ex GST", "owner": "MICHAEL", "detail": "Six cost codes loaded today. Largest line is 310 BUILD MATERIALS at $5,156. Margin on $9,654 ex GST sale = $2,228 (~23%).", "color": "#7c3aed" },
-    { "title": "50/50 Progress Claim Structure", "owner": "GAIL", "detail": "Two claims created: $5,309.59 deposit (due 11 Apr) and $5,309.59 final on completion. No interim progress claims due to small job size.", "color": "#7c3aed" },
-    { "title": "Compliance Pack Outstanding", "owner": "GEMMA", "detail": "All List 03 compliance items still untouched. WHS/SWMS, Home Warranty and Xero setup needed before site mobilisation.", "color": "#d97706" }
+    { "title": "Schedule Locked In", "owner": "CHADD", "detail": "Procurement 5-12 Apr \u00b7 Pre-Mfg + Mfg 12-19 Apr \u00b7 Site Works 19-26 Apr. 8 acoustic install tasks loaded into List 10 covering setup, measure, install, inspection and demob.", "color": "#1d4ed8" },
+    { "title": "Procurement Window Open", "owner": "CHADD", "detail": "Acoustic panels (~40 Planobevel 625x625) and adhesive need to be ordered this week to hit the 19 Apr site start. $5,156 ex GST materials budget.", "color": "#d97706" },
+    { "title": "Deposit Invoice Pending", "owner": "GAIL", "detail": "Progress Claim 1 ($5,309.59 incl GST) still in 'Not Sent' state. Must be invoiced before materials are ordered.", "color": "#dc2626" },
+    { "title": "Build Budget $7,426 ex GST", "owner": "MICHAEL", "detail": "Buildsoft parent budgets entered: Materials $5,156, Build labour $1,360, PM/Sales $340, CAD $200, Admin $170, Plant hire $200. No actual spend yet.", "color": "#7c3aed" }
   ],
   "footer": {
     "pm": "Chadd Hofner",
-    "client": "Chris Hartcher \u2014 Marine Rescue NSW Brisbane Water Unit"
+    "client": "Chris Hartcher \u00b7 Marine Rescue NSW Brisbane Water Unit"
   }
 }</script>
 
