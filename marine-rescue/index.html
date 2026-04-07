@@ -894,7 +894,10 @@ textarea.editable{resize:vertical;min-height:90px}
       return;
     }
 
+    var siteTasks = D.siteWorksTasks || [];
+
     var html = '';
+    // Gantt 1 — Site Works Schedule (high level milestones from List 06)
     html += '<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden;margin-bottom:12px">'+
       '<div style="background:#0f2540;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">'+
         '<div>'+
@@ -912,24 +915,9 @@ textarea.editable{resize:vertical;min-height:90px}
       '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="ganttChart" style="display:block"></canvas></div>'+
     '</div>';
 
-    // Data table
-    html += '<div class="sec">Schedule Detail</div>';
-    html += '<table><thead><tr><th>Task</th><th style="width:120px">Start</th><th style="width:120px">End</th><th style="width:100px">Status</th></tr></thead><tbody>';
-    tasks.forEach(function(t){
-      html += '<tr>'+
-        '<td style="font-weight:500">'+esc(t.name)+'</td>'+
-        '<td style="font-size:11px;color:#64748b">'+fmtDate(t.start)+'</td>'+
-        '<td style="font-size:11px;color:#64748b">'+fmtDate(t.end)+'</td>'+
-        '<td>'+badge(t.status || '—', statusBadgeColor(t.status))+'</td>'+
-      '</tr>';
-    });
-    html += '</tbody></table>';
-
-    // Site Works Tasks (List 10) — individual tasks scoped from the proposal
-    var siteTasks = D.siteWorksTasks || [];
+    // Gantt 2 — Site Works Tasks (individual tasks from List 10) — sits IMMEDIATELY below Gantt 1
     if(siteTasks.length > 0){
-      // Site Works Gantt card (same style as main schedule Gantt)
-      html += '<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden;margin-bottom:12px;margin-top:18px">'+
+      html += '<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden;margin-bottom:12px">'+
         '<div style="background:#0f2540;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">'+
           '<div>'+
             '<div style="font-size:13px;font-weight:700">Site Works Tasks — Gantt View</div>'+
@@ -944,7 +932,23 @@ textarea.editable{resize:vertical;min-height:90px}
         '</div>'+
         '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="ganttChart2" style="display:block"></canvas></div>'+
       '</div>';
+    }
 
+    // Schedule Detail table (high-level milestones)
+    html += '<div class="sec">Schedule Detail</div>';
+    html += '<table><thead><tr><th>Task</th><th style="width:120px">Start</th><th style="width:120px">End</th><th style="width:100px">Status</th></tr></thead><tbody>';
+    tasks.forEach(function(t){
+      html += '<tr>'+
+        '<td style="font-weight:500">'+esc(t.name)+'</td>'+
+        '<td style="font-size:11px;color:#64748b">'+fmtDate(t.start)+'</td>'+
+        '<td style="font-size:11px;color:#64748b">'+fmtDate(t.end)+'</td>'+
+        '<td>'+badge(t.status || '—', statusBadgeColor(t.status))+'</td>'+
+      '</tr>';
+    });
+    html += '</tbody></table>';
+
+    // Site Works Tasks (Scope) table
+    if(siteTasks.length > 0){
       html += '<div class="sec">Site Works Tasks (Scope)</div>';
       html += '<table><thead><tr><th style="width:36px">#</th><th>Task</th><th style="width:140px">Due</th><th style="width:120px">Assignee</th><th style="width:100px">Status</th></tr></thead><tbody>';
       siteTasks.forEach(function(t, i){
