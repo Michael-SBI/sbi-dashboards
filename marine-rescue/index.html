@@ -209,6 +209,17 @@ textarea.editable{resize:vertical;min-height:90px}
     { "name": "09 Manufacturing/Dispatch", "status": "todo", "start": 1776124800000, "end": 1776729600000 },
     { "name": "10 SITE WORKS", "status": "todo", "start": 1776729600000, "end": 1777334400000 }
   ],
+  "siteWorksTasks": [
+    { "name": "1. Site setup & safety (drop sheets, signage, isolate work area)", "due": 1776729600000, "assignee": null, "status": "todo" },
+    { "name": "2. Site measure & mark out ceiling grid (6.1m x 5.8m, 40% coverage)", "due": 1776816000000, "assignee": null, "status": "todo" },
+    { "name": "3. Protect existing equipment, furniture & floor coverings", "due": 1776816000000, "assignee": null, "status": "todo" },
+    { "name": "4. Cut perimeter panels to size (Planobevel 625x625, ~40 panels)", "due": 1776902400000, "assignee": null, "status": "todo" },
+    { "name": "5. Install acoustic panels to existing plasterboard ceiling", "due": 1777075200000, "assignee": null, "status": "todo" },
+    { "name": "6. Inspect alignment, spacing & finish quality", "due": 1777161600000, "assignee": null, "status": "todo" },
+    { "name": "7. Final clean & rubbish removal", "due": 1777161600000, "assignee": null, "status": "todo" },
+    { "name": "8. Site demobilisation & client walkthrough", "due": 1777334400000, "assignee": null, "status": "todo" },
+    { "name": "Completions / Punchlist", "due": null, "assignee": null, "status": "todo" }
+  ],
   "compliance": [
     { "name": "*SETUP NEW CLICKUP JOB", "status": "todo", "assignee": null },
     { "name": "Shared Project Folder changes - Won Job", "status": "todo", "assignee": null },
@@ -913,6 +924,23 @@ textarea.editable{resize:vertical;min-height:90px}
       '</tr>';
     });
     html += '</tbody></table>';
+
+    // Site Works Tasks (List 10) — individual tasks scoped from the proposal
+    var siteTasks = D.siteWorksTasks || [];
+    if(siteTasks.length > 0){
+      html += '<div class="sec">Site Works Tasks (Scope)</div>';
+      html += '<table><thead><tr><th style="width:36px">#</th><th>Task</th><th style="width:140px">Due</th><th style="width:120px">Assignee</th><th style="width:100px">Status</th></tr></thead><tbody>';
+      siteTasks.forEach(function(t, i){
+        html += '<tr>'+
+          '<td style="font-size:11px;color:#94a3b8;font-weight:600">'+(i+1)+'</td>'+
+          '<td style="font-weight:500">'+esc(t.name)+'</td>'+
+          '<td style="font-size:11px;color:#64748b">'+fmtDate(t.due)+'</td>'+
+          '<td style="font-size:11px;color:#64748b">'+esc(t.assignee || '—')+'</td>'+
+          '<td>'+badge(t.status || '—', statusBadgeColor(t.status))+'</td>'+
+        '</tr>';
+      });
+      html += '</tbody></table>';
+    }
 
     document.getElementById('tab-schedule').innerHTML = html;
 
