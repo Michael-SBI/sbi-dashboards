@@ -178,10 +178,10 @@ textarea.editable{resize:vertical;min-height:90px}
   },
   "metrics": {
     "contractValue": { "value": "$83,117", "sub": "Contract $79,000 + Variations $4,117", "color": "#7c3aed" },
-    "schedule": { "value": "Not Set", "sub": "Site works schedule pending", "color": "#94a3b8" },
+    "schedule": { "value": "Site 21 Apr", "sub": "Start on site scheduled", "color": "#1d4ed8" },
     "compliance": { "value": "3 / 8", "sub": "List 03 admin tasks done", "color": "#1d4ed8" },
-    "siteWorks": { "value": "0 / 1", "sub": "1 site task (Punchlist) \u2014 to do", "color": "#94a3b8" },
-    "milestone": { "value": "Handover Done", "sub": "Sales \u2192 PM handover done", "color": "#1bbc9c" }
+    "siteWorks": { "value": "0 / 16", "sub": "16 site tasks scoped by PM", "color": "#1d4ed8" },
+    "milestone": { "value": "Pre-Site", "sub": "Demo + flooring removal underway", "color": "#1bbc9c" }
   },
   "claims": [
     { "num": 1, "name": "Progress Claim 1 - Deposit 40%", "amount": 31600, "pct": 40, "workflow": "Send Invoice", "workflowColor": "#FF4081", "status": "Progress Claims", "notes": "" },
@@ -221,7 +221,22 @@ textarea.editable{resize:vertical;min-height:90px}
     { "name": "10 SITE WORKS [SCHEDULE]", "status": "not started", "start": 1737392400000, "end": 1738256400000 }
   ],
   "siteWorksTasks": [
-    { "name": "Completions_Punchlist", "start": null, "due": null, "assignee": null, "status": "to do" }
+    { "name": "Start on site", "start": 1776189600000, "due": 1776189600000, "assignee": null, "status": "not started" },
+    { "name": "Remove existing skirting", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Demo works", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Remove existing flooring", "start": 1775498400000, "due": 1775584800000, "assignee": "chadd hofner", "status": "not started" },
+    { "name": "Floor prep", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Frame reception counter wall", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Frame low height dividing walls", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Frame cavity slider", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Frame new door jamb", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Sheet & set walls", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Electrical rough in", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Hydraulic rough in", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Paint", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Joinery install", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Flooring install", "start": null, "due": null, "assignee": null, "status": "not started" },
+    { "name": "Electrical fitoff", "start": null, "due": null, "assignee": null, "status": "not started" }
   ],
   "compliance": [
     { "name": "*SETUP NEW CLICKUP JOB", "status": "done", "assignee": null },
@@ -249,7 +264,7 @@ textarea.editable{resize:vertical;min-height:90px}
       "nodes": [
         { "name": "Sales \u2192 PM\nHandover", "status": "done", "icon": "\u2705", "date": "" },
         { "name": "Build Cost\nSheet", "status": "done", "icon": "\u2705", "date": "8 Apr" },
-        { "name": "Client Onboarding\n& Timeline Email", "status": "todo", "icon": "\ud83d\udce7", "date": "" }
+        { "name": "Site Tasks\nScoped (16)", "status": "done", "icon": "\u2705", "date": "8 Apr" }
       ]
     },
     {
@@ -266,7 +281,7 @@ textarea.editable{resize:vertical;min-height:90px}
       "listNames": "09 Manufacturing \u00b7 10 Site Works",
       "nodes": [
         { "name": "Joinery\nManufactured", "status": "todo", "icon": "\ud83c\udfed", "date": "" },
-        { "name": "Site Works\nStart", "status": "todo", "icon": "\ud83d\udd28", "date": "" },
+        { "name": "Site Works\nStart", "status": "todo", "icon": "\ud83d\udd28", "date": "21 Apr" },
         { "name": "Punchlist\nComplete", "status": "todo", "icon": "\u2714\ufe0f", "date": "" }
       ]
     },
@@ -284,16 +299,16 @@ textarea.editable{resize:vertical;min-height:90px}
   "actions": [
     { "num": 1, "title": "Send Deposit Invoice (PC1 - $31,600 incl GST)", "owner": "Gail", "priority": "urgent", "detail": "Progress Claim 1 workflow is 'Send Invoice'. Issue deposit invoice to client to unlock site works." },
     { "num": 2, "title": "Send V1 Flooring Variation Invoice ($4,116.96 incl GST)", "owner": "Gail", "priority": "urgent", "detail": "V1 Flooring Removal & Prep variation approved, workflow set to 'Send Invoice'." },
-    { "num": 3, "title": "Schedule Site Works (List 10) and Project (List 06)", "owner": "Chadd", "priority": "high", "detail": "Site works schedule and project schedule still 'not started'. Punchlist is the only L10 task \u2014 site work tasks need creating." },
+    { "num": 3, "title": "Add Dates to Site Works Subtasks", "owner": "Chadd", "priority": "high", "detail": "16 site work subtasks scoped under 10.1 SITE WORKS but only 2 have dates set (Start on site 21 Apr, Remove flooring 5-6 Apr). Other 14 need scheduling." },
     { "num": 4, "title": "Detailed Site Measure & Joinery Plans to Client", "owner": "Chadd", "priority": "high", "detail": "L07 site measure and joinery plans both still 'to do'. Required before joinery factory handover." },
     { "num": 5, "title": "Client Onboarding & Timeline Email", "owner": "Chadd", "priority": "normal", "detail": "L05 client onboarding tasks (timeline email, work progress pics, correspondence) all still 'not started'." },
     { "num": 6, "title": "Complete Compliance Admin (CDC/DA, WHS/SWMS, Client Forms, Xero)", "owner": "Gail", "priority": "normal", "detail": "5 of 8 List 03 compliance tasks still to do. Required before site works commence." }
   ],
   "projectSummary": [
+    { "title": "Site Works Scoped (16 Tasks)", "owner": "CHADD", "detail": "PM has scoped 16 site work tasks under 10.1 SITE WORKS schedule. Start on site 21 Apr. Demo + flooring removal already happening this week.", "color": "#1d4ed8" },
     { "title": "Deposit & V1 Invoices Ready to Send", "owner": "GAIL", "detail": "PC1 ($31,600) and V1 Flooring ($4,116.96) both at 'Send Invoice' workflow. Total $35,716.96 incl GST awaiting issue.", "color": "#7c3aed" },
-    { "title": "Schedule Not Yet Built", "owner": "CHADD", "detail": "List 06 schedule and List 10 site works still placeholder (only Punchlist exists). Needs scheduling before site start.", "color": "#d97706" },
-    { "title": "Pre-Mfg Work Pending", "owner": "CHADD", "detail": "10 joinery items (J01-J09 + factory tasks) and detailed site measure all still 'to do' in List 07.", "color": "#1d4ed8" },
-    { "title": "Handover Complete, Project Live", "owner": "CHADD", "detail": "Sales\u2192PM handover done. $79,000 BUILD contract + 1 approved variation ($4,116.96). 13 cost code budgets totalling $55,080 ex GST.", "color": "#1d4ed8" }
+    { "title": "Pre-Mfg Work Pending", "owner": "CHADD", "detail": "10 joinery items (J01-J09 + factory tasks) and detailed site measure all still 'to do' in List 07.", "color": "#d97706" },
+    { "title": "Handover Complete, Project Live", "owner": "CHADD", "detail": "$79,000 BUILD contract + 1 approved variation ($4,116.96). 13 cost code budgets totalling $55,080 ex GST.", "color": "#1d4ed8" }
   ],
   "footer": {
     "pm": "Chadd Hofner",
