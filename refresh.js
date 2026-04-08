@@ -33,7 +33,6 @@ const path = require('path');
 const CLICKUP_API = 'https://api.clickup.com/api/v2';
 const TOKEN = process.env.CLICKUP_API_TOKEN || process.env.CLICKUP_TOKEN;
 const REPO_ROOT = path.resolve(__dirname);
-const MEETING_LIST_ID = '901612976091';
 
 const FIELDS = {
   budgetAllowance:   'ec6378ba-324d-445a-b9a1-75746b6afe78', // Budget Allowance SBI (currency)
@@ -101,11 +100,6 @@ async function clickup(endpoint, opts = {}) {
 function getCustomField(task, fieldId) {
   const cf = (task.custom_fields || []).find(c => c.id === fieldId);
   return cf ? cf.value : undefined;
-}
-
-function getCustomFieldOptions(task, fieldId) {
-  const cf = (task.custom_fields || []).find(c => c.id === fieldId);
-  return cf?.type_config?.options;
 }
 
 function findJsonBlock(html, id) {
@@ -356,7 +350,7 @@ function buildCompliance(list03Tasks) {
   return out;
 }
 
-function recomputeMetrics(existing, claims, variations, budget, siteWorks) {
+function recomputeMetrics(existing, claims, variations, _budget, siteWorks) {
   const claimsTotal = claims.reduce((s, c) => s + (c.amount || 0), 0);
   const varTotal = variations.reduce((s, v) => s + (v.amount || 0), 0);
   const contractValue = claimsTotal + varTotal;
@@ -407,9 +401,22 @@ async function refreshProject(project) {
 
   // 4. Merge with preserved narrative
   const existing = project.existingData;
+  // Format generated timestamp in Sydney time so the meeting team can see
+  // exactly when the last refresh fired (date + day-of-week + time + tz).
+  // Example: "Tue 8 Apr 2026 · 06:30 AEDT"
+  const now = new Date();
+  const sydney = new Intl.DateTimeFormat('en-AU', {
+    timeZone: 'Australia/Sydney',
+    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit', hour12: false,
+    timeZoneName: 'short',
+  }).formatToParts(now);
+  const part = type => sydney.find(p => p.type === type)?.value || '';
+  const generatedStr = `${part('weekday')} ${part('day')} ${part('month')} ${part('year')} · ${part('hour')}:${part('minute')} ${part('timeZoneName')}`;
+
   const newData = {
     ...existing,
-    generated: new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' }),
+    generated: generatedStr,
     metrics: recomputeMetrics(existing.metrics || {}, claims, variations, budget, siteWorksTasks),
     claims,
     variations,
@@ -422,7 +429,17 @@ async function refreshProject(project) {
 
   // 5. Inject into existing HTML
   const html = fs.readFileSync(project.indexPath, 'utf8');
-  const newHtml = replaceJsonBlock(html, 'project-data', newData);
+  let newHtml = replaceJsonBlock(html, 'project-data', newData);
+
+  // Idempotent label upgrade — patch the legacy "Updated: " label inside the
+  // dashboard's renderer template literal so existing dashboards say
+  // "Data refreshed from ClickUp:" after the refresh runs. Match the exact
+  // surrounding context so we don't touch any other "Updated: " string.
+  newHtml = newHtml.replace(
+    "'<div class=\"updated\">Updated: '+esc(D.generated)+'</div>'",
+    "'<div class=\"updated\" title=\"Timestamp of the last automatic data sync from ClickUp\">Data refreshed from ClickUp: '+esc(D.generated)+'</div>'"
+  );
+
   fs.writeFileSync(project.indexPath, newHtml, 'utf8');
 
   log(`  ✅ refreshed: claims=${claims.length} variations=${variations.length} budget=${budget.labour.length + budget.nonLabour.length} schedule=${schedule.length} siteWorks=${siteWorksTasks.length} compliance=${compliance.length}`);
