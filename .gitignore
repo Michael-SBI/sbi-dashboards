@@ -1,0 +1,10 @@
+# Run artifacts from refresh.js
+_refresh-summary.json
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

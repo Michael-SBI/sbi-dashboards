@@ -1,0 +1,163 @@
+name: Refresh Dashboards
+
+# Triggered by:
+#   - Make.com via repository_dispatch (event type "refresh")
+#   - Manual run from the GitHub Actions UI
+#   - Weekly cron: Tuesday 06:30 AEST (= Monday 20:30 UTC)
+#
+# Optional payload (repository_dispatch):
+#   { "event_type": "refresh", "client_payload": { "projects": "hungry-wolfs,marine-rescue" } }
+#
+# Optional input (workflow_dispatch):
+#   projects: comma-separated slugs or job numbers (leave blank = all)
+
+on:
+  repository_dispatch:
+    types: [refresh]
+  workflow_dispatch:
+    inputs:
+      projects:
+        description: 'Comma-separated slugs/job numbers (blank = all active)'
+        required: false
+        default: ''
+  schedule:
+    # Tuesday 06:30 AEST = Monday 20:30 UTC (AEST = UTC+10; AEDT = UTC+11)
+    # Using 19:30 UTC Monday to be safe across DST (06:30 AEDT)
+    - cron: '30 19 * * 1'
+
+permissions:
+  contents: write          # to commit + push the refreshed HTML files
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Determine project filter
+        id: filter
+        run: |
+          FILTER="${{ github.event.client_payload.projects || github.event.inputs.projects || '' }}"
+          echo "Filter: '$FILTER'"
+          echo "filter=$FILTER" >> "$GITHUB_OUTPUT"
+
+      - name: Run refresh worker
+        id: refresh
+        env:
+          CLICKUP_API_TOKEN: ${{ secrets.CLICKUP_TOKEN }}
+        run: |
+          node refresh.js "${{ steps.filter.outputs.filter }}"
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+        continue-on-error: true
+
+      - name: Commit and push changes
+        id: commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Refresh dashboards $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post summary to Projects Meeting task
+        if: always()
+        env:
+          CLICKUP_API_TOKEN: ${{ secrets.CLICKUP_TOKEN }}
+          MEETING_LIST_ID: '901612976091'
+        run: |
+          node <<'EOF'
+          const fs = require('fs');
+          const token = process.env.CLICKUP_API_TOKEN;
+          const listId = process.env.MEETING_LIST_ID;
+          const API = 'https://api.clickup.com/api/v2';
+
+          async function main() {
+            // Load summary if it exists
+            let summary = null;
+            if (fs.existsSync('_refresh-summary.json')) {
+              summary = JSON.parse(fs.readFileSync('_refresh-summary.json', 'utf8'));
+            }
+
+            // Find the current "Projects meeting" task with status "not started"
+            const res = await fetch(`${API}/list/${listId}/task?include_closed=false`, {
+              headers: { 'Authorization': token }
+            });
+            if (!res.ok) {
+              console.error('Failed to fetch meeting tasks:', res.status);
+              process.exit(0);
+            }
+            const data = await res.json();
+            const meetingTask = (data.tasks || [])
+              .filter(t => /^projects? meeting/i.test(t.name))
+              .filter(t => (t.status?.status || '').toLowerCase() === 'not started')
+              .sort((a, b) => (parseInt(a.due_date)||Infinity) - (parseInt(b.due_date)||Infinity))[0];
+
+            if (!meetingTask) {
+              console.log('No upcoming "Projects meeting" task in not-started status — skipping comment post');
+              process.exit(0);
+            }
+            console.log('Found meeting task:', meetingTask.name, meetingTask.id);
+
+            // Build comment text
+            let comment;
+            if (!summary) {
+              comment = '⚠️ Dashboard refresh ran but produced no summary file — check GitHub Actions logs.';
+            } else {
+              const lines = [];
+              lines.push(`📊 **Dashboard refresh** — ${summary.successes.length}/${summary.total} succeeded`);
+              lines.push('');
+              if (summary.successes.length) {
+                lines.push('**Refreshed:**');
+                for (const s of summary.successes) {
+                  lines.push(`  ✅ ${s.projectName || s.slug} — contract ${s.contractValue}, site ${s.siteWorksProgress}`);
+                }
+              }
+              if (summary.failures.length) {
+                lines.push('');
+                lines.push('**⚠️ Failed:**');
+                for (const f of summary.failures) {
+                  lines.push(`  ❌ ${f.slug}: ${f.error}`);
+                }
+              }
+              lines.push('');
+              lines.push(`Dashboards: https://michael-sbi.github.io/sbi-dashboards/`);
+              lines.push(`Run: https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`);
+              comment = lines.join('\n');
+            }
+
+            // Post the comment
+            const postRes = await fetch(`${API}/task/${meetingTask.id}/comment`, {
+              method: 'POST',
+              headers: { 'Authorization': token, 'Content-Type': 'application/json' },
+              body: JSON.stringify({ comment_text: comment, notify_all: false })
+            });
+            if (postRes.ok) {
+              console.log('✅ Summary comment posted to', meetingTask.name);
+            } else {
+              console.error('Failed to post comment:', postRes.status, await postRes.text());
+            }
+          }
+
+          main().catch(e => { console.error(e); process.exit(0); });
+          EOF
+
+      - name: Fail if refresh had errors
+        if: steps.refresh.outputs.exit_code != '0' && steps.refresh.outputs.exit_code != ''
+        run: |
+          echo "Refresh worker exited with code ${{ steps.refresh.outputs.exit_code }}"
+          exit 1
