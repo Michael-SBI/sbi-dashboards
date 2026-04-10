@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBI Project Setup Workflow</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0D1B2A;
+    color: #FFFFFF;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== COLOURS ===== */
+  :root {
+    --navy: #1F3864;
+    --navy-deep: #0D1B2A;
+    --navy-light: #2A4A7F;
+    --orange: #FF6B00;
+    --orange-light: #FF8C33;
+    --orange-glow: rgba(255, 107, 0, 0.15);
+    --green: #00C853;
+    --green-dark: #009624;
+    --blue: #2196F3;
+    --purple: #9C27B0;
+    --red: #FF1744;
+    --yellow: #FFD600;
+    --white: #FFFFFF;
+    --grey-light: #B0BEC5;
+    --grey-dark: #37474F;
+    --card-bg: #1A2F4A;
+    --border: 3px solid;
+  }
+
+  /* ===== TOP BANNER ===== */
+  .banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    border-bottom: 4px solid var(--orange);
+    padding: 24px 20px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--orange-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .banner-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--white);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 4px 16px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .banner h1 {
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .banner h1 span { color: var(--orange); }
+  .banner p {
+    font-size: 1rem;
+    color: var(--grey-light);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* ===== BUILD/DESIGN TOGGLE ===== */
+  .mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 0 10px;
+  }
+  .mode-btn {
+    padding: 10px 28px;
+    border: 3px solid var(--orange);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--orange);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .mode-btn.active {
+    background: var(--orange);
+    color: var(--white);
+    box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+  }
+  .mode-btn:hover:not(.active) {
+    background: rgba(255, 107, 0, 0.15);
+  }
+  .mode-hint {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--grey-light);
+    padding-bottom: 16px;
+  }
+
+  /* ===== PREREQS SECTION ===== */
+  .prereqs {
+    background: linear-gradient(135deg, #1A2F4A 0%, #152238 100%);
+    border: 3px solid var(--yellow);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 16px 0 24px;
+  }
+  .prereqs h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--yellow);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .prereqs ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .prereqs li {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    background: rgba(255, 214, 0, 0.08);
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 6px 6px 0;
+  }
+  .prereqs li strong { color: var(--yellow); }
+
+  /* ===== TIMELINE SPINE ===== */
+  .timeline {
+    position: relative;
+    padding: 10px 0 30px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--orange), var(--green));
+    border-radius: 2px;
+  }
+
+  /* ===== PHASE CARD ===== */
+  .phase {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 60px;
+  }
+  .phase-dot {
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.75rem;
+    z-index: 2;
+  }
+  .phase[data-phase="1"] .phase-dot { background: var(--orange); }
+  .phase[data-phase="2"] .phase-dot { background: var(--blue); }
+  .phase[data-phase="3"] .phase-dot { background: var(--purple); }
+  .phase[data-phase="4"] .phase-dot { background: var(--green); }
+  .phase[data-phase="manual"] .phase-dot { background: var(--red); border-color: var(--red); }
+
+  .phase-header {
+    background: var(--card-bg);
+    border: 3px solid var(--grey-dark);
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .phase-header:hover, .phase-header:active {
+    border-color: var(--orange);
+  }
+  .phase.open .phase-header {
+    border-color: var(--orange);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+  }
+  .phase-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .phase-header h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    flex: 1;
+  }
+  .phase-header h3 span { color: var(--orange); }
+  .phase-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tag-auto { background: var(--green-dark); color: var(--white); }
+  .tag-manual { background: var(--red); color: var(--white); }
+  .tag-build-only { background: var(--blue); color: var(--white); }
+  .phase-chevron {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    fill: var(--grey-light);
+  }
+  .phase.open .phase-chevron { transform: rotate(180deg); }
+  .phase-who {
+    font-size: 0.8rem;
+    color: var(--grey-light);
+    margin-top: 4px;
+  }
+  .phase-who strong { color: var(--orange-light); }
+
+  /* ===== PHASE BODY ===== */
+  .phase-body {
+    background: var(--card-bg);
+    border: 3px solid var(--orange);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+  .phase.open .phase-body {
+    max-height: 2000px;
+    padding: 14px 18px 18px;
+  }
+  .phase-body ol, .phase-body ul {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  .phase-body li {
+    position: relative;
+    padding: 8px 0 8px 36px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .phase-body li:last-child { border-bottom: none; }
+  .phase-body ol > li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 26px;
+    height: 26px;
+    background: var(--navy-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.75rem;
+    color: var(--orange);
+    border: 2px solid var(--orange);
+  }
+  .phase-body .sub-detail {
+    font-size: 0.85rem;
+    color: var(--grey-light);
+    margin-top: 4px;
+    padding-left: 4px;
+  }
+  .phase-body .sub-detail em { color: var(--orange-light); font-style: normal; font-weight: 700; }
+
+  /* ===== STEP FLYOUT ===== */
+  .phase-body li.has-flyout { cursor: pointer; }
+  .phase-body li.has-flyout:hover { background: rgba(255, 107, 0, 0.06); border-radius: 6px; }
+  .phase-body li.has-flyout::after {
+    content: '+';
+    position: absolute;
+    right: 4px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: var(--orange);
+    border: 2px solid var(--orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: all 0.2s;
+  }
+  .phase-body li.has-flyout:hover::after { opacity: 1; }
+  .phase-body li.has-flyout.flyout-open::after { content: '\2212'; opacity: 1; background: var(--orange); color: var(--white); }
+  .step-flyout {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, margin 0.3s ease;
+    margin: 0;
+  }
+  .flyout-open .step-flyout {
+    max-height: 600px;
+    margin: 8px 0 4px;
+  }
+  .step-flyout-inner {
+    background: rgba(255, 107, 0, 0.08);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--grey-light);
+  }
+  .step-flyout-inner strong { color: var(--white); font-weight: 700; }
+  .step-flyout-inner .flyout-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 0.8rem;
+  }
+  .step-flyout-inner .flyout-table th {
+    text-align: left;
+    padding: 4px 8px;
+    background: rgba(255,255,255,0.08);
+    color: var(--orange-light);
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .step-flyout-inner .flyout-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .build-only-tag, .design-only-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-left: 6px;
+    text-transform: uppercase;
+  }
+  .build-only-tag { background: var(--blue); color: var(--white); }
+  .design-only-tag { background: var(--purple); color: var(--white); }
+
+  /* Manual steps sub-sections */
+  .manual-person {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 2px solid var(--grey-dark);
+    border-radius: 8px;
+  }
+  .manual-person:first-child { margin-top: 0; }
+  .manual-person h4 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .manual-person ul { list-style: none; }
+  .manual-person li {
+    padding: 6px 0 6px 32px;
+    position: relative;
+    font-size: 0.95rem;
+  }
+  .manual-person li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--orange);
+    border-radius: 4px;
+    background: transparent;
+  }
+
+  /* ===== SWIMLANE LEGEND ===== */
+  .swimlane {
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: var(--card-bg);
+    border: 3px solid var(--navy-light);
+    border-radius: 12px;
+  }
+  .swimlane h2 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    color: var(--white);
+  }
+  .swimlane-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .swim-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+  }
+  .swim-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    border: 2px solid var(--white);
+  }
+  .swim-icon.claude { background: var(--green-dark); }
+  .swim-icon.leah { background: #E91E63; }
+  .swim-icon.gail { background: #9C27B0; }
+  .swim-icon.pm { background: var(--blue); }
+  .swim-label { font-size: 0.85rem; font-weight: 700; }
+  .swim-desc { font-size: 0.75rem; color: var(--grey-light); }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 24px 20px 40px;
+    color: var(--grey-light);
+    font-size: 0.8rem;
+    border-top: 2px solid var(--grey-dark);
+    margin-top: 30px;
+  }
+  .footer strong { color: var(--orange); }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .banner { background: #1F3864 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .banner h1, .banner p, .banner-badge { color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .mode-toggle, .mode-hint { display: none; }
+    .phase-body { max-height: none !important; padding: 14px 18px 18px !important; overflow: visible !important; }
+    .phase-header { border-bottom: 3px solid var(--orange) !important; border-radius: 12px 12px 0 0 !important; }
+    .phase-chevron { display: none; }
+    .step-flyout { max-height: none !important; margin: 8px 0 4px !important; }
+    .phase-body li.has-flyout::after { display: none; }
+    .phase-header, .phase-body, .card-bg, .prereqs, .swimlane, .manual-person {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .phase { break-inside: avoid; }
+    .timeline::before { display: none; }
+    .phase-dot { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .swimlane-grid { grid-template-columns: 1fr; }
+    .phase { padding-left: 50px; }
+    .timeline::before { left: 22px; }
+    .phase-dot { left: 10px; width: 24px; height: 24px; font-size: 0.65rem; }
+  }
+
+  /* ===== CONDITIONAL VISIBILITY ===== */
+  [data-mode="build-only"] { display: block; }
+  body.mode-design [data-mode="build-only"] { display: none; }
+  [data-mode="design-only"] { display: none; }
+  body.mode-design [data-mode="design-only"] { display: block; }
+
+  body.mode-design .phase[data-build-only="true"] { display: none; }
+</style>
+</head>
+<body class="mode-build">
+
+<!-- ===== BANNER ===== -->
+<div class="banner">
+  <div class="banner-badge">Spoke Building & Interiors</div>
+  <h1>Project Setup <span>Workflow</span></h1>
+  <p>End-to-end process from deal won to project live. Tap each phase to see the steps.</p>
+</div>
+
+<!-- ===== BUILD / DESIGN TOGGLE ===== -->
+<div class="container">
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-target="build" onclick="setMode('build')">BUILD</button>
+    <button class="mode-btn" data-target="design" onclick="setMode('design')">DESIGN</button>
+  </div>
+  <div class="mode-hint">Toggle to see differences in the workflow</div>
+
+  <!-- ===== PREREQS ===== -->
+  <div class="prereqs">
+    <h2>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFD600" stroke-width="2.5" stroke-linecap="round"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+      What You Need Before Starting
+    </h2>
+    <ul>
+      <li><strong>Won deal</strong> in ClickUp Sales Pipeline with all fields filled</li>
+      <li><strong>Client details</strong> &mdash; name, email, phone, site address</li>
+      <li><strong>Plans &amp; proposal</strong> attached to the sales task</li>
+      <li><strong>Deal value</strong> confirmed and contract type known (BUILD or DESIGN)</li>
+      <li data-mode="build-only"><strong>Buildsoft estimate</strong> exported to Excel in 1.2 COST SHEETS/</li>
+    </ul>
+  </div>
+
+  <!-- ===== TIMELINE ===== -->
+  <div class="timeline">
+
+    <!-- PHASE 1 -->
+    <div class="phase" data-phase="1">
+      <div class="phase-dot">1</div>
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-header-top">
+          <h3><span>Phase 1</span> &mdash; Sales Handover</h3>
+          <span class="phase-tag tag-auto">AUTOMATED</span>
+          <svg class="phase-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="phase-who">Run by <strong>Claude</strong> &bull; ~2 min</div>
+      </div>
+      <div class="phase-body">
+        <ol>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Project folder created from template (10 ClickUp lists)
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The <strong>SBI PROJECT TEMPLATE</strong> is applied to create a new folder in the SBI PROJECTS space. This gives us:<br>
+              <strong>10 standard lists</strong> (01 Sales File Info, 02 Design, 03 Admin, 04 Claims, 05 PM, 06 Schedule, 07 Pre-Manufacture, 08 Procurement, 09 Manufacturing, 10 Site Works) plus all template tasks, statuses, and custom fields.<br><br>
+              If a folder with the same job number already exists, it is reused &mdash; no duplicates created.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Folder renamed: <code>YYMMDD BUILD/DESIGN Project Name</code>
+            <div class="step-flyout"><div class="step-flyout-inner">
+              <strong>Examples:</strong><br>
+              &bull; <code>260306 BUILD Natural Foot Podiatry Erina Fair</code><br>
+              &bull; <code>260317 DESIGN Tracey Fletcher Wamberal</code><br><br>
+              Project type is detected from the task name first (DESIGN/BUILD keyword), then falls back to the Job Type custom field. The Schedule list (06) is also renamed to include the full folder name.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Template tasks customised with job name
+            <div class="step-flyout"><div class="step-flyout-inner">
+              Placeholder names in template tasks are replaced with the actual job name:<br><br>
+              <strong>List 02 (Design):</strong><br>
+              &bull; <code>{Job Name} - Construction Plans (All Comments)</code><br>
+              &bull; <code>{Job Name} - Drawing - Revision 0</code><br>
+              &bull; <code>{Job Name} - Drawing Approved for Construction</code><br><br>
+              <strong>List 08 (Procurement):</strong><br>
+              &bull; <code>300 {Job Name} BUILD LABOUR</code><br>
+              &bull; <code>301 {Job Name} PM/OFFICE/SALES</code><br>
+              &bull; <code>302 {Job Name} CAD/Design LABOUR</code><br>
+              &bull; <code>303_304 {Job Name} JOINERY/FACTORY LABOUR</code>
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Project Info Doc populated (client details, plans)
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The ClickUp Doc (List 11, page 1) is updated with:<br>
+              &bull; <strong>Client contact details</strong> &mdash; name, email, phone<br>
+              &bull; <strong>Job address</strong><br>
+              &bull; <strong>Construction plans</strong> reference table (links from sales task)<br>
+              &bull; <strong>Joinery plans</strong> reference table (if joinery is in scope)<br><br>
+              This becomes the <strong>site reference document</strong> &mdash; the PM and site crew refer to it for key project info.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Sales task multi-listed into List 01, prefixed <strong>"SOLD"</strong>
+            <div class="step-flyout"><div class="step-flyout-inner">
+              Three actions in sequence:<br><br>
+              <strong>1.</strong> The original sales task is added to List 01 using ClickUp's multi-list feature &mdash; same task in both the Deals list and the project folder.<br>
+              <strong>2.</strong> Task name prefixed with "SOLD" (e.g. <code>SOLD TS260317 Tracey Fletcher...</code>) &mdash; visible in both locations.<br>
+              <strong>3.</strong> The "ADD WON sales Task" placeholder in List 01 is renamed and marked done.<br><br>
+              After this, List 01 has <strong>two "SOLD" tasks</strong>: the completed placeholder and the multi-listed sales task with all the real data.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">
+            Progress claims created in List 04
+            <div class="step-flyout"><div class="step-flyout-inner">
+              Invoice milestone tasks created in List 04, all assigned to <strong>Gail</strong>.<br><br>
+              <table class="flyout-table" data-mode="build-only">
+                <tr><th>Claim</th><th>%</th><th>Stage</th></tr>
+                <tr><td>Progress Claim 1</td><td>40%</td><td>Deposit</td></tr>
+                <tr><td>Progress Claim 2</td><td>30%</td><td>Start on Site</td></tr>
+                <tr><td>Progress Claim 3</td><td>20%</td><td>Practical Completion</td></tr>
+                <tr><td>Progress Claim 4</td><td>10%</td><td>Final</td></tr>
+              </table>
+              <table class="flyout-table" data-mode="design-only">
+                <tr><th>Claim</th><th>%</th><th>Stage</th></tr>
+                <tr><td>Design Deposit Invoice</td><td>60%</td><td>Deposit</td></tr>
+                <tr><td>Design Final Invoice</td><td>40%</td><td>Final</td></tr>
+              </table>
+              Task names include the dollar amount, e.g.:<br>
+              <code>Progress Claim 1 - Deposit 40% ($31,600 incl GST)</code>
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Schedule set in List 06 (sequential phase dates)
+            <div class="step-flyout"><div class="step-flyout-inner">
+              <span data-mode="build-only">
+              <strong>BUILD</strong> &mdash; 5 high-level tasks get sequential dates from date sold:<br>
+              <table class="flyout-table">
+                <tr><th>Task</th><th>Start</th><th>End</th></tr>
+                <tr><td>JOB SOLD</td><td>&mdash;</td><td>Date Sold</td></tr>
+                <tr><td>08 Procurement</td><td>Date Sold</td><td>+ 1 week</td></tr>
+                <tr><td>07 Pre-Manufacture</td><td>+ 1 week</td><td>+ 2 weeks</td></tr>
+                <tr><td>09 Manufacturing</td><td>+ 1 week</td><td>+ 2 weeks</td></tr>
+                <tr><td>10 SITE WORKS</td><td>+ 2 weeks</td><td>+ 3 weeks</td></tr>
+              </table>
+              These are placeholder durations &mdash; the PM adjusts as the real timeline becomes clear.
+              </span>
+              <span data-mode="design-only">
+              <strong>DESIGN</strong> &mdash; Simplified schedule:<br>
+              &bull; JOB SOLD &mdash; due date = date sold<br>
+              &bull; Design Start &mdash; due date = date sold<br>
+              &bull; Design Finish &mdash; due date = 3 weeks later<br>
+              &bull; Build-phase tasks have dates cleared
+              </span><br><br>
+              <strong>Important:</strong> Only the 5 high-level tasks are touched. Subtasks under 10.1 SITE WORKS are PM-owned and never modified.
+            </div></div>
+          </li>
+          <li class="has-flyout" data-mode="build-only" onclick="toggleFlyout(this)">Site works tasks created from proposal scope <span class="build-only-tag">BUILD ONLY</span>
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The signed proposal and cost budget are read to extract the scope of works. This is broken into <strong>5&ndash;10 sequential install tasks</strong>, created as subtasks of the 10.1 SITE WORKS task in List 06.<br><br>
+              <strong>Typical sequence:</strong><br>
+              1. Site setup &amp; safety (drop sheets, signage, isolate area)<br>
+              2. Site measure &amp; mark out<br>
+              3. Protect existing equipment &amp; floor coverings<br>
+              4. Material prep / cut to size<br>
+              5. Main install (scope-specific)<br>
+              6. Inspect alignment / quality<br>
+              7. Final clean &amp; rubbish removal<br>
+              8. Site demobilisation &amp; client walkthrough<br><br>
+              Task names reference <strong>actual materials and quantities</strong> from the proposal. A scope summary is also posted as a comment on the Completions_Punchlist task in List 10.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Handover task assigned &mdash; Chadd, Gemma, Gail, Michael
+            <div class="step-flyout"><div class="step-flyout-inner">
+              <strong>BUILD projects:</strong> The "Handover between SALES and PM" task in List 05 is updated with a due date (within 2 days) and assigned to the full team.<br><br>
+              <strong>The handover meeting covers:</strong><br>
+              &bull; Review Project Info Doc &mdash; client details, special requirements<br>
+              &bull; Review sales documents &mdash; what was promised<br>
+              &bull; Review construction plans and joinery plans<br>
+              &bull; Discuss timeline, budget, risks<br>
+              &bull; Assign next actions<br><br>
+              <strong>DESIGN projects (salesperson = designer):</strong> Handover is skipped &mdash; same person doing the work.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Sales task updated: <strong>"Project Folder Ready"</strong> ticked
+            <div class="step-flyout"><div class="step-flyout-inner">
+              &bull; "SBI Project Folder Ready" checkbox ticked on the sales task<br>
+              &bull; Comment posted with a link to the new project folder<br>
+              &bull; Handover summary listing all data transferred, missing fields, and next actions
+            </div></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase" data-phase="2" data-build-only="true">
+      <div class="phase-dot">2</div>
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-header-top">
+          <h3><span>Phase 2</span> &mdash; Cost Budget</h3>
+          <span class="phase-tag tag-build-only">BUILD ONLY</span>
+          <span class="phase-tag tag-auto">AUTOMATED</span>
+          <svg class="phase-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="phase-who">Run by <strong>Claude</strong> &bull; ~1 min</div>
+      </div>
+      <div class="phase-body">
+        <ol>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Buildsoft file located in <code>1.2 COST SHEETS/</code>
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The Buildsoft Excel file is found on the shared drive at:<br>
+              <code>G:\Shared drives\SBI JOB FILES_Share\{project}\1.2 COST SHEETS\</code><br><br>
+              The file contains cost code categories (300 Labour, 310 Materials, 320 Contractors, etc.) with quantities, rates, and totals from the estimating process.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Pre-flight check: verify pricing data exists
+            <div class="step-flyout"><div class="step-flyout-inner">
+              <strong>Why this matters:</strong> Sometimes a Buildsoft file has the cost code structure set up but no actual numbers entered yet. Running the budget generator on an empty file wastes time and produces $0 results.<br><br>
+              The check looks for at least one cost code with a Qty, Rate, and Total &gt; 0. If the file is empty, you're given three options:<br>
+              &bull; <strong>Price it</strong> &mdash; go back and enter the numbers, then re-run<br>
+              &bull; <strong>Mark N/A</strong> &mdash; skip budget + procurement for this project<br>
+              &bull; <strong>Generate stub</strong> &mdash; reverse-engineer from deal value (estimates only)
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">SBI Cost Budget tab generated in Excel
+            <div class="step-flyout"><div class="step-flyout-inner">
+              A new <strong>"SBI Cost Budget"</strong> sheet is added to a working copy of the Buildsoft (never the original). It contains two tables:<br><br>
+              <strong>Cost Sheet Summary</strong> (top) &mdash; one row per cost code with Budget, Rate/hr, Hours Allowed, Man Days<br>
+              <strong>Cost Sheet Detail</strong> (bottom) &mdash; every line item with Qty &times; Rate = Budget<br><br>
+              Footer shows: Total Cost, Markup, Overhead Recovery (66%), Budgeted Profit (33%), Sell ex-GST, GST, Sell incl-GST.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Formatted + exported to styled PDF with donut charts
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The Excel tab is styled with professional formatting and exported to a single-page PDF:<br><br>
+              &bull; Dark navy headers, blue categories, grey subtotals, peach sell prices<br>
+              &bull; <strong>Two donut charts side-by-side:</strong><br>
+              &ensp;&mdash; <strong>Cost Breakdown</strong> &mdash; one slice per cost code category<br>
+              &ensp;&mdash; <strong>Sales Breakdown</strong> &mdash; Cost vs Overhead vs Profit vs GST<br><br>
+              Saved as <code>SBI Cost Budget - {project name}.pdf</code>
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Totals verified against deal value
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The <strong>Sell incl-GST</strong> from the cost sheet is compared against the <strong>Deal Value</strong> on the sales task. If they don't match, it's flagged &mdash; the Buildsoft may have been adjusted after the proposal was sent.
+            </div></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase" data-phase="3">
+      <div class="phase-dot">3</div>
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-header-top">
+          <h3><span>Phase 3</span> &mdash; Procurement Setup</h3>
+          <span class="phase-tag tag-auto">AUTOMATED</span>
+          <svg class="phase-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="phase-who">Run by <strong>Claude</strong> &bull; ~1 min</div>
+      </div>
+      <div class="phase-body">
+        <ol>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Cost codes read from SBI Cost Budget tab
+            <div class="step-flyout"><div class="step-flyout-inner">
+              Each cost code category and its budget amount is extracted from the Cost Sheet Summary table generated in Phase 2. Zero-budget categories are skipped.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">One task per cost code created in List 08
+            <div class="step-flyout"><div class="step-flyout-inner">
+              Each cost code becomes a ClickUp task in <strong>List 08 (Procurement/Budget Track)</strong>.<br><br>
+              <strong>Task name format:</strong> <code>{code} {Job Name} {CATEGORY}</code><br>
+              Example: <code>310 Sunshine Kebabs BUILD Materials</code><br><br>
+              If re-running, existing tasks are matched by cost code number and updated (no duplicates).
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Budget amounts set on each task
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The <strong>Budget Allowance SBI</strong> custom field is set to the budget amount (ex GST) from the cost sheet. This is the figure the PM tracks against when placing orders.<br><br>
+              The dashboard later shows <strong>Budget vs Actual</strong> bar charts using this field alongside the Actual PO Spend field.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Procurement category + workflow set
+            <div class="step-flyout"><div class="step-flyout-inner">
+              Each task is categorised for filtering and reporting:<br>
+              <table class="flyout-table">
+                <tr><th>Code</th><th>Category</th><th>Label</th></tr>
+                <tr><td>300&ndash;304</td><td>Labour - SBI Internal</td><td>LABOUR</td></tr>
+                <tr><td>310</td><td>Build Works Supplier</td><td>BUILD supplier</td></tr>
+                <tr><td>315, 317</td><td>Factory Materials</td><td>JOINERY PROCUREMENT</td></tr>
+                <tr><td>320&ndash;330</td><td>Contractors</td><td>CONTRACTORS</td></tr>
+              </table>
+              Workflow is set to <strong>"Not Started"</strong>. The PM progresses it through: Quoting &rarr; Quoted &rarr; Approved &rarr; Ordered &rarr; Received &rarr; Paid.
+            </div></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase" data-phase="4">
+      <div class="phase-dot">4</div>
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-header-top">
+          <h3><span>Phase 4</span> &mdash; Dashboard</h3>
+          <span class="phase-tag tag-auto">AUTOMATED</span>
+          <svg class="phase-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="phase-who">Run by <strong>Claude</strong> &bull; ~2 min</div>
+      </div>
+      <div class="phase-body">
+        <ol>
+          <li class="has-flyout" onclick="toggleFlyout(this)">All project data fetched from ClickUp
+            <div class="step-flyout"><div class="step-flyout-inner">
+              Data is pulled from every project list:<br>
+              &bull; <strong>Sales info</strong> &mdash; client details, deal value<br>
+              &bull; <strong>Claims &amp; variations</strong> (List 04) &mdash; amounts, status<br>
+              &bull; <strong>Schedule</strong> (List 06) &mdash; phase dates, site works progress<br>
+              &bull; <strong>Budget vs actual</strong> (List 08) &mdash; budget, PO spend, balance<br>
+              &bull; <strong>Procurement status</strong> (List 08) &mdash; Not Started / Ordered / Received<br>
+              &bull; <strong>Compliance</strong> (List 03) &mdash; admin task checklist<br>
+              &bull; <strong>Site works</strong> (subtasks of 10.1 in List 06) &mdash; task status &amp; dates
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">HTML dashboard generated from template
+            <div class="step-flyout"><div class="step-flyout-inner">
+              A self-contained HTML dashboard is generated with these tabs:<br><br>
+              &bull; <strong>Overview</strong> &mdash; health badge, phase indicator, key metrics<br>
+              &bull; <strong>Sales</strong> &mdash; client info, claims table, variations<br>
+              &bull; <strong>Financials</strong> &mdash; budget vs actual bar charts per cost code<br>
+              &bull; <strong>Procurement</strong> &mdash; workflow summary cards + task table<br>
+              &bull; <strong>Schedule</strong> &mdash; Gantt chart of phases and milestones<br>
+              &bull; <strong>Compliance</strong> &mdash; admin task checklist<br>
+              &bull; <strong>Actions</strong> &mdash; next actions and blockers for Tuesday meeting
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Saved to shared drive + deployed to GitHub Pages
+            <div class="step-flyout"><div class="step-flyout-inner">
+              The dashboard is saved to <strong>three locations</strong>:<br>
+              1. Local working copy<br>
+              2. Shared drive &mdash; <code>@Claude Dashboards/{jobNumber}-{slug}.html</code><br>
+              3. GitHub Pages &mdash; <code>michael-sbi.github.io/sbi-dashboards/{slug}/</code><br><br>
+              GitHub Pages deployment is automatic via git push. The dashboard is live within 1&ndash;2 minutes.
+            </div></div>
+          </li>
+          <li class="has-flyout" onclick="toggleFlyout(this)">Link posted to Projects Meeting task
+            <div class="step-flyout"><div class="step-flyout-inner">
+              For new projects, a comment with the dashboard URL is posted on the current <strong>Projects Meeting task</strong> (reviewed every Tuesday).<br><br>
+              Format: <code>&#x1f4ca; {Project Name} &mdash; Project Dashboard: https://michael-sbi.github.io/sbi-dashboards/{slug}/</code>
+            </div></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- MANUAL STEPS -->
+    <div class="phase" data-phase="manual">
+      <div class="phase-dot">!</div>
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-header-top">
+          <h3 style="color: var(--red);">Manual Steps Checklist</h3>
+          <span class="phase-tag tag-manual">MANUAL</span>
+          <svg class="phase-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="phase-who">Flagged after automation completes &bull; <strong>Leah, Gail, PM Team</strong></div>
+      </div>
+      <div class="phase-body">
+        <div class="manual-person">
+          <h4>Leah</h4>
+          <ul>
+            <li>Job folder set up in Shared Drive</li>
+            <li>Client Information Form sent</li>
+            <li>Master Builders Contract sent</li>
+          </ul>
+        </div>
+        <div class="manual-person">
+          <h4>Gail</h4>
+          <ul>
+            <li>Xero project created</li>
+            <li>Deposit invoice sent</li>
+            <li>Cost codes set up in Xero</li>
+          </ul>
+        </div>
+        <div class="manual-person">
+          <h4>PM Team</h4>
+          <ul>
+            <li>Handover meeting scheduled</li>
+            <li>Joinery project set up (if applicable)</li>
+            <li>Confirm no materials ordered before deposit paid</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <!-- ===== SWIMLANE LEGEND ===== -->
+  <div class="swimlane">
+    <h2>Who Does What</h2>
+    <div class="swimlane-grid">
+      <div class="swim-item">
+        <div class="swim-icon claude">AI</div>
+        <div>
+          <div class="swim-label">Claude (Automated)</div>
+          <div class="swim-desc">Phases 1&ndash;4, runs on demand</div>
+        </div>
+      </div>
+      <div class="swim-item">
+        <div class="swim-icon leah">L</div>
+        <div>
+          <div class="swim-label">Leah</div>
+          <div class="swim-desc">Drive folders, contracts, client forms</div>
+        </div>
+      </div>
+      <div class="swim-item">
+        <div class="swim-icon gail">G</div>
+        <div>
+          <div class="swim-label">Gail</div>
+          <div class="swim-desc">Xero setup, invoicing, cost codes</div>
+        </div>
+      </div>
+      <div class="swim-item">
+        <div class="swim-icon pm">PM</div>
+        <div>
+          <div class="swim-label">PM Team</div>
+          <div class="swim-desc">Handover meeting, joinery, materials hold</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <strong>Spoke Building & Interiors</strong> &mdash; Project Setup Workflow v1.0<br>
+  Last updated April 2026
+</div>
+
+<script>
+  function togglePhase(header) {
+    header.closest('.phase').classList.toggle('open');
+  }
+
+  function toggleFlyout(li) {
+    // Don't toggle if they clicked inside an already-open flyout (to allow text selection)
+    if (event && event.target.closest('.step-flyout-inner')) return;
+    li.classList.toggle('flyout-open');
+  }
+
+  function setMode(mode) {
+    document.body.className = mode === 'design' ? 'mode-design' : 'mode-build';
+    document.querySelectorAll('.mode-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.target === mode);
+    });
+  }
+
+  // Open Phase 1 by default on load
+  document.addEventListener('DOMContentLoaded', function() {
+    var first = document.querySelector('.phase[data-phase="1"]');
+    if (first) first.classList.add('open');
+  });
+</script>
+</body>
+</html>
