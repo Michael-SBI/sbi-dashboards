@@ -259,11 +259,10 @@ function buildBudget(list08Tasks) {
     if (t.parent) continue; // skip subtasks
     if (/template/i.test(t.name)) continue;
 
-    // Match leading 3-digit (or 303_304 / 303/304) cost code
+    // Match leading 3-digit (or 303_304 / 303/304) cost code, OR variation entries (no code prefix)
     const m = t.name.match(/^(3\d{2}(?:[_/]3\d{2})?)/);
-    if (!m) continue;
-    const code = m[1];
-    const codeShort = code.split(/[_/]/)[0];
+    const code = m ? m[1] : '';
+    const codeShort = code ? code.split(/[_/]/)[0] : '';
 
     const budget = parseFloat(getCustomField(t, FIELDS.budgetAllowance) || getCustomField(t, FIELDS.budgetAllowanceAlt) || 0);
     const actual = parseFloat(getCustomField(t, FIELDS.actualPO) || 0);
@@ -274,7 +273,7 @@ function buildBudget(list08Tasks) {
 
     const entry = {
       code,
-      name: t.name.replace(/^3\d{2}(?:[_/]3\d{2})?\s*/, '') || t.name,
+      name: code ? (t.name.replace(/^3\d{2}(?:[_/]3\d{2})?\s*/, '') || t.name) : t.name,
       budget,
       actual,
       status: t.status?.status || 'to do',
