@@ -36,6 +36,7 @@ const REPO_ROOT = path.resolve(__dirname);
 
 const FIELDS = {
   budgetAllowance:   'ec6378ba-324d-445a-b9a1-75746b6afe78', // Budget Allowance SBI (currency)
+  budgetAllowanceAlt:'f0c6feae-ba3d-446a-9dd6-a1e90b59343e', // Alternate Budget Allowance field (some lists use this)
   actualPO:          '8aba4dde-eaef-46c5-99fd-fb15e62e9715', // Actual PO$ SBI (currency)
   procurementWf:     '2e4fc78f-ea66-436c-902f-c248467c943f', // Procurement Workflow SBI (drop_down)
   invoiceAmount:     '05d666d7-6606-4dd0-8c19-72fcc2312a91', // Invoice Amount incl GST (currency)
@@ -264,7 +265,7 @@ function buildBudget(list08Tasks) {
     const code = m[1];
     const codeShort = code.split(/[_/]/)[0];
 
-    const budget = parseFloat(getCustomField(t, FIELDS.budgetAllowance) || 0);
+    const budget = parseFloat(getCustomField(t, FIELDS.budgetAllowance) || getCustomField(t, FIELDS.budgetAllowanceAlt) || 0);
     const actual = parseFloat(getCustomField(t, FIELDS.actualPO) || 0);
     if (budget <= 0 && actual <= 0) continue;
 
