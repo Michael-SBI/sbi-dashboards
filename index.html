@@ -5,32 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SBI Project Dashboards</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 body{font-family:'Inter',system-ui,sans-serif;background:#0f2540;color:#fff;margin:0;padding:40px;min-height:100vh}
 h1{font-size:24px;margin-bottom:8px}
 .sub{color:#7fa8cc;font-size:14px;margin-bottom:32px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-a.card{background:#1a3a5c;border-radius:10px;padding:20px;text-decoration:none;color:#fff;transition:background .15s;border:1px solid #2a4a6c}
+a.card{background:#1a3a5c;border-radius:10px;padding:20px;text-decoration:none;color:#fff;transition:background .15s;border:1px solid #2a4a6c;display:flex;flex-direction:column}
 a.card:hover{background:#1e4470}
 .card h2{font-size:16px;margin:0 0 6px}
 .card .type{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#7fa8cc}
+.card .updated{font-size:10px;color:#4a7a9c;margin-top:auto;padding-top:10px;border-top:1px solid #2a4a6c}
 </style>
 </head>
 <body>
 <h1>SBI Project Dashboards</h1>
 <div class="sub">Spoke Building & Interiors</div>
-<div class="grid">
-<a class="card" href="extend-rehab-coastal-physiotherapy/"><h2>Extend Rehab - Coastal Physiotherapy</h2><div class="type">240207 - BUILD</div></a>
-<a class="card" href="bozmik-jillaby-mezzanine/"><h2>Bozmik - Jillaby Mezzanine</h2><div class="type">250820 - BUILD</div></a>
-<a class="card" href="fenwicks-marina-breakout-room/"><h2>Fenwicks Marina - Breakout Room</h2><div class="type">251012 - BUILD</div></a>
-<a class="card" href="sunshine-kebabs-east-maitland/"><h2>Sunshine Kebabs East Maitland</h2><div class="type">251206 - BUILD</div></a>
-<a class="card" href="erina-sawmill-office-fitout/"><h2>Erina Sawmill - Office Fitout</h2><div class="type">251210 - BUILD</div></a>
-<a class="card" href="endo-water-damage/"><h2>Endo Water Damage</h2><div class="type">260129 - BUILD</div></a>
-<a class="card" href="lakehaven-post-office/"><h2>Lakehaven Post Office</h2><div class="type">260304 - DESIGN</div></a>
-<a class="card" href="natural-foot-podiatry-erina-fair/"><h2>Natural Foot Podiatry Erina Fair</h2><div class="type">260306 - BUILD</div></a>
-<a class="card" href="marine-rescue/"><h2>Marine Rescue</h2><div class="type">260316 - BUILD</div></a>
-<a class="card" href="tracey-fletcher-long-jetty/"><h2>Tracey Fletcher Long Jetty</h2><div class="type">260317 - BUILD</div></a>
-<a class="card" href="tracey-fletcher-extra-office/"><h2>Tracey Fletcher - Extra Office</h2><div class="type">260317 - BUILD</div></a>
-<a class="card" href="hungry-wolfs-ourimbah/"><h2>Hungry Wolfs Ourimbah</h2><div class="type">260325 - BUILD</div></a>
+<div class="grid" id="grid">
+<a class="card" href="extend-rehab-coastal-physiotherapy/"><h2>Extend Rehab - Coastal Physiotherapy</h2><div class="type">240207 - BUILD</div><div class="updated" data-slug="extend-rehab-coastal-physiotherapy">Loading...</div></a>
+<a class="card" href="bozmik-jillaby-mezzanine/"><h2>Bozmik - Jillaby Mezzanine</h2><div class="type">250820 - BUILD</div><div class="updated" data-slug="bozmik-jillaby-mezzanine">Loading...</div></a>
+<a class="card" href="fenwicks-marina-breakout-room/"><h2>Fenwicks Marina - Breakout Room</h2><div class="type">251012 - BUILD</div><div class="updated" data-slug="fenwicks-marina-breakout-room">Loading...</div></a>
+<a class="card" href="sunshine-kebabs-east-maitland/"><h2>Sunshine Kebabs East Maitland</h2><div class="type">251206 - BUILD</div><div class="updated" data-slug="sunshine-kebabs-east-maitland">Loading...</div></a>
+<a class="card" href="erina-sawmill-office-fitout/"><h2>Erina Sawmill - Office Fitout</h2><div class="type">251210 - BUILD</div><div class="updated" data-slug="erina-sawmill-office-fitout">Loading...</div></a>
+<a class="card" href="endo-water-damage/"><h2>Endo Water Damage</h2><div class="type">260129 - BUILD</div><div class="updated" data-slug="endo-water-damage">Loading...</div></a>
+<a class="card" href="lakehaven-post-office/"><h2>Lakehaven Post Office</h2><div class="type">260304 - DESIGN</div><div class="updated" data-slug="lakehaven-post-office">Loading...</div></a>
+<a class="card" href="natural-foot-podiatry-erina-fair/"><h2>Natural Foot Podiatry Erina Fair</h2><div class="type">260306 - BUILD</div><div class="updated" data-slug="natural-foot-podiatry-erina-fair">Loading...</div></a>
+<a class="card" href="marine-rescue/"><h2>Marine Rescue</h2><div class="type">260316 - BUILD</div><div class="updated" data-slug="marine-rescue">Loading...</div></a>
+<a class="card" href="tracey-fletcher-long-jetty/"><h2>Tracey Fletcher Long Jetty</h2><div class="type">260317 - BUILD</div><div class="updated" data-slug="tracey-fletcher-long-jetty">Loading...</div></a>
+<a class="card" href="tracey-fletcher-extra-office/"><h2>Tracey Fletcher - Extra Office</h2><div class="type">260317 - BUILD</div><div class="updated" data-slug="tracey-fletcher-extra-office">Loading...</div></a>
+<a class="card" href="hungry-wolfs-ourimbah/"><h2>Hungry Wolfs Ourimbah</h2><div class="type">260325 - BUILD</div><div class="updated" data-slug="hungry-wolfs-ourimbah">Loading...</div></a>
 </div>
+<script>
+document.querySelectorAll('.updated[data-slug]').forEach(function(el){
+  var slug = el.getAttribute('data-slug');
+  fetch(slug + '/index.html').then(function(r){ return r.text(); }).then(function(html){
+    var m = html.match(/"generated"\s*:\s*"([^"]+)"/);
+    if(m) el.textContent = 'Updated: ' + m[1];
+    else el.textContent = '';
+  }).catch(function(){ el.textContent = ''; });
+});
+</script>
 </body>
 </html>
