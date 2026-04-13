@@ -242,6 +242,7 @@ function buildClaimsAndVariations(list04Tasks) {
     } else if (isVariation) {
       varNum++;
       entry.num = varNum;
+      entry.approved = /variation.approved/i.test(status) || /1\.\s*variation.approved/i.test(status);
       variations.push(entry);
     }
   }
@@ -352,7 +353,7 @@ function buildCompliance(list03Tasks) {
 
 function recomputeMetrics(existing, claims, variations, _budget, siteWorks) {
   const claimsTotal = claims.reduce((s, c) => s + (c.amount || 0), 0);
-  const varTotal = variations.reduce((s, v) => s + (v.amount || 0), 0);
+  const varTotal = variations.reduce((s, v) => s + (v.approved !== false ? (v.amount || 0) : 0), 0);
   const contractValue = claimsTotal + varTotal;
   const fmt = n => '$' + Math.round(n).toLocaleString('en-US');
 
