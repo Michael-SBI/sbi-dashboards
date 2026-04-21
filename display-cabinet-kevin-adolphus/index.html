@@ -1112,107 +1112,124 @@ textarea.editable{resize:vertical;min-height:90px}
   // ══════════════════════════════
   (function(){
     var lifecycle = D.lifecycle;
-    var el = document.getElementById('tab-lifecycle');
+      var el = document.getElementById('tab-lifecycle');
     if(!lifecycle || !lifecycle.streams || lifecycle.streams.length === 0){
       el.innerHTML = '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No lifecycle data available. Run refresh to populate.</div>';
       return;
     }
-
-    var W = 1100, COLS = 6;
-    var ROW_HEIGHT = 245, PAD_L = 80, PAD_R = 80, PAD_T = 40;
+  
+    var W = 1100, ROWS = 6, ROW_HEIGHT = 245, PAD_L = 80, PAD_R = 80, PAD_T = 55;
     var TRACK_OFFSET = 78, CURVE_R = 55, DOT_R = 9;
     var STATUS_COLOR = { done:'#16a34a', wip:'#f59e0b', blocked:'#dc2626', pending:'#cbd5e1' };
-
+  
     function pd(s){ return new Date(s).getTime(); }
     function fmtDay(ts){ return new Date(ts).toLocaleDateString('en-AU', {day:'numeric', month:'short'}); }
-
-    var maxLen = 0;
-    lifecycle.streams.forEach(function(s){ if(s.milestones.length > maxLen) maxLen = s.milestones.length; });
-    if(maxLen === 0){
-      el.innerHTML = '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No milestones to display.</div>';
+  
+    var allTimes = [];
+    lifecycle.streams.forEach(function(s){ s.milestones.forEach(function(m){ allTimes.push(pd(m.date)); }); });
+    if(allTimes.length === 0){
+      el.innerHTML = '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No milestone dates to display.</div>';
       return;
     }
-    var ROWS = Math.ceil(maxLen / COLS);
-    var H = PAD_T + ROWS * ROW_HEIGHT + 50;
-    var COL_SPACING = (W - PAD_L - PAD_R) / (COLS - 1);
-
-    function rowOfIdx(i){ return Math.floor(i / COLS); }
-    function colOfIdx(i){ return i % COLS; }
-    function xForIdx(i){
-      var row = rowOfIdx(i), col = colOfIdx(i);
-      return (row % 2 === 0) ? PAD_L + col * COL_SPACING : W - PAD_R - col * COL_SPACING;
+    var MIN_T = Math.min.apply(null, allTimes);
+    var MAX_T = Math.max.apply(null, allTimes);
+    var TOTAL_RANGE = MAX_T - MIN_T || 1;
+    var ROW_RANGE = TOTAL_RANGE / ROWS;
+    var H = PAD_T + ROWS * ROW_HEIGHT + 60;
+  
+    function rowFor(ts){ return Math.min(Math.floor((ts - MIN_T) / ROW_RANGE), ROWS - 1); }
+    function rowBounds(r){ return { min: MIN_T + r * ROW_RANGE, max: MIN_T + (r + 1) * ROW_RANGE }; }
+    function xFor(ts, r){
+      var b = rowBounds(r);
+      var frac = (ts - b.min) / (b.max - b.min);
+      var inner = W - PAD_L - PAD_R;
+      return (r % 2 === 0) ? PAD_L + frac * inner : W - PAD_R - frac * inner;
     }
-    function yForStreamRow(streamIdx, row){
-      return PAD_T + row * ROW_HEIGHT + 55 + streamIdx * TRACK_OFFSET;
-    }
-
-    function buildSpinePath(streamIdx, fromIdxIn, toIdxIn){
-      var milestones = lifecycle.streams[streamIdx].milestones;
-      var from = (fromIdxIn !== undefined && fromIdxIn !== null && fromIdxIn > 0) ? fromIdxIn : 0;
-      var to = (toIdxIn !== undefined && toIdxIn !== null) ? toIdxIn : milestones.length - 1;
-      if(to < from || milestones.length === 0) return '';
-      var d = '';
-      var prevRow = -1;
-      for(var i = from; i <= to; i++){
-        var row = rowOfIdx(i);
-        var x = xForIdx(i);
-        var y = yForStreamRow(streamIdx, row);
-        if(i === from){
-          if(from === 0){
-            var entryX = (row % 2 === 0) ? x - 25 : x + 25;
-            d += 'M ' + entryX + ' ' + y + ' L ' + x + ' ' + y + ' ';
-          } else {
-            d += 'M ' + x + ' ' + y + ' ';
-          }
-        } else if(row === prevRow){
-          d += 'L ' + x + ' ' + y + ' ';
-        } else {
-          var prevY = yForStreamRow(streamIdx, prevRow);
-          var prevExitX = (prevRow % 2 === 0) ? W - PAD_R + 25 : PAD_L - 25;
-          var thisEntryX = (row % 2 === 0) ? PAD_L - 25 : W - PAD_R + 25;
-          var controlX = (prevRow % 2 === 0) ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
-          d += 'L ' + prevExitX + ' ' + prevY + ' ';
-          d += 'C ' + controlX + ' ' + prevY + ', ' + controlX + ' ' + y + ', ' + thisEntryX + ' ' + y + ' ';
-          d += 'L ' + x + ' ' + y + ' ';
+    function yFor(r, trackIdx){ return PAD_T + r * ROW_HEIGHT + 70 + trackIdx * TRACK_OFFSET; }
+  
+    function buildSpinePath(trackIdx, fromTs, toTs){
+      var start = (fromTs !== undefined && fromTs !== null) ? fromTs : MIN_T;
+      var end = (toTs !== undefined && toTs !== null) ? toTs : MAX_T;
+      var d = '', started = false;
+      for(var r = 0; r < ROWS; r++){
+        var b = rowBounds(r);
+        var y = yFor(r, trackIdx);
+        if(b.max < start) continue;
+        if(b.min > end) break;
+        var rowStartTs = Math.max(start, b.min);
+        var rowEndTs = Math.min(end, b.max);
+        var entryX = (b.min >= start)
+          ? ((r % 2 === 0) ? PAD_L - 30 : W - PAD_R + 30)
+          : xFor(rowStartTs, r);
+        var exitX = (b.max <= end)
+          ? ((r % 2 === 0) ? W - PAD_R + 30 : PAD_L - 30)
+          : xFor(rowEndTs, r);
+        if(!started){ d += 'M ' + entryX + ' ' + y + ' '; started = true; }
+        d += 'L ' + exitX + ' ' + y + ' ';
+        var willContinue = r < ROWS - 1 && rowBounds(r + 1).min <= end && b.max <= end;
+        if(willContinue){
+          var nextY = yFor(r + 1, trackIdx);
+          var nextStartX = ((r + 1) % 2 === 0) ? PAD_L - 30 : W - PAD_R + 30;
+          var controlX = (r % 2 === 0) ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
+          d += 'C ' + controlX + ' ' + y + ', ' + controlX + ' ' + nextY + ', ' + nextStartX + ' ' + nextY + ' ';
         }
-        prevRow = row;
       }
       return d;
     }
-
-    function milestoneIdx(stream, name){
-      for(var i = 0; i < stream.milestones.length; i++){
-        if(stream.milestones[i].name === name) return i;
-      }
-      return -1;
+  
+    function milestoneTs(stream, name){
+      var m = stream.milestones.find(function(x){ return x.name === name; });
+      return m ? pd(m.date) : null;
     }
-
+  
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMinYMid meet" style="width:100%;height:auto;display:block">';
-
+  
+    for(var r = 0; r < ROWS; r++){
+      var b = rowBounds(r);
+      var ly = PAD_T + r * ROW_HEIGHT + 22;
+      var lx = (r % 2 === 0) ? PAD_L : W - PAD_R;
+      var anc = (r % 2 === 0) ? 'start' : 'end';
+      var ss = new Date(b.min).toLocaleDateString('en-AU', {day:'numeric', month:'short'});
+      var ee = new Date(b.max).toLocaleDateString('en-AU', {day:'numeric', month:'short'});
+      svg += '<text x="' + lx + '" y="' + ly + '" text-anchor="' + anc + '" font-size="10" font-weight="700" fill="#94a3b8" letter-spacing=".06em">' + ss.toUpperCase() + ' — ' + ee.toUpperCase() + '</text>';
+    }
+  
     lifecycle.streams.forEach(function(s, idx){
       svg += '<path d="' + buildSpinePath(idx) + '" stroke="#e2e8f0" stroke-width="5" fill="none" stroke-linecap="round"/>';
     });
-
+  
     lifecycle.streams.forEach(function(s, idx){
-      var lastProg = -1;
-      for(var i = 0; i < s.milestones.length; i++){
-        var st = s.milestones[i].status;
-        if(st === 'done' || st === 'wip') lastProg = i;
-      }
-      if(lastProg < 0) return;
-      var fromIdx = s.activeFrom ? milestoneIdx(s, s.activeFrom) : 0;
-      if(fromIdx < 0) fromIdx = 0;
-      if(fromIdx > lastProg) return;
-      svg += '<path d="' + buildSpinePath(idx, fromIdx, lastProg) + '" stroke="' + s.color + '" stroke-width="4" fill="none" stroke-linecap="round" opacity=".9"/>';
+      var lastProg = null;
+      s.milestones.forEach(function(m){
+        if(m.status === 'done' || m.status === 'wip'){
+          var ts = pd(m.date);
+          if(lastProg === null || ts > lastProg) lastProg = ts;
+        }
+      });
+      if(lastProg === null) return;
+      var fromTs = s.activeFrom ? milestoneTs(s, s.activeFrom) : null;
+      if(fromTs !== null && fromTs > lastProg) return;
+      svg += '<path d="' + buildSpinePath(idx, fromTs, lastProg) + '" stroke="' + s.color + '" stroke-width="4" fill="none" stroke-linecap="round" opacity=".9"/>';
     });
-
+  
+    var todayT = Date.now();
+    if(todayT >= MIN_T && todayT <= MAX_T){
+      var tr = rowFor(todayT);
+      var tx = xFor(todayT, tr);
+      var yTop = yFor(tr, 0) - 38;
+      var yBot = yFor(tr, 2) + 38;
+      svg += '<line x1="' + tx + '" y1="' + yTop + '" x2="' + tx + '" y2="' + yBot + '" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>';
+      svg += '<rect x="' + (tx - 22) + '" y="' + (yTop - 18) + '" width="44" height="16" fill="#dc2626" rx="3"/>';
+      svg += '<text x="' + tx + '" y="' + (yTop - 6) + '" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">TODAY</text>';
+    }
+  
     lifecycle.streams.forEach(function(s, idx){
       s.milestones.forEach(function(m, i){
-        var row = rowOfIdx(i);
-        var x = xForIdx(i);
-        var y = yForStreamRow(idx, row);
-        var col = STATUS_COLOR[m.status] || '#cbd5e1';
         var ts = pd(m.date);
+        var rr = rowFor(ts);
+        var x = xFor(ts, rr);
+        var y = yFor(rr, idx);
+        var col = STATUS_COLOR[m.status] || '#cbd5e1';
         svg += '<circle class="lc-milestone" cx="' + x + '" cy="' + y + '" r="' + DOT_R + '" fill="' + col + '" stroke="' + s.color + '" stroke-width="2.5" data-s="' + idx + '" data-i="' + i + '" style="cursor:pointer;filter:drop-shadow(0 1px 3px rgba(0,0,0,.2))"><title>' + esc(m.name + ' — ' + fmtDay(ts) + ' · ' + m.status.toUpperCase() + (m.detail ? '\n' + m.detail : '')) + '</title></circle>';
         if(m.status === 'done'){
           svg += '<path d="M' + (x-3.5) + ',' + (y+1) + ' L' + (x-0.5) + ',' + (y+3.5) + ' L' + (x+3.5) + ',' + (y-2.5) + '" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>';
@@ -1226,11 +1243,11 @@ textarea.editable{resize:vertical;min-height:90px}
         svg += '<text x="' + x + '" y="' + dateY + '" text-anchor="middle" font-size="9" fill="#64748b" pointer-events="none">' + fmtDay(ts) + '</text>';
       });
     });
-
+  
     svg += '</svg>';
-
+  
     var html = '<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);padding:20px;margin-bottom:16px">';
-    html += '<div style="font-size:13px;font-weight:700;color:#0f2540;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px">Project Lifecycle</div>';
+    html += '<div style="font-size:13px;font-weight:700;color:#0f2540;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px">Project Lifecycle Timeline</div>';
     html += '<div style="display:flex;gap:24px;flex-wrap:wrap;font-size:11px;font-weight:700;margin-bottom:12px;padding:10px 14px;background:#f8fafc;border-radius:8px">';
     lifecycle.streams.forEach(function(s){
       var note = s.activeFrom ? ' (activates at ' + esc(s.activeFrom) + ')' : '';
@@ -1242,13 +1259,16 @@ textarea.editable{resize:vertical;min-height:90px}
     html += '<span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:50%;background:#f59e0b;box-shadow:0 0 0 1px #94a3b8"></span>In Progress</span>';
     html += '<span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:50%;background:#dc2626;box-shadow:0 0 0 1px #94a3b8"></span>Blocked</span>';
     html += '<span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:50%;background:#cbd5e1;box-shadow:0 0 0 1px #94a3b8"></span>Pending</span>';
+    html += '<span style="display:flex;align-items:center;gap:6px"><span style="width:2px;height:14px;background:#dc2626;display:inline-block"></span>Today</span>';
     html += '</div>';
     html += '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch">' + svg + '</div>';
     html += '</div>';
-
+  
     el.innerHTML = html;
   })();
 
+  
+  
   // 11. ACTIONS TAB
   // ══════════════════════════════
   (function(){
