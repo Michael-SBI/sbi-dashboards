@@ -12,25 +12,25 @@
   .header .sub { font-size: 12px; color: #7fa8cc; }
   .card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 20px; }
   .card-title { font-size: 13px; font-weight: 700; color: #0f2540; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 16px; }
-  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11px; font-weight: 600; margin-bottom: 14px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11px; font-weight: 600; margin-bottom: 20px; }
   .legend span { display: flex; align-items: center; gap: 6px; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px #94a3b8; }
-  .timeline-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
-  .timeline { min-width: 1100px; }
-  .tooltip { position: absolute; background: #0f172a; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity .15s; max-width: 240px; line-height: 1.5; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 100; }
+  .tooltip { position: absolute; background: #0f172a; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity .15s; max-width: 260px; line-height: 1.5; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 100; }
   .tooltip.visible { opacity: 1; }
   .tooltip strong { display: block; font-size: 12px; margin-bottom: 3px; }
   .tooltip .tt-date { color: #7fa8cc; }
   .tooltip .tt-detail { color: #cbd5e1; margin-top: 4px; }
+  .tooltip .tt-phase { color: #93c5fd; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; margin-top: 4px; }
   .note { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 6px; font-size: 12px; color: #78350f; margin-top: 12px; }
   .note strong { color: #92400e; }
+  svg.timeline { width: 100%; height: auto; display: block; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Timeline Preview — Sunshine Kebabs East Maitland</h1>
-  <div class="sub">251206 · BUILD · Project Lifecycle Continuum (prototype)</div>
+  <div class="sub">251206 · BUILD · Serpentine Project Continuum (prototype v2)</div>
 </div>
 
 <div class="card">
@@ -40,170 +40,227 @@
     <span><span class="legend-dot" style="background:#f59e0b"></span>In Progress</span>
     <span><span class="legend-dot" style="background:#dc2626"></span>Blocked / Overdue</span>
     <span><span class="legend-dot" style="background:#cbd5e1"></span>Pending</span>
-    <span><span style="width:2px;height:14px;background:#dc2626;display:inline-block"></span>Today</span>
+    <span><span style="width:2px;height:14px;background:#dc2626;display:inline-block"></span>Today position</span>
   </div>
-  <div class="timeline-scroll">
-    <svg class="timeline" id="timeline" viewBox="0 0 1100 280" preserveAspectRatio="xMinYMid meet"></svg>
-  </div>
+
+  <svg class="timeline" id="timeline" viewBox="0 0 1100 620" preserveAspectRatio="xMinYMid meet"></svg>
+
   <div class="note">
-    <strong>Prototype note:</strong> This uses a simplified milestone set for demo. Real version will auto-detect from ClickUp Lists 01/02/04/06/07/08 and use actual dates from each source.
+    <strong>Prototype v2:</strong> Snake/serpentine layout with 5 milestones per row. More room per milestone — room for names, dates, phase labels, notes. Real version will auto-detect milestones and dates from ClickUp.
   </div>
 </div>
 
 <div class="card">
   <div class="card-title">Feedback / What to change</div>
   <ul style="font-size:13px;line-height:1.7;color:#475569;padding-left:20px">
-    <li>Are these the right milestones?</li>
-    <li>Are the phase bands (colored backgrounds) helpful or noise?</li>
-    <li>Want more/fewer progress claim dots (maybe collapse to one "Claims" badge)?</li>
-    <li>Variations — show each on the line, grouped as one marker, or in a separate row below?</li>
-    <li>Date format — prefer "8 Dec" or "Dec 8" or "08/12"?</li>
-    <li>Should overdue milestones (past date, not done) flash red?</li>
+    <li>Are 5 milestones per row the right density? (could do 4 for more breathing room, or 6 for compactness)</li>
+    <li>Right number of milestones overall? Currently 13. Real projects might have 15-20 if we include every variation/claim</li>
+    <li>Want each variation + claim as its own dot, or grouped?</li>
+    <li>Good to show the phase label per dot, or keep it compact?</li>
+    <li>Colours / curve style / dot size OK?</li>
   </ul>
 </div>
 
 <div id="tooltip" class="tooltip"></div>
 
 <script>
-// Real data from Sunshine Kebabs East Maitland dashboard
 const TODAY = new Date('2026-04-21');
 
-const PHASES = [
-  { id: 'sales',      label: 'SALES & SETUP',  color: '#e0e7ff', textColor: '#3730a3' },
-  { id: 'preMfg',     label: 'DESIGN / PRE-MFG', color: '#dbeafe', textColor: '#1e40af' },
-  { id: 'mfg',        label: 'MANUFACTURING',  color: '#fef3c7', textColor: '#92400e' },
-  { id: 'onSite',     label: 'ON SITE',         color: '#dcfce7', textColor: '#166534' },
-  { id: 'completion', label: 'COMPLETION',     color: '#f3e8ff', textColor: '#6b21a8' }
-];
-
 const MILESTONES = [
-  { name: 'Sold',                   date: '2025-12-09', status: 'done',    phase: 'sales',      detail: 'Deal value $225,703 incl GST' },
-  { name: 'Deposit Invoice',        date: '2025-12-10', status: 'done',    phase: 'sales',      detail: 'Claim 1 — $61,014 (30%) sent' },
-  { name: 'Deposit Paid',           date: '2025-12-16', status: 'done',    phase: 'sales',      detail: 'Funds cleared, construction can commence' },
-  { name: 'Procurement Start',      date: '2025-12-10', status: 'done',    phase: 'preMfg',     detail: 'PO process begins' },
-  { name: 'Plans Approved',         date: '2026-01-05', status: 'done',    phase: 'preMfg',     detail: 'Construction drawings signed off' },
-  { name: 'Joinery Plans',          date: '2026-01-15', status: 'done',    phase: 'preMfg',     detail: 'CAD/Mozaik approved for manufacture' },
-  { name: 'Manufacturing',          date: '2026-01-20', status: 'done',    phase: 'mfg',        detail: 'Factory production commenced' },
-  { name: 'Start on Site',          date: '2026-03-01', status: 'done',    phase: 'onSite',     detail: 'Claim 2 — $61,014 (30%) invoiced + paid' },
-  { name: 'Progress Claim 3',       date: '2026-04-01', status: 'done',    phase: 'onSite',     detail: 'Claim 3 — $40,676 (20%) paid' },
-  { name: 'Variations (8)',         date: '2026-04-10', status: 'wip',     phase: 'onSite',     detail: '7 of 8 variations paid. Var 7 — $2,472 awaiting approval' },
-  { name: 'Practical Completion',   date: '2026-04-28', status: 'wip',     phase: 'completion', detail: 'Site works 35/41 complete (85%)' },
-  { name: 'Final Invoice',          date: '2026-05-10', status: 'pending', phase: 'completion', detail: 'Claim 4 — $40,676 (20%) — sent, not yet paid' },
-  { name: 'Handover',               date: '2026-05-15', status: 'pending', phase: 'completion', detail: 'Final walk-through + keys' }
+  { name: 'Sold',                 date: '2025-12-09', status: 'done',    phase: 'Sales',      detail: 'Deal value $225,703 incl GST' },
+  { name: 'Deposit Invoice',      date: '2025-12-10', status: 'done',    phase: 'Sales',      detail: 'Claim 1 — $61,014 (30%) sent to client' },
+  { name: 'Deposit Paid',         date: '2025-12-16', status: 'done',    phase: 'Sales',      detail: 'Funds cleared — construction can commence' },
+  { name: 'Procurement Start',    date: '2025-12-10', status: 'done',    phase: 'Pre-Mfg',    detail: 'Supplier POs being raised' },
+  { name: 'Plans Approved',       date: '2026-01-05', status: 'done',    phase: 'Pre-Mfg',    detail: 'Construction drawings signed off by client' },
+  { name: 'Joinery Plans',        date: '2026-01-15', status: 'done',    phase: 'Pre-Mfg',    detail: 'Mozaik CAD files released to factory' },
+  { name: 'Manufacturing',        date: '2026-01-20', status: 'done',    phase: 'Mfg',        detail: 'Factory production commenced' },
+  { name: 'Start on Site',        date: '2026-03-01', status: 'done',    phase: 'On Site',    detail: 'Claim 2 — $61,014 (30%) invoiced + paid' },
+  { name: 'Variations 1-7',       date: '2026-03-20', status: 'done',    phase: 'On Site',    detail: '7 variations approved + paid. V1-V6 totalling $20,386' },
+  { name: 'Progress Claim 3',     date: '2026-04-01', status: 'done',    phase: 'On Site',    detail: 'Claim 3 — $40,676 (20%) paid' },
+  { name: 'Variation 8',          date: '2026-04-15', status: 'wip',     phase: 'On Site',    detail: 'V8 — $1,409 Acrylic Logo signage — awaiting client sign-off' },
+  { name: 'Practical Completion', date: '2026-04-28', status: 'wip',     phase: 'Completion', detail: 'Site works 35/41 complete (85%). On track for PC next week' },
+  { name: 'Final Invoice',        date: '2026-05-10', status: 'pending', phase: 'Completion', detail: 'Claim 4 — $40,676 (20%) — sent, awaiting PC before payment' },
+  { name: 'Defects Period',       date: '2026-05-15', status: 'pending', phase: 'Completion', detail: '3-month defects liability period begins' },
+  { name: 'Final Handover',       date: '2026-08-15', status: 'pending', phase: 'Completion', detail: 'Final walk-through + keys + documentation' }
 ];
 
 const STATUS_COLOR = {
-  done:     '#16a34a',
-  wip:      '#f59e0b',
-  blocked:  '#dc2626',
-  pending:  '#cbd5e1'
+  done:    '#16a34a',
+  wip:     '#f59e0b',
+  blocked: '#dc2626',
+  pending: '#cbd5e1'
+};
+const PHASE_COLOR = {
+  'Sales':      '#3730a3',
+  'Pre-Mfg':    '#1e40af',
+  'Mfg':        '#92400e',
+  'On Site':    '#166534',
+  'Completion': '#6b21a8'
 };
 
-// Geometry
-const W = 1100, H = 280;
-const PAD_L = 60, PAD_R = 60, PAD_T = 50, PAD_B = 80;
-const LINE_Y = 140;
-const DOT_R = 11;
+// --- Layout ---
+const W = 1100;
+const COLS = 5;                    // milestones per row
+const ROW_HEIGHT = 180;            // vertical spacing between rows
+const PAD_L = 70;
+const PAD_R = 70;
+const PAD_T = 60;
+const DOT_R = 13;
+const CURVE_R = 55;                // radius of the U-turns
 
-function parseDate(s) { return new Date(s).getTime(); }
-function fmtDate(ts) {
-  const d = new Date(ts);
-  return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
+const ROWS = Math.ceil(MILESTONES.length / COLS);
+const H = PAD_T + ROWS * ROW_HEIGHT + 40;
+const COL_SPACING = (W - PAD_L - PAD_R) / (COLS - 1);
+
+function position(index) {
+  const row = Math.floor(index / COLS);
+  const col = index % COLS;
+  const y = PAD_T + row * ROW_HEIGHT;
+  // even rows go L→R, odd rows go R→L
+  const x = (row % 2 === 0)
+    ? PAD_L + col * COL_SPACING
+    : W - PAD_R - col * COL_SPACING;
+  return { x, y, row };
 }
 
-// Time range: earliest to latest milestone
-const times = MILESTONES.map(m => parseDate(m.date));
-const MIN_T = Math.min(...times);
-const MAX_T = Math.max(...times);
-const RANGE = MAX_T - MIN_T;
-
-function xFor(ts) {
-  return PAD_L + ((ts - MIN_T) / RANGE) * (W - PAD_L - PAD_R);
+function fmtDate(s) {
+  return new Date(s).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
 }
 
-// Phase band extents
-const phaseRanges = {};
-MILESTONES.forEach(m => {
-  const t = parseDate(m.date);
-  if (!phaseRanges[m.phase]) phaseRanges[m.phase] = { min: t, max: t };
-  else {
-    phaseRanges[m.phase].min = Math.min(phaseRanges[m.phase].min, t);
-    phaseRanges[m.phase].max = Math.max(phaseRanges[m.phase].max, t);
+// Build the continuous snaking path
+function buildSpinePath() {
+  let d = '';
+  for (let r = 0; r < ROWS; r++) {
+    const startIdx = r * COLS;
+    const endIdx = Math.min(startIdx + COLS - 1, MILESTONES.length - 1);
+    const start = position(startIdx);
+    const end = position(endIdx);
+
+    if (r === 0) {
+      d += `M ${start.x - 20} ${start.y} `;
+    }
+    // horizontal line across the row (extend a bit past the dots for the curve entry)
+    const lineEndX = r % 2 === 0 ? end.x + (endIdx < MILESTONES.length - 1 ? 20 : 20) : end.x - (endIdx < MILESTONES.length - 1 ? 20 : 20);
+    d += `L ${lineEndX} ${start.y} `;
+
+    // U-turn curve into next row, if there is one
+    if (r < ROWS - 1) {
+      const nextStart = position((r + 1) * COLS);
+      // curve from (lineEndX, start.y) down to (nextStart.x ± something, nextStart.y)
+      // For even rows ending on right: curve goes right then down then left
+      // For odd rows ending on left: curve goes left then down then right
+      const controlX = r % 2 === 0 ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
+      d += `C ${controlX} ${start.y}, ${controlX} ${nextStart.y}, ${nextStart.x + (r % 2 === 0 ? 20 : -20)} ${nextStart.y} `;
+    }
   }
-});
+  return d;
+}
 
-// Render SVG
 const svg = document.getElementById('timeline');
+svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 let html = '';
 
-// Phase bands
-PHASES.forEach(p => {
-  const r = phaseRanges[p.id];
-  if (!r) return;
-  const x1 = xFor(r.min) - 20;
-  const x2 = xFor(r.max) + 20;
-  const w = x2 - x1;
-  html += `<rect x="${x1}" y="${PAD_T}" width="${w}" height="${LINE_Y - PAD_T + 20}" fill="${p.color}" rx="8"/>`;
-  html += `<text x="${x1 + w/2}" y="${PAD_T + 18}" text-anchor="middle" font-size="10" font-weight="700" fill="${p.textColor}" letter-spacing=".08em">${p.label}</text>`;
-});
+// Spine (background) — thick gray line
+const spine = buildSpinePath();
+html += `<path d="${spine}" stroke="#e2e8f0" stroke-width="8" fill="none" stroke-linecap="round"/>`;
 
-// Main line
-html += `<line x1="${PAD_L - 20}" y1="${LINE_Y}" x2="${W - PAD_R + 20}" y2="${LINE_Y}" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>`;
+// Progress overlay — colored line drawn up to the last "done" or "wip" milestone
+let lastProgressIdx = -1;
+MILESTONES.forEach((m, i) => { if (m.status === 'done' || m.status === 'wip') lastProgressIdx = i; });
+if (lastProgressIdx >= 0) {
+  // build a path that only goes up to the progress point
+  let progressD = '';
+  for (let r = 0; r < ROWS; r++) {
+    const startIdx = r * COLS;
+    if (startIdx > lastProgressIdx) break;
+    const rowEndIdx = Math.min(startIdx + COLS - 1, lastProgressIdx);
+    const start = position(startIdx);
+    const rowEnd = position(rowEndIdx);
+    if (r === 0) progressD += `M ${start.x - 20} ${start.y} `;
 
-// Today marker
-const todayT = TODAY.getTime();
-if (todayT >= MIN_T && todayT <= MAX_T) {
-  const xT = xFor(todayT);
-  html += `<line x1="${xT}" y1="${PAD_T - 10}" x2="${xT}" y2="${LINE_Y + 60}" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>`;
-  html += `<rect x="${xT - 20}" y="${PAD_T - 24}" width="40" height="16" fill="#dc2626" rx="3"/>`;
-  html += `<text x="${xT}" y="${PAD_T - 12}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">TODAY</text>`;
+    // Go to row end OR stop at lastProgressIdx within this row
+    const stopHereX = rowEnd.x + (r % 2 === 0 ? (rowEndIdx === lastProgressIdx && rowEndIdx < MILESTONES.length - 1 ? 0 : 20) : -(rowEndIdx === lastProgressIdx && rowEndIdx < MILESTONES.length - 1 ? 0 : 20));
+    progressD += `L ${stopHereX} ${start.y} `;
+
+    if (r < ROWS - 1 && rowEndIdx < lastProgressIdx) {
+      const nextStart = position((r + 1) * COLS);
+      const controlX = r % 2 === 0 ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
+      progressD += `C ${controlX} ${start.y}, ${controlX} ${nextStart.y}, ${nextStart.x + (r % 2 === 0 ? 20 : -20)} ${nextStart.y} `;
+    }
+  }
+  html += `<path d="${progressD}" stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>`;
 }
 
-// Milestones — alternate labels above/below to avoid overlap
+// Today marker — find which row/position today would fall on
+const todayT = TODAY.getTime();
+let todayPos = null;
+for (let i = 0; i < MILESTONES.length - 1; i++) {
+  const t1 = new Date(MILESTONES[i].date).getTime();
+  const t2 = new Date(MILESTONES[i+1].date).getTime();
+  if (todayT >= t1 && todayT <= t2) {
+    const frac = (todayT - t1) / (t2 - t1);
+    const p1 = position(i);
+    const p2 = position(i+1);
+    // only linear-interp if on same row
+    if (p1.row === p2.row) {
+      todayPos = { x: p1.x + (p2.x - p1.x) * frac, y: p1.y };
+    } else {
+      // approximate: pick whichever side is closer
+      todayPos = frac < 0.5 ? { x: p1.x, y: p1.y } : { x: p2.x, y: p2.y };
+    }
+    break;
+  }
+}
+if (todayPos) {
+  html += `<line x1="${todayPos.x}" y1="${todayPos.y - 45}" x2="${todayPos.x}" y2="${todayPos.y + 45}" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>`;
+  html += `<rect x="${todayPos.x - 22}" y="${todayPos.y - 60}" width="44" height="16" fill="#dc2626" rx="3"/>`;
+  html += `<text x="${todayPos.x}" y="${todayPos.y - 48}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">TODAY</text>`;
+}
+
+// Milestones
 MILESTONES.forEach((m, i) => {
-  const x = xFor(parseDate(m.date));
+  const p = position(i);
   const color = STATUS_COLOR[m.status];
-  const above = i % 2 === 0;
-  const labelY = above ? LINE_Y - 30 : LINE_Y + 45;
-  const dateY = above ? LINE_Y - 16 : LINE_Y + 60;
+  const phaseColor = PHASE_COLOR[m.phase] || '#64748b';
 
-  // Connector line from dot to label area
-  html += `<line x1="${x}" y1="${LINE_Y}" x2="${x}" y2="${above ? LINE_Y - 22 : LINE_Y + 22}" stroke="${color}" stroke-width="1.5" opacity=".4"/>`;
+  // Label goes below the dot on each row
+  const labelY = p.y + 32;
+  const dateY = p.y + 47;
+  const phaseY = p.y + 60;
 
-  // Dot
-  const strokeW = m.status === 'wip' ? 3 : 2;
-  html += `<circle class="milestone" cx="${x}" cy="${LINE_Y}" r="${DOT_R}" fill="${color}" stroke="#fff" stroke-width="${strokeW}" data-idx="${i}" style="cursor:pointer;filter:drop-shadow(0 1px 2px rgba(0,0,0,.15))"/>`;
+  // Dot with white ring + drop shadow
+  html += `<circle class="milestone" cx="${p.x}" cy="${p.y}" r="${DOT_R}" fill="${color}" stroke="#fff" stroke-width="3" data-idx="${i}" style="cursor:pointer;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))"/>`;
 
-  // Checkmark/clock icon inside dot
+  // Icon inside dot
   if (m.status === 'done') {
-    html += `<path d="M${x-4},${LINE_Y} L${x-1},${LINE_Y+3} L${x+4},${LINE_Y-3}" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>`;
+    html += `<path d="M${p.x-5},${p.y+1} L${p.x-1},${p.y+5} L${p.x+5},${p.y-3}" stroke="#fff" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>`;
   } else if (m.status === 'wip') {
-    html += `<circle cx="${x}" cy="${LINE_Y}" r="3" fill="#fff" pointer-events="none"/>`;
+    html += `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#fff" pointer-events="none"/>`;
+  } else if (m.status === 'blocked') {
+    html += `<text x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" pointer-events="none">!</text>`;
   }
 
-  // Label
-  html += `<text x="${x}" y="${labelY}" text-anchor="middle" font-size="11" font-weight="600" fill="#0f172a">${m.name}</text>`;
-  // Date pill
-  html += `<text x="${x}" y="${dateY}" text-anchor="middle" font-size="10" fill="#64748b">${fmtDate(parseDate(m.date))}</text>`;
+  // Labels
+  html += `<text x="${p.x}" y="${labelY}" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">${m.name}</text>`;
+  html += `<text x="${p.x}" y="${dateY}" text-anchor="middle" font-size="10" fill="#64748b">${fmtDate(m.date)}</text>`;
+  html += `<text x="${p.x}" y="${phaseY}" text-anchor="middle" font-size="9" font-weight="700" fill="${phaseColor}" letter-spacing=".04em">${m.phase.toUpperCase()}</text>`;
 });
 
 svg.innerHTML = html;
 
-// Tooltip on hover
+// Tooltip
 const tooltip = document.getElementById('tooltip');
 document.querySelectorAll('.milestone').forEach(el => {
-  el.addEventListener('mouseenter', e => {
+  el.addEventListener('mouseenter', () => {
     const m = MILESTONES[parseInt(el.dataset.idx)];
-    tooltip.innerHTML = `<strong>${m.name}</strong><div class="tt-date">${fmtDate(parseDate(m.date))} · ${m.status.toUpperCase()}</div><div class="tt-detail">${m.detail}</div>`;
+    tooltip.innerHTML = `<strong>${m.name}</strong><div class="tt-date">${fmtDate(m.date)} · ${m.status.toUpperCase()}</div><div class="tt-detail">${m.detail}</div><div class="tt-phase">${m.phase}</div>`;
     tooltip.classList.add('visible');
   });
   el.addEventListener('mousemove', e => {
     tooltip.style.left = (e.pageX + 14) + 'px';
     tooltip.style.top = (e.pageY + 14) + 'px';
   });
-  el.addEventListener('mouseleave', () => {
-    tooltip.classList.remove('visible');
-  });
+  el.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
 });
 </script>
 
