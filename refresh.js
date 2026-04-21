@@ -39,7 +39,8 @@ const FIELDS = {
   budgetAllowanceAlt:'f0c6feae-ba3d-446a-9dd6-a1e90b59343e', // Alternate Budget Allowance field (some lists use this)
   actualPO:          '8aba4dde-eaef-46c5-99fd-fb15e62e9715', // Actual PO$ SBI (currency)
   procurementWf:     '2e4fc78f-ea66-436c-902f-c248467c943f', // Procurement Workflow SBI (drop_down)
-  invoiceAmount:     '05d666d7-6606-4dd0-8c19-72fcc2312a91', // Invoice Amount incl GST (currency)
+  invoiceAmount:     '05d666d7-6606-4dd0-8c19-72fcc2312a91', // Invoice Amount incl GST (currency) — primary
+  dealValueFallback: 'e54326a0-d0f2-4912-b4d4-ac9872ee979f', // 04. Deal Value (INCL GST) — fallback; some projects enter amounts here instead
   invoiceWf:         '66cb7011-4ea3-465f-8573-ab25dd35e523', // Invoice/Variation Workflow (drop_down)
   pctClaim:          'cfed0b02-6c30-469b-8c10-2443d63b7798', // Percentage Claim (number)
   variationCost:     '7adc45a5-1a53-4394-a3f9-38819a842f60', // Variation Cost (currency)
@@ -217,7 +218,11 @@ function buildClaimsAndVariations(list04Tasks) {
     if (status === 'closed' || statusType === 'closed') continue;
     if (/template/i.test(t.name)) continue;
 
-    const amount = parseFloat(getCustomField(t, FIELDS.invoiceAmount) || 0);
+    const amount = parseFloat(
+      getCustomField(t, FIELDS.invoiceAmount) ||
+      getCustomField(t, FIELDS.dealValueFallback) ||
+      0
+    );
     const pct = parseFloat(getCustomField(t, FIELDS.pctClaim) || 0);
     const wfIdx = getCustomField(t, FIELDS.invoiceWf);
     const [wfName, wfColor] = INVOICE_WF[wfIdx] || ['Not Sent', '#94a3b8'];
