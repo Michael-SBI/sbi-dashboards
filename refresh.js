@@ -388,7 +388,21 @@ function fmtMoneyShort(n) {
   return '$' + Math.round(n).toLocaleString('en-AU');
 }
 
-function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
+// Site milestones to keep — only these four named tasks show on the Site stream
+function isKeySiteMilestone(name) {
+  const n = (name || '').toLowerCase().replace(/[_.]/g, ' ').replace(/\s+/g, ' ').trim();
+  return /^(start on site|practical completion|completions? stage|competions? stage|final handover)$/.test(n);
+}
+
+function taskTs(t) {
+  // Prefer start_date, then due_date, then date_created
+  return t.start_date ? parseInt(t.start_date)
+    : t.due_date ? parseInt(t.due_date)
+    : t.date_created ? parseInt(t.date_created)
+    : null;
+}
+
+function buildLifecycle(project, claims, variations, siteWorksTasks, list07, list09) {
   // ── Admin stream ─────────────────────────────────────
   const admin = {
     id: 'admin',
@@ -434,33 +448,45 @@ function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
     });
   });
 
-  // ── Mfg stream ───────────────────────────────────────
+  // ── Mfg stream (Lists 07 Pre-Manufacture + 09 Manufacturing) ──
   const mfg = {
     id: 'mfg',
-    label: '🏭 Manufacturing & Design',
+    label: '🏭 Manufacturing',
     color: '#ca8a04',
-    activeFrom: 'Factory Start',
+    activeFrom: 'Manufacturing Start',
     milestones: []
   };
 
-  schedule.forEach(s => {
-    if (!s.start) return;
-    const name = s.name || '';
-    let label = null;
-    if (/08.*procurement|^procurement/i.test(name)) label = 'Procurement';
-    else if (/07.*pre.?manufacture|pre.?manufacture/i.test(name)) label = 'Pre-Manufacture';
-    else if (/09.*manufacturing|manufacturing\/?dispatch|factory/i.test(name)) label = 'Factory Start';
-    if (!label) return;
-    mfg.milestones.push({
-      name: label,
-      date: toISODate(s.start),
-      status: scheduleStatus(s.status),
-      detail: name
+  // Collect top-level, non-template tasks from both lists with their timestamps
+  function addMfgTasks(list, phaseLabel) {
+    list.forEach(t => {
+      if (t.parent) return;
+      if (/template/i.test(t.name)) return;
+      const ts = taskTs(t);
+      if (!ts) return;
+      mfg.milestones.push({
+        name: t.name,
+        date: toISODate(ts),
+        status: scheduleStatus(t.status?.status),
+        detail: `${phaseLabel} · ${t.status?.status || ''}`.trim()
+      });
     });
-  });
+  }
+  addMfgTasks(list07 || [], 'Pre-Manufacture');
+  addMfgTasks(list09 || [], 'Manufacturing');
   mfg.milestones.sort((a, b) => a.date.localeCompare(b.date));
 
-  // ── Site stream ──────────────────────────────────────
+  // Mark the earliest List 09 task as "Manufacturing Start" so activeFrom picks up
+  const earliestList09 = (list09 || [])
+    .filter(t => !t.parent && !/template/i.test(t.name) && taskTs(t))
+    .sort((a, b) => taskTs(a) - taskTs(b))[0];
+  if (earliestList09) {
+    const startTs = taskTs(earliestList09);
+    const existing = mfg.milestones.find(m => m.name === earliestList09.name && m.date === toISODate(startTs));
+    if (existing) existing.name = 'Manufacturing Start';
+  }
+
+  // ── Site stream — filtered to key named milestones only ──
   const site = {
     id: 'site',
     label: '🏗️ Site Works',
@@ -470,11 +496,15 @@ function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
   };
 
   siteWorksTasks.forEach(t => {
+    if (!isKeySiteMilestone(t.name)) return;
     const ts = t.start || t.due;
     if (!ts) return;
-    const name = t.name || '';
-    // Normalise "Start on site" → "Start on Site" so activeFrom matches
-    const displayName = /^start on site\.?$/i.test(name.trim()) ? 'Start on Site' : name;
+    const lower = (t.name || '').toLowerCase().replace(/[_.]/g, ' ').trim();
+    let displayName = t.name;
+    if (/^start on site/.test(lower)) displayName = 'Start on Site';
+    else if (/^practical completion/.test(lower)) displayName = 'Practical Completion';
+    else if (/^completions? stage/.test(lower) || /^competions? stage/.test(lower)) displayName = 'Completions Stage';
+    else if (/^final handover/.test(lower)) displayName = 'Final Handover';
     site.milestones.push({
       name: displayName,
       date: toISODate(ts),
@@ -539,11 +569,13 @@ async function refreshProject(project) {
   log(`  lists found:`, Object.keys(listIds).join(','));
 
   // 2. Fetch the lists we need (parallel)
-  const [list03, list04, list06, list08] = await Promise.all([
+  const [list03, list04, list06, list07, list08, list09] = await Promise.all([
     listIds['03'] ? fetchListTasks(listIds['03']) : Promise.resolve([]),
     listIds['04'] ? fetchListTasks(listIds['04']) : Promise.resolve([]),
     listIds['06'] ? fetchListTasks(listIds['06']) : Promise.resolve([]),
+    listIds['07'] ? fetchListTasks(listIds['07']) : Promise.resolve([]),
     listIds['08'] ? fetchListTasks(listIds['08']) : Promise.resolve([]),
+    listIds['09'] ? fetchListTasks(listIds['09']) : Promise.resolve([]),
   ]);
 
   // 3. Build deterministic data
@@ -568,7 +600,7 @@ async function refreshProject(project) {
   const part = type => sydney.find(p => p.type === type)?.value || '';
   const generatedStr = `${part('weekday')} ${part('day')} ${part('month')} ${part('year')} · ${part('hour')}:${part('minute')} ${part('timeZoneName')}`;
 
-  const lifecycle = buildLifecycle(existing.project || {}, claims, variations, schedule, siteWorksTasks);
+  const lifecycle = buildLifecycle(existing.project || {}, claims, variations, siteWorksTasks, list07, list09);
 
   const newData = {
     ...existing,
