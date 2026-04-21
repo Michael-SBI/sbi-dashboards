@@ -179,7 +179,7 @@ textarea.editable{resize:vertical;min-height:90px}
   <!-- Schedule -->
   <div class="panel" id="tab-schedule"></div>
   <!-- Project Milestones -->
-  <div class="panel" id="tab-milestones"></div>
+  <div class="panel" id="tab-lifecycle"></div>
   <!-- Actions -->
   <div class="panel" id="tab-actions"></div>
 </div>
@@ -292,7 +292,7 @@ textarea.editable{resize:vertical;min-height:90px}
     {id:'procurement',label:'Procurement'},
     {id:'compliance',label:'Compliance'},
     {id:'schedule',label:'Schedule'},
-    {id:'milestones',label:'Project Milestones'},
+    {id:'lifecycle',label:'Lifecycle'},
     {id:'actions',label:'Actions'},
   ];
   var tb = document.getElementById('tabBar');
@@ -746,12 +746,358 @@ textarea.editable{resize:vertical;min-height:90px}
   })();
 
     // ══════════════════════════════
-    // 9. SCHEDULE TAB (Project Lifecycle Timeline)
+  // 9. SCHEDULE TAB (Canvas Gantt)
+  // ══════════════════════════════
+  (function(){
+    var tasks = D.schedule || [];
+    if(tasks.length === 0){
+      document.getElementById('tab-schedule').innerHTML = '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No schedule tasks available.</div>';
+      return;
+    }
+
+    var siteTasks = D.siteWorksTasks || [];
+
+    var html = '';
+    // Gantt 1 — Site Works Schedule (high level milestones from List 06)
+    html += '<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden;margin-bottom:12px">'+
+      '<div style="background:#0f2540;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">'+
+        '<div>'+
+          '<div style="font-size:13px;font-weight:700">Site Works Schedule — Gantt View</div>'+
+          '<div style="font-size:11px;color:#7fa8cc;margin-top:2px">'+esc(P.jobNumber)+' '+esc(P.name)+' &nbsp;&middot;&nbsp; <span id="todayLabel"></span></div>'+
+        '</div>'+
+        '<div style="display:flex;gap:14px;font-size:10px;font-weight:600;flex-wrap:wrap">'+
+          '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#16a34a;display:inline-block"></span>Done</span>'+
+          '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#f8ae00;display:inline-block"></span>In Progress</span>'+
+          '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#7c3aed;display:inline-block"></span>Scheduled</span>'+
+          '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#dc2626;display:inline-block"></span>Not Started</span>'+
+          '<span style="display:flex;align-items:center;gap:5px"><span style="width:2px;height:14px;background:#dc2626;display:inline-block"></span>Today</span>'+
+        '</div>'+
+      '</div>'+
+      '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="ganttChart" style="display:block"></canvas></div>'+
+    '</div>';
+
+    // Gantt 2 — Site Works Tasks (individual tasks from List 10) — sits IMMEDIATELY below Gantt 1
+    if(siteTasks.length > 0){
+      html += '<div style="background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden;margin-bottom:12px">'+
+        '<div style="background:#0f2540;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">'+
+          '<div>'+
+            '<div style="font-size:13px;font-weight:700">Site Works Tasks — Gantt View</div>'+
+            '<div style="font-size:11px;color:#7fa8cc;margin-top:2px">Individual site tasks from List 10 (proposal scope)</div>'+
+          '</div>'+
+          '<div style="display:flex;gap:14px;font-size:10px;font-weight:600;flex-wrap:wrap">'+
+            '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#16a34a;display:inline-block"></span>Done</span>'+
+            '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#f8ae00;display:inline-block"></span>In Progress</span>'+
+            '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#dc2626;display:inline-block"></span>Not Started</span>'+
+            '<span style="display:flex;align-items:center;gap:5px"><span style="width:2px;height:14px;background:#dc2626;display:inline-block"></span>Today</span>'+
+          '</div>'+
+        '</div>'+
+        '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><canvas id="ganttChart2" style="display:block"></canvas></div>'+
+      '</div>';
+    }
+
+    // Schedule Detail table — site works subtasks from 10.1 SITE WORKS [SCHEDULE] in List 06
+    html += '<div class="sec">Schedule Detail</div>';
+    if(siteTasks.length > 0){
+      html += '<table><thead><tr><th style="width:36px">#</th><th>Task</th><th style="width:120px">Start</th><th style="width:120px">Due</th><th style="width:120px">Assignee</th><th style="width:100px">Status</th></tr></thead><tbody>';
+      siteTasks.forEach(function(t, i){
+        html += '<tr>'+
+          '<td style="font-size:11px;color:#94a3b8;font-weight:600">'+(i+1)+'</td>'+
+          '<td style="font-weight:500">'+esc(t.name)+'</td>'+
+          '<td style="font-size:11px;color:#64748b">'+fmtDate(t.start)+'</td>'+
+          '<td style="font-size:11px;color:#64748b">'+fmtDate(t.due)+'</td>'+
+          '<td style="font-size:11px;color:#64748b">'+esc(t.assignee || '—')+'</td>'+
+          '<td>'+badge(t.status || '—', statusBadgeColor(t.status))+'</td>'+
+        '</tr>';
+      });
+      html += '</tbody></table>';
+    } else {
+      html += '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No site works subtasks under 10.1 SITE WORKS [SCHEDULE] in List 06.</div>';
+    }
+
+    document.getElementById('tab-schedule').innerHTML = html;
+
+    // Draw Gantt chart after DOM insert
+    setTimeout(function(){
+      var TASKS = tasks.map(function(t){
+        return {n:t.name, s:t.start, e:t.end, st:(t.status||'').toLowerCase()};
+      });
+
+      var _now = new Date();
+      var TODAY = _now.getTime();
+      var _MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var _DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      var _lbl = document.getElementById('todayLabel');
+      if(_lbl) _lbl.textContent = 'Today: '+_DAYS[_now.getDay()]+' '+_now.getDate()+' '+_MONTHS[_now.getMonth()]+' '+_now.getFullYear();
+
+      // Find project start/end
+      var allTs = [];
+      TASKS.forEach(function(t){
+        if(t.s) allTs.push(t.s);
+        if(t.e) allTs.push(t.e);
+      });
+      if(allTs.length === 0) return;
+
+      var PROJ_S = Math.min.apply(null, allTs) - 864e5;
+      var PROJ_E = Math.max.apply(null, allTs) + 864e5*3;
+
+      var LBL_W = 155, ROW_H = 22, HDR_H = 42, PAD_R = 20;
+      var COLORS = {done:'#16a34a','in progress':'#f8ae00',scheduled:'#7c3aed','not started':'#dc2626',wip:'#f8ae00',todo:'#dc2626'};
+
+      var c = document.getElementById('ganttChart');
+      var containerEl = c.parentElement;
+      var W = Math.max(880, containerEl.clientWidth || 900);
+      var CHART_W = W - LBL_W - PAD_R;
+      var H = HDR_H + TASKS.length * ROW_H + 20;
+      c.width = W; c.height = H;
+      c.style.width = W+'px'; c.style.height = H+'px';
+      var ctx = c.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0,0,W,H);
+
+      function toX(ts){ return LBL_W + ((ts - PROJ_S) / (PROJ_E - PROJ_S)) * CHART_W; }
+
+      // Month + week grid lines + date headers
+      var _DAYN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+      // First pass: month separator lines (solid, heavier)
+      var dMo = new Date(PROJ_S);
+      dMo.setHours(0,0,0,0);
+      dMo.setDate(1); // start of month containing PROJ_S
+      var drawnMonthLabel = {};
+      while(dMo.getTime() < PROJ_E + 864e5*7){
+        var xMo = toX(dMo.getTime());
+        if(xMo >= LBL_W && xMo <= W){
+          // Solid month separator line
+          ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+          ctx.setLineDash([]);
+          ctx.beginPath(); ctx.moveTo(xMo, HDR_H); ctx.lineTo(xMo, H-8); ctx.stroke();
+          // Month label at top
+          ctx.font = '700 10px system-ui,sans-serif';
+          ctx.fillStyle = '#0f2540';
+          ctx.textAlign = 'center';
+          ctx.fillText(_MONTHS[dMo.getMonth()].toUpperCase(), xMo + 40, 14);
+          drawnMonthLabel[dMo.getMonth()] = true;
+        }
+        dMo.setMonth(dMo.getMonth()+1);
+        dMo.setDate(1);
+      }
+
+      // Second pass: week lines (dashed) + date labels with day name
+      var dWk = new Date(PROJ_S);
+      dWk.setHours(0,0,0,0);
+      while(dWk.getDay() !== 1) dWk.setDate(dWk.getDate()-1);
+      ctx.textAlign = 'center';
+      while(dWk.getTime() < PROJ_E + 864e5*7){
+        var xWk = toX(dWk.getTime());
+        if(xWk >= LBL_W && xWk <= W){
+          // Dashed week separator line
+          ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 0.8;
+          ctx.setLineDash([4,3]);
+          ctx.beginPath(); ctx.moveTo(xWk, HDR_H); ctx.lineTo(xWk, H-8); ctx.stroke();
+          ctx.setLineDash([]);
+          // Date label: "Mon 23 Mar"
+          ctx.font = '600 9px system-ui,sans-serif';
+          ctx.fillStyle = '#64748b';
+          ctx.fillText(_DAYN[dWk.getDay()]+' '+dWk.getDate()+' '+_MONTHS[dWk.getMonth()], xWk, HDR_H-6);
+        }
+        dWk.setDate(dWk.getDate()+7);
+      }
+
+      ctx.setLineDash([]);
+      ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(LBL_W, HDR_H); ctx.lineTo(W, HDR_H); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(LBL_W, 0); ctx.lineTo(LBL_W, H); ctx.stroke();
+
+      // Task bars
+      TASKS.forEach(function(t, i){
+        var y = HDR_H + i * ROW_H;
+        if(i%2===0){ ctx.fillStyle = 'rgba(248,250,252,0.7)'; ctx.fillRect(0,y,W,ROW_H); }
+        ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 0.5;
+        ctx.beginPath(); ctx.moveTo(0,y+ROW_H); ctx.lineTo(W,y+ROW_H); ctx.stroke();
+
+        ctx.fillStyle = '#374151';
+        ctx.font = '11px system-ui,sans-serif';
+        ctx.textAlign = 'left';
+        var lbl = t.n;
+        while(ctx.measureText(lbl).width > LBL_W - 12 && lbl.length > 3) lbl = lbl.slice(0,-1);
+        if(lbl !== t.n) lbl += '\u2026';
+        ctx.fillText(lbl, 8, y + ROW_H/2 + 4);
+
+        if(!t.s && !t.e) return;
+        var startTs = t.s || t.e;
+        var endTs = t.e || t.s;
+        var bx = toX(startTs);
+        var ex = toX(endTs);
+        var bw = Math.max(ex-bx, 10);
+        var by = y + 4;
+        var bh = ROW_H - 8;
+        var col = COLORS[t.st] || '#dc2626';
+
+        ctx.fillStyle = col;
+        ctx.beginPath();
+        if(ctx.roundRect) ctx.roundRect(bx,by,bw,bh,3); else ctx.rect(bx,by,bw,bh);
+        ctx.fill();
+
+        if(t.st === 'done'){
+          ctx.fillStyle = 'rgba(255,255,255,0.95)';
+          ctx.font = 'bold 9px system-ui';
+          ctx.textAlign = 'center';
+          ctx.fillText('\u2713', bx + bw/2, by + bh/2 + 3);
+        }
+      });
+
+      // TODAY line
+      var tx = toX(TODAY);
+      if(tx >= LBL_W && tx <= W){
+        ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 1.5;
+        ctx.setLineDash([4,3]);
+        ctx.beginPath(); ctx.moveTo(tx,0); ctx.lineTo(tx,H); ctx.stroke();
+        ctx.setLineDash([]);
+        var _todayStr = _now.getDate()+' '+_MONTHS[_now.getMonth()];
+        ctx.font = '700 9px system-ui,sans-serif';
+        ctx.textAlign = 'center';
+        var _tw = ctx.measureText(_todayStr).width + 8;
+        ctx.fillStyle = '#dc2626';
+        ctx.beginPath();
+        if(ctx.roundRect) ctx.roundRect(tx - _tw/2, H-16, _tw, 13, 2); else ctx.rect(tx - _tw/2, H-16, _tw, 13);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.fillText(_todayStr, tx, H-5);
+      }
+    }, 20);
+
+    // ────────────────────────────────────────────────────────────
+    // Second Gantt: site works tasks (List 10), if present
+    // ────────────────────────────────────────────────────────────
+    if(siteTasks.length > 0){
+      setTimeout(function(){
+        var TASKS = siteTasks.map(function(t){
+          // Site tasks may have only `due` — fall back to single-day bar
+          var s = (t.start != null) ? t.start : t.due;
+          var e = (t.end   != null) ? t.end   : t.due;
+          return {n:t.name, s:s, e:e, st:(t.status||'').toLowerCase()};
+        });
+
+        var _now = new Date();
+        var TODAY = _now.getTime();
+        var _MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var _DAYN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+        var allTs = [];
+        TASKS.forEach(function(t){ if(t.s) allTs.push(t.s); if(t.e) allTs.push(t.e); });
+        if(allTs.length === 0) return;
+
+        var PROJ_S = Math.min.apply(null, allTs) - 864e5;
+        var PROJ_E = Math.max.apply(null, allTs) + 864e5*2;
+
+        var LBL_W = 280, ROW_H = 22, HDR_H = 42, PAD_R = 20;
+        var COLORS = {done:'#16a34a','in progress':'#f8ae00',scheduled:'#7c3aed','not started':'#dc2626',wip:'#f8ae00',todo:'#dc2626'};
+
+        var c = document.getElementById('ganttChart2');
+        if(!c) return;
+        var containerEl = c.parentElement;
+        var W = Math.max(880, containerEl.clientWidth || 900);
+        var CHART_W = W - LBL_W - PAD_R;
+        var H = HDR_H + TASKS.length * ROW_H + 20;
+        c.width = W; c.height = H;
+        c.style.width = W+'px'; c.style.height = H+'px';
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0,0,W,H);
+
+        function toX(ts){ return LBL_W + ((ts - PROJ_S) / (PROJ_E - PROJ_S)) * CHART_W; }
+
+        // Day-by-day grid (this Gantt covers a small ~2 week range)
+        var dDay = new Date(PROJ_S);
+        dDay.setHours(0,0,0,0);
+        while(dDay.getTime() < PROJ_E + 864e5){
+          var xDay = toX(dDay.getTime());
+          if(xDay >= LBL_W && xDay <= W){
+            ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 0.8;
+            ctx.setLineDash([3,2]);
+            ctx.beginPath(); ctx.moveTo(xDay, HDR_H); ctx.lineTo(xDay, H-8); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.font = '600 9px system-ui,sans-serif';
+            ctx.fillStyle = '#64748b';
+            ctx.textAlign = 'center';
+            ctx.fillText(_DAYN[dDay.getDay()]+' '+dDay.getDate()+' '+_MONTHS[dDay.getMonth()], xDay + (CHART_W/((PROJ_E-PROJ_S)/864e5))/2, HDR_H-6);
+          }
+          dDay.setDate(dDay.getDate()+1);
+        }
+
+        ctx.setLineDash([]);
+        ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(LBL_W, HDR_H); ctx.lineTo(W, HDR_H); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(LBL_W, 0); ctx.lineTo(LBL_W, H); ctx.stroke();
+
+        TASKS.forEach(function(t, i){
+          var y = HDR_H + i * ROW_H;
+          if(i%2===0){ ctx.fillStyle = 'rgba(248,250,252,0.7)'; ctx.fillRect(0,y,W,ROW_H); }
+          ctx.strokeStyle = '#f1f5f9'; ctx.lineWidth = 0.5;
+          ctx.beginPath(); ctx.moveTo(0,y+ROW_H); ctx.lineTo(W,y+ROW_H); ctx.stroke();
+
+          ctx.fillStyle = '#374151';
+          ctx.font = '11px system-ui,sans-serif';
+          ctx.textAlign = 'left';
+          var lbl = t.n;
+          while(ctx.measureText(lbl).width > LBL_W - 12 && lbl.length > 3) lbl = lbl.slice(0,-1);
+          if(lbl !== t.n) lbl += '\u2026';
+          ctx.fillText(lbl, 8, y + ROW_H/2 + 4);
+
+          if(!t.s && !t.e) return;
+          var startTs = t.s || t.e;
+          var endTs = t.e || t.s;
+          // Pad single-day tasks so they're visible
+          if(endTs <= startTs) endTs = startTs + 864e5;
+          var bx = toX(startTs);
+          var ex = toX(endTs);
+          var bw = Math.max(ex-bx, 12);
+          var by = y + 4;
+          var bh = ROW_H - 8;
+          var col = COLORS[t.st] || '#dc2626';
+
+          ctx.fillStyle = col;
+          ctx.beginPath();
+          if(ctx.roundRect) ctx.roundRect(bx,by,bw,bh,3); else ctx.rect(bx,by,bw,bh);
+          ctx.fill();
+
+          if(t.st === 'done'){
+            ctx.fillStyle = 'rgba(255,255,255,0.95)';
+            ctx.font = 'bold 9px system-ui';
+            ctx.textAlign = 'center';
+            ctx.fillText('\u2713', bx + bw/2, by + bh/2 + 3);
+          }
+        });
+
+        // TODAY line
+        var tx2 = toX(TODAY);
+        if(tx2 >= LBL_W && tx2 <= W){
+          ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 1.5;
+          ctx.setLineDash([4,3]);
+          ctx.beginPath(); ctx.moveTo(tx2,0); ctx.lineTo(tx2,H); ctx.stroke();
+          ctx.setLineDash([]);
+          var _ts2 = _now.getDate()+' '+_MONTHS[_now.getMonth()];
+          ctx.font = '700 9px system-ui,sans-serif';
+          ctx.textAlign = 'center';
+          var _tw2 = ctx.measureText(_ts2).width + 8;
+          ctx.fillStyle = '#dc2626';
+          ctx.beginPath();
+          if(ctx.roundRect) ctx.roundRect(tx2 - _tw2/2, H-16, _tw2, 13, 2); else ctx.rect(tx2 - _tw2/2, H-16, _tw2, 13);
+          ctx.fill();
+          ctx.fillStyle = '#fff';
+          ctx.fillText(_ts2, tx2, H-5);
+        }
+      }, 25);
+    }
+  })();
+
+  
+  // ══════════════════════════════
+    // 10. LIFECYCLE TAB (3-stream timeline)
     // ══════════════════════════════
     (function(){
       var lifecycle = D.lifecycle;
-      var siteTasks = D.siteWorksTasks || [];
-      var el = document.getElementById('tab-schedule');
+        var el = document.getElementById('tab-lifecycle');
       if(!lifecycle || !lifecycle.streams || lifecycle.streams.length === 0){
         el.innerHTML = '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No lifecycle data available. Run refresh to populate.</div>';
         return;
@@ -903,237 +1249,10 @@ textarea.editable{resize:vertical;min-height:90px}
       html += '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch">' + svg + '</div>';
       html += '</div>';
   
-      if(siteTasks.length > 0){
-        html += '<div class="sec">Site Works Detail</div>';
-        html += '<table><thead><tr><th style="width:36px">#</th><th>Task</th><th style="width:120px">Start</th><th style="width:120px">Due</th><th style="width:120px">Assignee</th><th style="width:100px">Status</th></tr></thead><tbody>';
-        siteTasks.forEach(function(t, i){
-          html += '<tr>'+
-            '<td style="font-size:11px;color:#94a3b8;font-weight:600">'+(i+1)+'</td>'+
-            '<td style="font-weight:500">'+esc(t.name)+'</td>'+
-            '<td style="font-size:11px;color:#64748b">'+fmtDate(t.start)+'</td>'+
-            '<td style="font-size:11px;color:#64748b">'+fmtDate(t.due)+'</td>'+
-            '<td style="font-size:11px;color:#64748b">'+esc(t.assignee || '—')+'</td>'+
-            '<td>'+badge(t.status || '—', statusBadgeColor(t.status))+'</td>'+
-          '</tr>';
-        });
-        html += '</tbody></table>';
-      }
-  
       el.innerHTML = html;
     })();
 
-  // ══════════════════════════════
-  // 10. PROJECT MILESTONES TAB (Canvas)
-  // ══════════════════════════════
-  (function(){
-    var groups = D.milestoneGroups || [];
-    if(groups.length === 0){
-      document.getElementById('tab-milestones').innerHTML = '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No milestone data available.</div>';
-      return;
-    }
-
-    var html = '';
-    html += '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:11px 16px;margin-bottom:14px;font-size:12px;color:#1e40af;display:flex;align-items:flex-start;gap:10px">'+
-      '<span style="font-size:15px;flex-shrink:0">&#127919;</span>'+
-      '<div><strong>Project Milestones</strong> — Each operational area has its own timeline showing key checkpoints. Green = done, amber = gap/needs action, grey = not started. Milestones are auto-detected from ClickUp.</div>'+
-    '</div>';
-    html += '<div id="tl-container"></div>';
-    document.getElementById('tab-milestones').innerHTML = html;
-
-    var COL  = {done:'#16a34a',wip:'#1d4ed8',gap:'#d97706',todo:'#dc2626'};
-    var LINE_DONE = '#16a34a', LINE_WIP = '#93c5fd', LINE_TODO = '#e2e8f0';
-
-    var container = document.getElementById('tl-container');
-
-    groups.forEach(function(g, gi){
-      var nodes = g.nodes || [];
-      if(nodes.length === 0) return;
-
-      var card = document.createElement('div');
-      card.style.cssText = 'background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden;margin-bottom:12px';
-
-      // Header
-      var hdrEl = document.createElement('div');
-      hdrEl.style.cssText = 'background:#0f2540;color:#fff;padding:10px 18px;display:flex;align-items:center;justify-content:space-between';
-      var countDone = nodes.filter(function(n){ return n.status === 'done'; }).length;
-      hdrEl.innerHTML = '<div><span style="font-size:12px;font-weight:700">'+esc(g.title)+'</span><span style="font-size:11px;color:#7fa8cc;margin-left:10px">'+esc(g.listNames||'')+'</span></div><div style="font-size:11px;font-weight:600">'+countDone+' / '+nodes.length+' complete</div>';
-      card.appendChild(hdrEl);
-
-      // Canvas
-      var wrap = document.createElement('div');
-      wrap.style.cssText = 'overflow-x:auto;padding:0';
-      var cv = document.createElement('canvas');
-      cv.id = 'tl'+gi;
-      wrap.appendChild(cv);
-      card.appendChild(wrap);
-      container.appendChild(card);
-
-      // Draw after DOM insert
-      setTimeout(function(){
-        var count = nodes.length;
-        var padL=60, padR=60, padT=72, padB=72;
-
-        // Parse dates for proportional positioning
-        var MONTHS = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
-        function parseNodeDate(str){
-          if(!str) return null;
-          var m = (str+'').match(/(\d+)\s+([a-zA-Z]+)/);
-          if(!m) return null;
-          var day = parseInt(m[1],10);
-          var mon = MONTHS[(m[2]).toLowerCase().substring(0,3)];
-          if(mon===undefined) return null;
-          var yr = new Date().getFullYear();
-          return new Date(yr, mon, day).getTime();
-        }
-        var dates = nodes.map(function(nd){ return parseNodeDate(nd.date); });
-        var validDates = dates.filter(function(d){ return d !== null; });
-        var useProportional = validDates.length >= 2;
-        var minDate, maxDate, dateRange;
-        if(useProportional){
-          minDate = Math.min.apply(null, validDates);
-          maxDate = Math.max.apply(null, validDates);
-          dateRange = maxDate - minDate;
-          if(dateRange === 0) useProportional = false;
-        }
-
-        var W = Math.max(padL + padR + (count-1)*140, wrap.clientWidth || 800);
-        var usableW = W - padL - padR;
-        var H = padT + 40 + padB;
-        var lineY = padT + 20;
-        cv.width = W; cv.height = H;
-        cv.style.width = W+'px'; cv.style.height = H+'px';
-        var ctx = cv.getContext('2d');
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0,0,W,H);
-
-        // Compute x positions (date-proportional or evenly spaced fallback)
-        var xPositions = nodes.map(function(nd, i){
-          if(useProportional && dates[i] !== null){
-            return padL + ((dates[i] - minDate) / dateRange) * usableW;
-          }
-          return padL + (usableW / (count - 1)) * i;
-        });
-        // Ensure minimum spacing of 60px between adjacent nodes
-        for(var k=1;k<xPositions.length;k++){
-          if(xPositions[k] - xPositions[k-1] < 60) xPositions[k] = xPositions[k-1] + 60;
-        }
-        // Recalculate W if nodes extend beyond
-        var actualMaxX = xPositions[xPositions.length-1] + padR;
-        if(actualMaxX > W){ W = actualMaxX; cv.width = W; cv.style.width = W+'px'; ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); }
-
-        // Date scale markers along timeline
-        if(useProportional){
-          ctx.font = '500 9px Inter,system-ui';
-          ctx.textAlign = 'center';
-          ctx.fillStyle = '#94a3b8';
-          // Draw weekly date markers
-          var weekMs = 7*24*60*60*1000;
-          var scaleStart = minDate - (minDate % weekMs);
-          for(var d = scaleStart; d <= maxDate + weekMs; d += weekMs){
-            if(d < minDate - weekMs/2) continue;
-            var sx = padL + ((d - minDate) / dateRange) * usableW;
-            if(sx < padL - 10 || sx > W - padR + 10) continue;
-            // Tick mark
-            ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1; ctx.setLineDash([]);
-            ctx.beginPath(); ctx.moveTo(sx, lineY+22); ctx.lineTo(sx, lineY+28); ctx.stroke();
-            // Date label
-            var dd = new Date(d);
-            ctx.fillStyle = '#94a3b8';
-            ctx.fillText(dd.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dd.getMonth()], sx, lineY+38);
-          }
-        }
-
-        // Background connector
-        ctx.strokeStyle = LINE_TODO; ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.moveTo(xPositions[0], lineY); ctx.lineTo(xPositions[count-1], lineY); ctx.stroke();
-
-        // Progress connector
-        var lastDone = -1;
-        for(var i=0;i<count;i++){if(nodes[i].status==='done'||nodes[i].status==='wip')lastDone=i;}
-        if(lastDone >= 0){
-          var ld = -1;
-          for(var i=0;i<count;i++){if(nodes[i].status==='done')ld=i;}
-          if(ld>=0){
-            ctx.strokeStyle = LINE_DONE; ctx.lineWidth = 4;
-            ctx.beginPath(); ctx.moveTo(xPositions[0], lineY);
-            ctx.lineTo(xPositions[ld], lineY); ctx.stroke();
-          }
-          if(lastDone > ld){
-            ctx.strokeStyle = LINE_WIP; ctx.lineWidth = 3;
-            ctx.setLineDash([6,4]);
-            ctx.beginPath(); ctx.moveTo(xPositions[Math.max(ld,0)], lineY);
-            ctx.lineTo(xPositions[lastDone], lineY); ctx.stroke();
-            ctx.setLineDash([]);
-          }
-        }
-
-        // Nodes
-        nodes.forEach(function(nd, i){
-          var x = xPositions[i];
-          var r = 19;
-          var col = COL[nd.status] || COL.todo;
-          var above = (i % 2 === 0);
-
-          // Circle — white fill with coloured border
-          ctx.beginPath(); ctx.arc(x, lineY, r, 0, Math.PI*2);
-          ctx.fillStyle='#fff'; ctx.fill();
-          ctx.strokeStyle=col; ctx.lineWidth=3; ctx.stroke();
-          // Emoji icon
-          ctx.textAlign='center'; ctx.textBaseline='middle';
-          ctx.font = '16px sans-serif';
-          ctx.fillText(nd.icon || '', x, lineY+1);
-
-          // Label pill — include date
-          var lines = (nd.name||'').split('\n');
-          if(nd.date) lines.push(nd.date);
-          ctx.font = '600 10px Inter,system-ui';
-          ctx.textAlign = 'center';
-          var lblCol = nd.status==='done'?'#166534':nd.status==='wip'?'#1e40af':nd.status==='gap'?'#92400e':'#991b1b';
-          var bgCol = nd.status==='done'?'#f0fdf4':nd.status==='wip'?'#eff6ff':nd.status==='gap'?'#fffbeb':'#fef2f2';
-          var bdCol = nd.status==='done'?'#bbf7d0':nd.status==='wip'?'#bfdbfe':nd.status==='gap'?'#fde68a':'#fecaca';
-
-          var maxW = 0;
-          lines.forEach(function(l){maxW=Math.max(maxW, ctx.measureText(l).width);});
-          var pw=maxW+14, ph=lines.length*12+10;
-
-          if(above){
-            var ly = lineY - r - 10 - ph;
-            ctx.strokeStyle=bdCol; ctx.lineWidth=1; ctx.setLineDash([2,2]);
-            ctx.beginPath(); ctx.moveTo(x, lineY-r-2); ctx.lineTo(x, ly+ph); ctx.stroke();
-            ctx.setLineDash([]);
-            ctx.fillStyle=bgCol; ctx.strokeStyle=bdCol; ctx.lineWidth=1;
-            ctx.beginPath();
-            if(ctx.roundRect) ctx.roundRect(x-pw/2, ly, pw, ph, 5); else ctx.rect(x-pw/2, ly, pw, ph);
-            ctx.fill(); ctx.stroke();
-            // Draw text lines — date line in lighter weight
-            lines.forEach(function(l,li){
-              var isDateLine = nd.date && li === lines.length-1;
-              ctx.font = isDateLine ? '500 9px Inter,system-ui' : '600 10px Inter,system-ui';
-              ctx.fillStyle = isDateLine ? (nd.status==='done'?'#22c55e':nd.status==='wip'?'#60a5fa':nd.status==='gap'?'#f59e0b':'#f87171') : lblCol;
-              ctx.fillText(l, x, ly+9+li*12);
-            });
-          } else {
-            var ly2 = lineY + r + 10;
-            ctx.strokeStyle=bdCol; ctx.lineWidth=1; ctx.setLineDash([2,2]);
-            ctx.beginPath(); ctx.moveTo(x, lineY+r+2); ctx.lineTo(x, ly2); ctx.stroke();
-            ctx.setLineDash([]);
-            ctx.fillStyle=bgCol; ctx.strokeStyle=bdCol; ctx.lineWidth=1;
-            ctx.beginPath();
-            if(ctx.roundRect) ctx.roundRect(x-pw/2, ly2, pw, ph, 5); else ctx.rect(x-pw/2, ly2, pw, ph);
-            ctx.fill(); ctx.stroke();
-            lines.forEach(function(l,li){
-              var isDateLine = nd.date && li === lines.length-1;
-              ctx.font = isDateLine ? '500 9px Inter,system-ui' : '600 10px Inter,system-ui';
-              ctx.fillStyle = isDateLine ? (nd.status==='done'?'#22c55e':nd.status==='wip'?'#60a5fa':nd.status==='gap'?'#f59e0b':'#f87171') : lblCol;
-              ctx.fillText(l, x, ly2+9+li*12);
-            });
-          }
-        });
-      }, 10);
-    });
-  })();
-
-  // ══════════════════════════════
+  
   // 11. ACTIONS TAB
   // ══════════════════════════════
   (function(){
