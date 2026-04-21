@@ -795,33 +795,23 @@ textarea.editable{resize:vertical;min-height:90px}
       '</div>';
     }
 
-    // Schedule Detail table (high-level milestones)
+    // Schedule Detail table — site works subtasks from 10.1 SITE WORKS [SCHEDULE] in List 06
     html += '<div class="sec">Schedule Detail</div>';
-    html += '<table><thead><tr><th>Task</th><th style="width:120px">Start</th><th style="width:120px">End</th><th style="width:100px">Status</th></tr></thead><tbody>';
-    tasks.forEach(function(t){
-      html += '<tr>'+
-        '<td style="font-weight:500">'+esc(t.name)+'</td>'+
-        '<td style="font-size:11px;color:#64748b">'+fmtDate(t.start)+'</td>'+
-        '<td style="font-size:11px;color:#64748b">'+fmtDate(t.end)+'</td>'+
-        '<td>'+badge(t.status || '—', statusBadgeColor(t.status))+'</td>'+
-      '</tr>';
-    });
-    html += '</tbody></table>';
-
-    // Site Works Tasks (Scope) table
     if(siteTasks.length > 0){
-      html += '<div class="sec">Site Works Tasks (Scope)</div>';
-      html += '<table><thead><tr><th style="width:36px">#</th><th>Task</th><th style="width:140px">Due</th><th style="width:120px">Assignee</th><th style="width:100px">Status</th></tr></thead><tbody>';
+      html += '<table><thead><tr><th style="width:36px">#</th><th>Task</th><th style="width:120px">Start</th><th style="width:120px">Due</th><th style="width:120px">Assignee</th><th style="width:100px">Status</th></tr></thead><tbody>';
       siteTasks.forEach(function(t, i){
         html += '<tr>'+
           '<td style="font-size:11px;color:#94a3b8;font-weight:600">'+(i+1)+'</td>'+
           '<td style="font-weight:500">'+esc(t.name)+'</td>'+
+          '<td style="font-size:11px;color:#64748b">'+fmtDate(t.start)+'</td>'+
           '<td style="font-size:11px;color:#64748b">'+fmtDate(t.due)+'</td>'+
           '<td style="font-size:11px;color:#64748b">'+esc(t.assignee || '—')+'</td>'+
           '<td>'+badge(t.status || '—', statusBadgeColor(t.status))+'</td>'+
         '</tr>';
       });
       html += '</tbody></table>';
+    } else {
+      html += '<div style="background:#fff;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-size:12px;color:#94a3b8">No site works subtasks under 10.1 SITE WORKS [SCHEDULE] in List 06.</div>';
     }
 
     document.getElementById('tab-schedule').innerHTML = html;
