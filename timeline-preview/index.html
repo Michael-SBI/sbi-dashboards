@@ -11,18 +11,18 @@
   .header h1 { font-size: 20px; margin-bottom: 4px; }
   .header .sub { font-size: 12px; color: #7fa8cc; }
   .card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 20px; }
-  .card-title { font-size: 13px; font-weight: 700; color: #0f2540; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 16px; }
-  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 11px; font-weight: 600; margin-bottom: 20px; }
+  .card-title { font-size: 13px; font-weight: 700; color: #0f2540; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 14px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
   .legend span { display: flex; align-items: center; gap: 6px; }
-  .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px #94a3b8; }
-  .tooltip { position: absolute; background: #0f172a; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity .15s; max-width: 260px; line-height: 1.5; box-shadow: 0 4px 12px rgba(0,0,0,.2); z-index: 100; }
+  .legend-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 1px #94a3b8; }
+  .stream-key { display: flex; gap: 24px; flex-wrap: wrap; font-size: 11px; font-weight: 700; margin-bottom: 16px; padding: 10px 14px; background: #f8fafc; border-radius: 8px; }
+  .stream-key span { display: flex; align-items: center; gap: 8px; }
+  .stream-line { width: 18px; height: 4px; border-radius: 2px; display: inline-block; }
+  .tooltip { position: absolute; background: #0f172a; color: #fff; padding: 9px 13px; border-radius: 6px; font-size: 11px; pointer-events: none; opacity: 0; transition: opacity .15s; max-width: 280px; line-height: 1.5; box-shadow: 0 4px 12px rgba(0,0,0,.25); z-index: 100; }
   .tooltip.visible { opacity: 1; }
   .tooltip strong { display: block; font-size: 12px; margin-bottom: 3px; }
   .tooltip .tt-date { color: #7fa8cc; }
   .tooltip .tt-detail { color: #cbd5e1; margin-top: 4px; }
-  .tooltip .tt-phase { color: #93c5fd; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; margin-top: 4px; }
-  .note { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 6px; font-size: 12px; color: #78350f; margin-top: 12px; }
-  .note strong { color: #92400e; }
   svg.timeline { width: 100%; height: auto; display: block; }
 </style>
 </head>
@@ -30,220 +30,245 @@
 
 <div class="header">
   <h1>Timeline Preview — Sunshine Kebabs East Maitland</h1>
-  <div class="sub">251206 · BUILD · Serpentine Project Continuum (prototype v2)</div>
+  <div class="sub">251206 · BUILD · Three parallel streams, shared date axis (prototype v6)</div>
 </div>
 
 <div class="card">
-  <div class="card-title">Project Lifecycle</div>
+  <div class="card-title">Project Lifecycle — All Streams</div>
+  <div class="stream-key">
+    <span><span class="stream-line" style="background:#4338ca"></span>📋 Admin &amp; Finance</span>
+    <span><span class="stream-line" style="background:#ca8a04"></span>🏭 Manufacturing &amp; Design (activates at Factory Start)</span>
+    <span><span class="stream-line" style="background:#15803d"></span>🏗️ Site Works (activates at Start on Site)</span>
+  </div>
   <div class="legend">
     <span><span class="legend-dot" style="background:#16a34a"></span>Done</span>
     <span><span class="legend-dot" style="background:#f59e0b"></span>In Progress</span>
     <span><span class="legend-dot" style="background:#dc2626"></span>Blocked / Overdue</span>
     <span><span class="legend-dot" style="background:#cbd5e1"></span>Pending</span>
-    <span><span style="width:2px;height:14px;background:#dc2626;display:inline-block"></span>Today position</span>
+    <span><span style="width:2px;height:14px;background:#dc2626;display:inline-block"></span>Today</span>
   </div>
-
-  <svg class="timeline" id="timeline" viewBox="0 0 1100 620" preserveAspectRatio="xMinYMid meet"></svg>
-
-  <div class="note">
-    <strong>Prototype v2:</strong> Snake/serpentine layout with 5 milestones per row. More room per milestone — room for names, dates, phase labels, notes. Real version will auto-detect milestones and dates from ClickUp.
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-title">Feedback / What to change</div>
-  <ul style="font-size:13px;line-height:1.7;color:#475569;padding-left:20px">
-    <li>Are 5 milestones per row the right density? (could do 4 for more breathing room, or 6 for compactness)</li>
-    <li>Right number of milestones overall? Currently 13. Real projects might have 15-20 if we include every variation/claim</li>
-    <li>Want each variation + claim as its own dot, or grouped?</li>
-    <li>Good to show the phase label per dot, or keep it compact?</li>
-    <li>Colours / curve style / dot size OK?</li>
-  </ul>
+  <svg class="timeline" id="timeline" preserveAspectRatio="xMinYMid meet"></svg>
 </div>
 
 <div id="tooltip" class="tooltip"></div>
 
 <script>
-const TODAY = new Date('2026-04-21');
+const TODAY = new Date('2026-04-22');
 
-const MILESTONES = [
-  { name: 'Sold',                 date: '2025-12-09', status: 'done',    phase: 'Sales',      detail: 'Deal value $225,703 incl GST' },
-  { name: 'Deposit Invoice',      date: '2025-12-10', status: 'done',    phase: 'Sales',      detail: 'Claim 1 — $61,014 (30%) sent to client' },
-  { name: 'Deposit Paid',         date: '2025-12-16', status: 'done',    phase: 'Sales',      detail: 'Funds cleared — construction can commence' },
-  { name: 'Procurement Start',    date: '2025-12-10', status: 'done',    phase: 'Pre-Mfg',    detail: 'Supplier POs being raised' },
-  { name: 'Plans Approved',       date: '2026-01-05', status: 'done',    phase: 'Pre-Mfg',    detail: 'Construction drawings signed off by client' },
-  { name: 'Joinery Plans',        date: '2026-01-15', status: 'done',    phase: 'Pre-Mfg',    detail: 'Mozaik CAD files released to factory' },
-  { name: 'Manufacturing',        date: '2026-01-20', status: 'done',    phase: 'Mfg',        detail: 'Factory production commenced' },
-  { name: 'Start on Site',        date: '2026-03-01', status: 'done',    phase: 'On Site',    detail: 'Claim 2 — $61,014 (30%) invoiced + paid' },
-  { name: 'Variations 1-7',       date: '2026-03-20', status: 'done',    phase: 'On Site',    detail: '7 variations approved + paid. V1-V6 totalling $20,386' },
-  { name: 'Progress Claim 3',     date: '2026-04-01', status: 'done',    phase: 'On Site',    detail: 'Claim 3 — $40,676 (20%) paid' },
-  { name: 'Variation 8',          date: '2026-04-15', status: 'wip',     phase: 'On Site',    detail: 'V8 — $1,409 Acrylic Logo signage — awaiting client sign-off' },
-  { name: 'Practical Completion', date: '2026-04-28', status: 'wip',     phase: 'Completion', detail: 'Site works 35/41 complete (85%). On track for PC next week' },
-  { name: 'Final Invoice',        date: '2026-05-10', status: 'pending', phase: 'Completion', detail: 'Claim 4 — $40,676 (20%) — sent, awaiting PC before payment' },
-  { name: 'Defects Period',       date: '2026-05-15', status: 'pending', phase: 'Completion', detail: '3-month defects liability period begins' },
-  { name: 'Final Handover',       date: '2026-08-15', status: 'pending', phase: 'Completion', detail: 'Final walk-through + keys + documentation' }
+const STREAMS = [
+  {
+    id: 'admin',
+    label: '📋 Admin & Finance',
+    color: '#4338ca',
+    activeFrom: null, // always active from start
+    milestones: [
+      { name: 'Sold',              date: '2025-12-09', status: 'done',    detail: 'Deal value $225,703 incl GST' },
+      { name: 'Deposit Invoice',   date: '2025-12-10', status: 'done',    detail: 'Claim 1 — $61,014 (30%) sent' },
+      { name: 'Contract Signed',   date: '2025-12-12', status: 'done',    detail: 'MBA contract signed by client' },
+      { name: 'Deposit Paid',      date: '2025-12-16', status: 'done',    detail: 'Funds cleared — construction can start' },
+      { name: 'HWI & WHS',         date: '2025-12-18', status: 'done',    detail: 'Home Warranty Insurance + WHS docs complete' },
+      { name: 'Claim 2 (30%)',     date: '2026-03-05', status: 'done',    detail: 'Start on Site claim $61,014 paid' },
+      { name: 'Variations 1-7',    date: '2026-03-20', status: 'done',    detail: '7 variations approved + paid ($20,386)' },
+      { name: 'Claim 3 (20%)',     date: '2026-04-01', status: 'done',    detail: 'Progress claim $40,676 paid' },
+      { name: 'Variation 8',       date: '2026-04-15', status: 'wip',     detail: 'V8 — Acrylic Logo $1,409 sent for approval' },
+      { name: 'Final Claim (20%)', date: '2026-05-10', status: 'pending', detail: 'Claim 4 — $40,676 — pending PC' },
+      { name: 'Final Handover',    date: '2026-08-15', status: 'pending', detail: 'Defects period complete + final docs' }
+    ]
+  },
+  {
+    id: 'mfg',
+    label: '🏭 Manufacturing & Design',
+    color: '#ca8a04',
+    activeFrom: 'Factory Start', // snake switches from grey to colour at this milestone
+    milestones: [
+      { name: 'Procurement Start', date: '2025-12-10', status: 'done',    detail: 'PO raising commenced' },
+      { name: 'Plans Approved',    date: '2026-01-05', status: 'done',    detail: 'Construction drawings signed off' },
+      { name: 'Joinery Plans',     date: '2026-01-15', status: 'done',    detail: 'Mozaik CAD approved for manufacture' },
+      { name: 'POs Issued',        date: '2026-01-18', status: 'done',    detail: '27 budget items across trades' },
+      { name: 'Factory Start',     date: '2026-01-20', status: 'done',    detail: 'Production commenced' },
+      { name: 'Fabrication',       date: '2026-02-10', status: 'done',    detail: 'Stainless + joinery complete' },
+      { name: 'Dispatch to Site',  date: '2026-02-28', status: 'done',    detail: 'First load delivered' },
+      { name: 'Final Dispatch',    date: '2026-04-05', status: 'wip',     detail: 'Remaining signage + extras in transit' }
+    ]
+  },
+  {
+    id: 'site',
+    label: '🏗️ Site Works',
+    color: '#15803d',
+    activeFrom: 'Start on Site', // snake switches from grey to colour at this milestone
+    milestones: [
+      { name: 'Start on Site',        date: '2026-03-01', status: 'done',    detail: 'Site works commenced' },
+      { name: 'Framing',              date: '2026-03-05', status: 'done',    detail: 'Walls + ceiling framed' },
+      { name: 'Services Rough-in',    date: '2026-03-15', status: 'done',    detail: 'Plumbing + electrical rough-in' },
+      { name: 'Joinery Install',      date: '2026-03-25', status: 'done',    detail: 'Factory joinery installed on site' },
+      { name: 'Finishes',             date: '2026-04-10', status: 'wip',     detail: 'Paint, tiling, splashbacks 85% done' },
+      { name: 'Fit-off',              date: '2026-04-20', status: 'wip',     detail: 'Final tapware, fixtures, signage' },
+      { name: 'Practical Completion', date: '2026-04-28', status: 'pending', detail: 'Site 35/41 tasks complete — PC next week' },
+      { name: 'Defects Period',       date: '2026-05-15', status: 'pending', detail: '3 months defects liability begins' }
+    ]
+  }
 ];
 
-const STATUS_COLOR = {
-  done:    '#16a34a',
-  wip:     '#f59e0b',
-  blocked: '#dc2626',
-  pending: '#cbd5e1'
-};
-const PHASE_COLOR = {
-  'Sales':      '#3730a3',
-  'Pre-Mfg':    '#1e40af',
-  'Mfg':        '#92400e',
-  'On Site':    '#166534',
-  'Completion': '#6b21a8'
-};
+const STATUS_COLOR = { done: '#16a34a', wip: '#f59e0b', blocked: '#dc2626', pending: '#cbd5e1' };
+
+function parseDate(s) { return new Date(s).getTime(); }
+function fmtDate(ts) { return new Date(ts).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' }); }
 
 // --- Layout ---
 const W = 1100;
-const COLS = 5;                    // milestones per row
-const ROW_HEIGHT = 180;            // vertical spacing between rows
-const PAD_L = 70;
-const PAD_R = 70;
-const PAD_T = 60;
-const DOT_R = 13;
-const CURVE_R = 55;                // radius of the U-turns
+const ROWS = 6;
+const ROW_HEIGHT = 245;
+const PAD_L = 80, PAD_R = 80, PAD_T = 55;
+const TRACK_OFFSET = 78;          // big enough to fit alternating above/below labels without cross-track collision
+const CURVE_R = 55;
+const DOT_R = 9;
 
-const ROWS = Math.ceil(MILESTONES.length / COLS);
-const H = PAD_T + ROWS * ROW_HEIGHT + 40;
-const COL_SPACING = (W - PAD_L - PAD_R) / (COLS - 1);
+const H = PAD_T + ROWS * ROW_HEIGHT + 60;
 
-function position(index) {
-  const row = Math.floor(index / COLS);
-  const col = index % COLS;
-  const y = PAD_T + row * ROW_HEIGHT;
-  // even rows go L→R, odd rows go R→L
-  const x = (row % 2 === 0)
-    ? PAD_L + col * COL_SPACING
-    : W - PAD_R - col * COL_SPACING;
-  return { x, y, row };
+// Time range
+const allTimes = STREAMS.flatMap(s => s.milestones.map(m => parseDate(m.date)));
+const MIN_T = Math.min(...allTimes);
+const MAX_T = Math.max(...allTimes);
+const TOTAL_RANGE = MAX_T - MIN_T;
+const ROW_RANGE = TOTAL_RANGE / ROWS;
+
+function rowFor(ts) { return Math.min(Math.floor((ts - MIN_T) / ROW_RANGE), ROWS - 1); }
+function rowBounds(r) { return { min: MIN_T + r * ROW_RANGE, max: MIN_T + (r + 1) * ROW_RANGE }; }
+function xFor(ts, r) {
+  const b = rowBounds(r);
+  const frac = (ts - b.min) / (b.max - b.min);
+  const inner = W - PAD_L - PAD_R;
+  return (r % 2 === 0) ? PAD_L + frac * inner : W - PAD_R - frac * inner;
+}
+function yFor(r, trackIdx) {
+  return PAD_T + r * ROW_HEIGHT + 70 + trackIdx * TRACK_OFFSET;
 }
 
-function fmtDate(s) {
-  return new Date(s).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
-}
-
-// Build the continuous snaking path
-function buildSpinePath() {
+// Build spine path between two timestamps (inclusive) on a given track
+function buildSpinePath(trackIdx, fromTs, toTs) {
+  const start = fromTs !== undefined && fromTs !== null ? fromTs : MIN_T;
+  const end = toTs !== undefined && toTs !== null ? toTs : MAX_T;
   let d = '';
+  let started = false;
+
   for (let r = 0; r < ROWS; r++) {
-    const startIdx = r * COLS;
-    const endIdx = Math.min(startIdx + COLS - 1, MILESTONES.length - 1);
-    const start = position(startIdx);
-    const end = position(endIdx);
+    const b = rowBounds(r);
+    const y = yFor(r, trackIdx);
+    // Skip rows entirely before start
+    if (b.max < start) continue;
+    // Stop if row is entirely after end
+    if (b.min > end) break;
 
-    if (r === 0) {
-      d += `M ${start.x - 20} ${start.y} `;
+    // Entry point for this row
+    const rowStartTs = Math.max(start, b.min);
+    const rowEndTs   = Math.min(end, b.max);
+    const entryX = (b.min >= start) // row entry is the row's natural start edge
+      ? ((r % 2 === 0) ? PAD_L - 30 : W - PAD_R + 30)
+      : xFor(rowStartTs, r);
+    const exitX = (b.max <= end)
+      ? ((r % 2 === 0) ? W - PAD_R + 30 : PAD_L - 30)
+      : xFor(rowEndTs, r);
+
+    if (!started) {
+      d += `M ${entryX} ${y} `;
+      started = true;
+    } else {
+      // Connect from previous row's exit via curve (already drawn in prev iteration)
+      // Nothing extra needed here — the curve was appended last iteration
     }
-    // horizontal line across the row (extend a bit past the dots for the curve entry)
-    const lineEndX = r % 2 === 0 ? end.x + (endIdx < MILESTONES.length - 1 ? 20 : 20) : end.x - (endIdx < MILESTONES.length - 1 ? 20 : 20);
-    d += `L ${lineEndX} ${start.y} `;
 
-    // U-turn curve into next row, if there is one
-    if (r < ROWS - 1) {
-      const nextStart = position((r + 1) * COLS);
-      // curve from (lineEndX, start.y) down to (nextStart.x ± something, nextStart.y)
-      // For even rows ending on right: curve goes right then down then left
-      // For odd rows ending on left: curve goes left then down then right
-      const controlX = r % 2 === 0 ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
-      d += `C ${controlX} ${start.y}, ${controlX} ${nextStart.y}, ${nextStart.x + (r % 2 === 0 ? 20 : -20)} ${nextStart.y} `;
+    d += `L ${exitX} ${y} `;
+
+    // U-turn to next row (only if we're continuing and exit is at the natural edge)
+    const willContinue = r < ROWS - 1 && rowBounds(r + 1).min <= end && b.max <= end;
+    if (willContinue) {
+      const nextY = yFor(r + 1, trackIdx);
+      const nextStartX = ((r + 1) % 2 === 0) ? PAD_L - 30 : W - PAD_R + 30;
+      const controlX = (r % 2 === 0) ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
+      d += `C ${controlX} ${y}, ${controlX} ${nextY}, ${nextStartX} ${nextY} `;
     }
   }
   return d;
 }
 
+// Find milestone by name in stream
+function milestoneTs(stream, name) {
+  const m = stream.milestones.find(x => x.name === name);
+  return m ? parseDate(m.date) : null;
+}
+
+// Render
 const svg = document.getElementById('timeline');
 svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 let html = '';
 
-// Spine (background) — thick gray line
-const spine = buildSpinePath();
-html += `<path d="${spine}" stroke="#e2e8f0" stroke-width="8" fill="none" stroke-linecap="round"/>`;
-
-// Progress overlay — colored line drawn up to the last "done" or "wip" milestone
-let lastProgressIdx = -1;
-MILESTONES.forEach((m, i) => { if (m.status === 'done' || m.status === 'wip') lastProgressIdx = i; });
-if (lastProgressIdx >= 0) {
-  // build a path that only goes up to the progress point
-  let progressD = '';
-  for (let r = 0; r < ROWS; r++) {
-    const startIdx = r * COLS;
-    if (startIdx > lastProgressIdx) break;
-    const rowEndIdx = Math.min(startIdx + COLS - 1, lastProgressIdx);
-    const start = position(startIdx);
-    const rowEnd = position(rowEndIdx);
-    if (r === 0) progressD += `M ${start.x - 20} ${start.y} `;
-
-    // Go to row end OR stop at lastProgressIdx within this row
-    const stopHereX = rowEnd.x + (r % 2 === 0 ? (rowEndIdx === lastProgressIdx && rowEndIdx < MILESTONES.length - 1 ? 0 : 20) : -(rowEndIdx === lastProgressIdx && rowEndIdx < MILESTONES.length - 1 ? 0 : 20));
-    progressD += `L ${stopHereX} ${start.y} `;
-
-    if (r < ROWS - 1 && rowEndIdx < lastProgressIdx) {
-      const nextStart = position((r + 1) * COLS);
-      const controlX = r % 2 === 0 ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
-      progressD += `C ${controlX} ${start.y}, ${controlX} ${nextStart.y}, ${nextStart.x + (r % 2 === 0 ? 20 : -20)} ${nextStart.y} `;
-    }
-  }
-  html += `<path d="${progressD}" stroke="#16a34a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>`;
+// Row time labels
+for (let r = 0; r < ROWS; r++) {
+  const b = rowBounds(r);
+  const y = PAD_T + r * ROW_HEIGHT + 22;
+  const labelX = (r % 2 === 0) ? PAD_L : W - PAD_R;
+  const anchor = (r % 2 === 0) ? 'start' : 'end';
+  const s = new Date(b.min).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
+  const e = new Date(b.max).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
+  html += `<text x="${labelX}" y="${y}" text-anchor="${anchor}" font-size="10" font-weight="700" fill="#94a3b8" letter-spacing=".06em">${s.toUpperCase()} — ${e.toUpperCase()}</text>`;
 }
 
-// Today marker — find which row/position today would fall on
+// Grey spines (full length — every track)
+STREAMS.forEach((s, trackIdx) => {
+  html += `<path d="${buildSpinePath(trackIdx)}" stroke="#e2e8f0" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+});
+
+// Colored progress per stream — starts from activeFrom milestone (if any), ends at last done/wip
+STREAMS.forEach((s, trackIdx) => {
+  let lastProgTs = null;
+  s.milestones.forEach(m => {
+    if (m.status === 'done' || m.status === 'wip') {
+      const ts = parseDate(m.date);
+      if (lastProgTs === null || ts > lastProgTs) lastProgTs = ts;
+    }
+  });
+  if (lastProgTs === null) return;
+  const fromTs = s.activeFrom ? milestoneTs(s, s.activeFrom) : null;
+  // If activeFrom hasn't been reached yet (lastProg < activeFrom), draw nothing
+  if (fromTs !== null && fromTs > lastProgTs) return;
+  html += `<path d="${buildSpinePath(trackIdx, fromTs, lastProgTs)}" stroke="${s.color}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".9"/>`;
+});
+
+// Today indicator
 const todayT = TODAY.getTime();
-let todayPos = null;
-for (let i = 0; i < MILESTONES.length - 1; i++) {
-  const t1 = new Date(MILESTONES[i].date).getTime();
-  const t2 = new Date(MILESTONES[i+1].date).getTime();
-  if (todayT >= t1 && todayT <= t2) {
-    const frac = (todayT - t1) / (t2 - t1);
-    const p1 = position(i);
-    const p2 = position(i+1);
-    // only linear-interp if on same row
-    if (p1.row === p2.row) {
-      todayPos = { x: p1.x + (p2.x - p1.x) * frac, y: p1.y };
-    } else {
-      // approximate: pick whichever side is closer
-      todayPos = frac < 0.5 ? { x: p1.x, y: p1.y } : { x: p2.x, y: p2.y };
+if (todayT >= MIN_T && todayT <= MAX_T) {
+  const tr = rowFor(todayT);
+  const tx = xFor(todayT, tr);
+  const yTop = yFor(tr, 0) - 38;
+  const yBot = yFor(tr, 2) + 38;
+  html += `<line x1="${tx}" y1="${yTop}" x2="${tx}" y2="${yBot}" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>`;
+  html += `<rect x="${tx - 22}" y="${yTop - 18}" width="44" height="16" fill="#dc2626" rx="3"/>`;
+  html += `<text x="${tx}" y="${yTop - 6}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">TODAY</text>`;
+}
+
+// Milestones with labels alternating above / below
+STREAMS.forEach((s, trackIdx) => {
+  s.milestones.forEach((m, i) => {
+    const ts = parseDate(m.date);
+    const r = rowFor(ts);
+    const x = xFor(ts, r);
+    const y = yFor(r, trackIdx);
+    const color = STATUS_COLOR[m.status];
+
+    html += `<circle class="milestone" cx="${x}" cy="${y}" r="${DOT_R}" fill="${color}" stroke="${s.color}" stroke-width="2.5" data-stream="${s.id}" data-idx="${i}" style="cursor:pointer;filter:drop-shadow(0 1px 3px rgba(0,0,0,.2))"/>`;
+    if (m.status === 'done') {
+      html += `<path d="M${x-3.5},${y+1} L${x-0.5},${y+3.5} L${x+3.5},${y-2.5}" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>`;
+    } else if (m.status === 'wip') {
+      html += `<circle cx="${x}" cy="${y}" r="2.5" fill="#fff" pointer-events="none"/>`;
     }
-    break;
-  }
-}
-if (todayPos) {
-  html += `<line x1="${todayPos.x}" y1="${todayPos.y - 45}" x2="${todayPos.x}" y2="${todayPos.y + 45}" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>`;
-  html += `<rect x="${todayPos.x - 22}" y="${todayPos.y - 60}" width="44" height="16" fill="#dc2626" rx="3"/>`;
-  html += `<text x="${todayPos.x}" y="${todayPos.y - 48}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">TODAY</text>`;
-}
 
-// Milestones
-MILESTONES.forEach((m, i) => {
-  const p = position(i);
-  const color = STATUS_COLOR[m.status];
-  const phaseColor = PHASE_COLOR[m.phase] || '#64748b';
-
-  // Label goes below the dot on each row
-  const labelY = p.y + 32;
-  const dateY = p.y + 47;
-  const phaseY = p.y + 60;
-
-  // Dot with white ring + drop shadow
-  html += `<circle class="milestone" cx="${p.x}" cy="${p.y}" r="${DOT_R}" fill="${color}" stroke="#fff" stroke-width="3" data-idx="${i}" style="cursor:pointer;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))"/>`;
-
-  // Icon inside dot
-  if (m.status === 'done') {
-    html += `<path d="M${p.x-5},${p.y+1} L${p.x-1},${p.y+5} L${p.x+5},${p.y-3}" stroke="#fff" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>`;
-  } else if (m.status === 'wip') {
-    html += `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#fff" pointer-events="none"/>`;
-  } else if (m.status === 'blocked') {
-    html += `<text x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" pointer-events="none">!</text>`;
-  }
-
-  // Labels
-  html += `<text x="${p.x}" y="${labelY}" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">${m.name}</text>`;
-  html += `<text x="${p.x}" y="${dateY}" text-anchor="middle" font-size="10" fill="#64748b">${fmtDate(m.date)}</text>`;
-  html += `<text x="${p.x}" y="${phaseY}" text-anchor="middle" font-size="9" font-weight="700" fill="${phaseColor}" letter-spacing=".04em">${m.phase.toUpperCase()}</text>`;
+    // Alternating label: even i below, odd i above
+    const above = (i % 2 === 1);
+    const nameY = above ? y - 22 : y + 22;
+    const dateY = above ? y - 34 : y + 34;
+    html += `<text x="${x}" y="${nameY}" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a" pointer-events="none">${m.name}</text>`;
+    html += `<text x="${x}" y="${dateY}" text-anchor="middle" font-size="9" fill="#64748b" pointer-events="none">${fmtDate(ts)}</text>`;
+  });
 });
 
 svg.innerHTML = html;
@@ -252,8 +277,9 @@ svg.innerHTML = html;
 const tooltip = document.getElementById('tooltip');
 document.querySelectorAll('.milestone').forEach(el => {
   el.addEventListener('mouseenter', () => {
-    const m = MILESTONES[parseInt(el.dataset.idx)];
-    tooltip.innerHTML = `<strong>${m.name}</strong><div class="tt-date">${fmtDate(m.date)} · ${m.status.toUpperCase()}</div><div class="tt-detail">${m.detail}</div><div class="tt-phase">${m.phase}</div>`;
+    const s = STREAMS.find(s => s.id === el.dataset.stream);
+    const m = s.milestones[parseInt(el.dataset.idx)];
+    tooltip.innerHTML = `<strong>${m.name}</strong><div class="tt-date">${fmtDate(parseDate(m.date))} · ${m.status.toUpperCase()} · ${s.label}</div><div class="tt-detail">${m.detail}</div>`;
     tooltip.classList.add('visible');
   });
   el.addEventListener('mousemove', e => {

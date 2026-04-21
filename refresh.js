@@ -239,6 +239,8 @@ function buildClaimsAndVariations(list04Tasks) {
       workflowColor: wfColor,
       status: t.status?.status || '',
       notes: '',
+      dateCreated: t.date_created ? parseInt(t.date_created) : null,
+      dateUpdated: t.date_updated ? parseInt(t.date_updated) : null,
     };
 
     if (isProgressClaim) {
@@ -339,6 +341,152 @@ async function buildSiteWorksTasks(list06Tasks) {
   }));
 }
 
+// ─── Lifecycle (3-stream timeline) ────────────────────────────
+// Derives a { streams: [admin, mfg, site] } object for the Schedule tab.
+// Admin = sold/claims/variations; Mfg = procurement/plans/factory/dispatch;
+// Site = 10.1 SITE WORKS [SCHEDULE] subtasks.
+
+function soldDateFromJobNumber(jn) {
+  // Job number YYMMDD, e.g. "251206" → 6 Dec 2025
+  if (!jn || !/^\d{6}/.test(jn)) return null;
+  const yy = parseInt(jn.substring(0, 2));
+  const mm = parseInt(jn.substring(2, 4));
+  const dd = parseInt(jn.substring(4, 6));
+  if (mm < 1 || mm > 12 || dd < 1 || dd > 31) return null;
+  return new Date(2000 + yy, mm - 1, dd).getTime();
+}
+
+function toISODate(ts) {
+  return new Date(ts).toISOString().slice(0, 10);
+}
+
+function shortClaimName(name) {
+  return name
+    .replace(/^\d+\.\s*/, '')
+    .replace(/^(BUILD|DESIGN)[:/]\s*/i, '')
+    .replace(/Invoice\s+(\d+%)/i, '($1)')
+    .replace(/\s+-\s+/, ' ')
+    .trim();
+}
+
+function workflowToStatus(wf) {
+  const w = (wf || '').toLowerCase();
+  if (/paid|approved/.test(w)) return 'done';
+  if (/sent|approval/.test(w)) return 'wip';
+  return 'pending';
+}
+
+function scheduleStatus(s) {
+  const st = (s || '').toLowerCase();
+  if (/done|complete|closed/.test(st)) return 'done';
+  if (/progress|wip/.test(st)) return 'wip';
+  return 'pending';
+}
+
+function fmtMoneyShort(n) {
+  if (!n && n !== 0) return '';
+  return '$' + Math.round(n).toLocaleString('en-AU');
+}
+
+function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
+  // ── Admin stream ─────────────────────────────────────
+  const admin = {
+    id: 'admin',
+    label: '📋 Admin & Finance',
+    color: '#4338ca',
+    activeFrom: null,
+    milestones: []
+  };
+
+  const soldTs = soldDateFromJobNumber(project.jobNumber);
+  if (soldTs) {
+    admin.milestones.push({
+      name: 'Sold',
+      date: toISODate(soldTs),
+      status: 'done',
+      detail: `Deal value ${fmtMoneyShort(project.dealValue)} incl GST`
+    });
+  }
+
+  // Claims — sorted by date_created
+  const sortedClaims = [...claims].sort((a, b) => (a.dateCreated || 0) - (b.dateCreated || 0));
+  sortedClaims.forEach(c => {
+    const ts = c.dateUpdated || c.dateCreated;
+    if (!ts) return;
+    admin.milestones.push({
+      name: shortClaimName(c.name),
+      date: toISODate(ts),
+      status: workflowToStatus(c.workflow),
+      detail: `${c.name} · ${fmtMoneyShort(c.amount)} · ${c.workflow}`
+    });
+  });
+
+  // Variations — grouped short label
+  const sortedVars = [...variations].sort((a, b) => (a.dateCreated || 0) - (b.dateCreated || 0));
+  sortedVars.forEach(v => {
+    const ts = v.dateUpdated || v.dateCreated;
+    if (!ts) return;
+    admin.milestones.push({
+      name: `V${v.num}`,
+      date: toISODate(ts),
+      status: workflowToStatus(v.workflow),
+      detail: `${v.name} · ${fmtMoneyShort(v.amount)} · ${v.workflow}`
+    });
+  });
+
+  // ── Mfg stream ───────────────────────────────────────
+  const mfg = {
+    id: 'mfg',
+    label: '🏭 Manufacturing & Design',
+    color: '#ca8a04',
+    activeFrom: 'Factory Start',
+    milestones: []
+  };
+
+  schedule.forEach(s => {
+    if (!s.start) return;
+    const name = s.name || '';
+    let label = null;
+    if (/08.*procurement|^procurement/i.test(name)) label = 'Procurement';
+    else if (/07.*pre.?manufacture|pre.?manufacture/i.test(name)) label = 'Pre-Manufacture';
+    else if (/09.*manufacturing|manufacturing\/?dispatch|factory/i.test(name)) label = 'Factory Start';
+    if (!label) return;
+    mfg.milestones.push({
+      name: label,
+      date: toISODate(s.start),
+      status: scheduleStatus(s.status),
+      detail: name
+    });
+  });
+  mfg.milestones.sort((a, b) => a.date.localeCompare(b.date));
+
+  // ── Site stream ──────────────────────────────────────
+  const site = {
+    id: 'site',
+    label: '🏗️ Site Works',
+    color: '#15803d',
+    activeFrom: 'Start on Site',
+    milestones: []
+  };
+
+  siteWorksTasks.forEach(t => {
+    const ts = t.start || t.due;
+    if (!ts) return;
+    const name = t.name || '';
+    // Normalise "Start on site" → "Start on Site" so activeFrom matches
+    const displayName = /^start on site\.?$/i.test(name.trim()) ? 'Start on Site' : name;
+    site.milestones.push({
+      name: displayName,
+      date: toISODate(ts),
+      status: scheduleStatus(t.status),
+      detail: `${t.status || ''}${t.assignee ? ' · ' + t.assignee : ''}`.trim()
+    });
+  });
+  site.milestones.sort((a, b) => a.date.localeCompare(b.date));
+
+  return { streams: [admin, mfg, site] };
+}
+
 function buildCompliance(list03Tasks) {
   const out = [];
   for (const t of list03Tasks) {
@@ -420,6 +568,8 @@ async function refreshProject(project) {
   const part = type => sydney.find(p => p.type === type)?.value || '';
   const generatedStr = `${part('weekday')} ${part('day')} ${part('month')} ${part('year')} · ${part('hour')}:${part('minute')} ${part('timeZoneName')}`;
 
+  const lifecycle = buildLifecycle(existing.project || {}, claims, variations, schedule, siteWorksTasks);
+
   const newData = {
     ...existing,
     generated: generatedStr,
@@ -430,6 +580,7 @@ async function refreshProject(project) {
     schedule,
     siteWorksTasks,
     compliance,
+    lifecycle,
     // PRESERVED: project, phase, health, milestoneGroups, actions, projectSummary, footer
   };
 
