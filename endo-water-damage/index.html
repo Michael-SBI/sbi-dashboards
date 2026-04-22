@@ -1096,7 +1096,7 @@ textarea.editable{resize:vertical;min-height:90px}
       return;
     }
   
-    var W = 1100, ROWS = 6, ROW_HEIGHT = 245, PAD_L = 80, PAD_R = 80, PAD_T = 55;
+    var W = 1100, ROW_HEIGHT = 245, PAD_L = 80, PAD_R = 80, PAD_T = 55;
     var TRACK_OFFSET = 78, CURVE_R = 55, DOT_R = 9;
     var STATUS_COLOR = { done:'#16a34a', wip:'#f59e0b', blocked:'#dc2626', pending:'#cbd5e1' };
   
@@ -1112,6 +1112,23 @@ textarea.editable{resize:vertical;min-height:90px}
     var MIN_T = Math.min.apply(null, allTimes);
     var MAX_T = Math.max.apply(null, allTimes);
     var TOTAL_RANGE = MAX_T - MIN_T || 1;
+    // Auto-calc ROWS: 4 default, bump to 6 if any stream has > 6 dots in a single row
+    var ROWS = 4;
+    function _maxRowDensity(rows){
+      var bucketRange = TOTAL_RANGE / rows;
+      var max = 0;
+      lifecycle.streams.forEach(function(s){
+        var counts = new Array(rows).fill(0);
+        s.milestones.forEach(function(m){
+          var b = Math.min(Math.floor((pd(m.date) - MIN_T) / bucketRange), rows - 1);
+          counts[b]++;
+        });
+        var sm = Math.max.apply(null, counts);
+        if(sm > max) max = sm;
+      });
+      return max;
+    }
+    if(_maxRowDensity(4) > 6) ROWS = 6;
     var ROW_RANGE = TOTAL_RANGE / ROWS;
     var H = PAD_T + ROWS * ROW_HEIGHT + 60;
   
@@ -1232,9 +1249,13 @@ textarea.editable{resize:vertical;min-height:90px}
       Object.keys(groups).forEach(function(k){
         var grp = groups[k];
         if(grp.length <= 1) return;
-        var SPREAD = 30;
+        var SPREAD = 40;
         var total = (grp.length - 1) * SPREAD;
-        grp.forEach(function(p, gi){ p.x = p.x - total/2 + gi * SPREAD; });
+        grp.forEach(function(p, gi){
+          p.x = p.x - total/2 + gi * SPREAD;
+          p.groupIdx = gi;
+          p.groupSize = grp.length;
+        });
       });
       // Render dots + labels
       positions.forEach(function(p){
@@ -1246,7 +1267,7 @@ textarea.editable{resize:vertical;min-height:90px}
         } else if(m.status === 'wip'){
           svg += '<circle cx="' + x + '" cy="' + y + '" r="2.5" fill="#fff" pointer-events="none"/>';
         }
-        var above = (i % 2 === 1);
+        var above = (p.groupSize && p.groupSize > 1) ? (p.groupIdx % 2 === 1) : (i % 2 === 1);
         var nameY = above ? y - 22 : y + 22;
         var dateY = above ? y - 34 : y + 34;
         svg += '<text x="' + x + '" y="' + nameY + '" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a" pointer-events="none">' + esc(m.name) + '</text>';
