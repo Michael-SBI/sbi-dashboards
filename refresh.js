@@ -388,12 +388,6 @@ function fmtMoneyShort(n) {
   return '$' + Math.round(n).toLocaleString('en-AU');
 }
 
-// Site milestones to keep — only these four named tasks show on the Site stream
-function isKeySiteMilestone(name) {
-  const n = (name || '').toLowerCase().replace(/[_.]/g, ' ').replace(/\s+/g, ' ').trim();
-  return /^(start on site|practical completion|completions? stage|competions? stage|final handover)$/.test(n);
-}
-
 function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
   // ── Admin stream ─────────────────────────────────────
   const admin = {
@@ -493,25 +487,64 @@ function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
   }
   mfg.milestones.sort((a, b) => a.date.localeCompare(b.date));
 
-  // ── Site stream — filtered to key named milestones only ──
+  // ── Site stream — Start on Site + Last completed site task + named milestones ──
+  // Green segment coloured between Start on Site and Last completed site task.
   const site = {
     id: 'site',
     label: '🏗️ Site Works',
     color: '#15803d',
-    activeFrom: 'Start on Site',
+    activeFrom: null,
     milestones: []
   };
+  const SITE_COLOR = '#15803d';
 
+  // Start on Site — prefer subtask named "Start on site"; fallback to 10.1 parent from schedule
+  const startTask = siteWorksTasks.find(t => {
+    const n = (t.name || '').toLowerCase().replace(/[_.]/g, ' ').trim();
+    return /^start on site/.test(n);
+  });
+  const tenOneTask = schedule.find(s => /^10\.1/.test(s.name) || /SITE WORKS/i.test(s.name));
+  const startTs = (startTask && (startTask.start || startTask.due)) || (tenOneTask && tenOneTask.start);
+
+  if (startTs) {
+    site.milestones.push({
+      name: 'Start on Site',
+      date: toISODate(startTs),
+      status: startTask ? scheduleStatus(startTask.status) : 'pending',
+      segmentColor: SITE_COLOR,
+      detail: startTask ? startTask.name : (tenOneTask ? tenOneTask.name : '')
+    });
+  }
+
+  // Last completed site task (by due/start date, where status = done)
+  let lastCompleted = null;
   siteWorksTasks.forEach(t => {
-    if (!isKeySiteMilestone(t.name)) return;
+    if (!/done|complete/i.test(t.status || '')) return;
+    const ts = t.due || t.start;
+    if (!ts) return;
+    const curTs = lastCompleted ? (lastCompleted.due || lastCompleted.start) : 0;
+    if (ts > curTs) lastCompleted = t;
+  });
+  if (lastCompleted) {
+    const ts = lastCompleted.due || lastCompleted.start;
+    site.milestones.push({
+      name: 'Last Site Task',
+      date: toISODate(ts),
+      status: 'done',
+      detail: `Last completed: ${lastCompleted.name}`
+    });
+  }
+
+  // Also keep other key named milestones if present (Practical Completion, Completions Stage, Final Handover)
+  siteWorksTasks.forEach(t => {
+    const n = (t.name || '').toLowerCase().replace(/[_.]/g, ' ').trim();
+    let displayName = null;
+    if (/^practical completion/.test(n)) displayName = 'Practical Completion';
+    else if (/^completions? stage/.test(n) || /^competions? stage/.test(n)) displayName = 'Completions Stage';
+    else if (/^final handover/.test(n)) displayName = 'Final Handover';
+    if (!displayName) return;
     const ts = t.start || t.due;
     if (!ts) return;
-    const lower = (t.name || '').toLowerCase().replace(/[_.]/g, ' ').trim();
-    let displayName = t.name;
-    if (/^start on site/.test(lower)) displayName = 'Start on Site';
-    else if (/^practical completion/.test(lower)) displayName = 'Practical Completion';
-    else if (/^completions? stage/.test(lower) || /^competions? stage/.test(lower)) displayName = 'Completions Stage';
-    else if (/^final handover/.test(lower)) displayName = 'Final Handover';
     site.milestones.push({
       name: displayName,
       date: toISODate(ts),
@@ -519,6 +552,7 @@ function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
       detail: `${t.status || ''}${t.assignee ? ' · ' + t.assignee : ''}`.trim()
     });
   });
+
   site.milestones.sort((a, b) => a.date.localeCompare(b.date));
 
   return { streams: [admin, mfg, site] };
