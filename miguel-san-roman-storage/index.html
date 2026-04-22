@@ -1118,7 +1118,7 @@ textarea.editable{resize:vertical;min-height:90px}
       return;
     }
   
-    var W = 1100, ROW_HEIGHT = 245, PAD_L = 110, PAD_R = 80, PAD_T = 55;
+    var W = 1100, ROW_HEIGHT = 245, PAD_L = 180, PAD_R = 80, PAD_T = 55;
     var TRACK_OFFSET = 78, CURVE_R = 55, DOT_R = 9;
     var STATUS_COLOR = { done:'#16a34a', wip:'#f59e0b', blocked:'#dc2626', pending:'#cbd5e1' };
   
@@ -1200,8 +1200,6 @@ textarea.editable{resize:vertical;min-height:90px}
     }
   
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMinYMid meet" style="width:100%;height:auto;display:block">';
-    // Arrow marker for directional flow on the grey spine
-    svg += '<defs><marker id="lc-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker></defs>';
   
     for(var r = 0; r < ROWS; r++){
       var b = rowBounds(r);
@@ -1214,7 +1212,7 @@ textarea.editable{resize:vertical;min-height:90px}
     }
   
     lifecycle.streams.forEach(function(s, idx){
-      svg += '<path d="' + buildSpinePath(idx) + '" stroke="#e2e8f0" stroke-width="9" fill="none" stroke-linecap="round" marker-mid="url(#lc-arrow)"/>';
+      svg += '<path d="' + buildSpinePath(idx) + '" stroke="#e2e8f0" stroke-width="9" fill="none" stroke-linecap="round"/>';
     });
     // Stream-name label at the start of each track
     lifecycle.streams.forEach(function(s, idx){
