@@ -1238,11 +1238,29 @@ textarea.editable{resize:vertical;min-height:90px}
     }
   
     lifecycle.streams.forEach(function(s, idx){
-      s.milestones.forEach(function(m, i){
+      // Compute base positions
+      var positions = s.milestones.map(function(m, i){
         var ts = pd(m.date);
         var rr = rowFor(ts);
-        var x = xFor(ts, rr);
-        var y = yFor(rr, idx);
+        return { m: m, i: i, ts: ts, row: rr, x: xFor(ts, rr), y: yFor(rr, idx) };
+      });
+      // Spread same-date stacks horizontally so labels stay readable
+      var groups = {};
+      positions.forEach(function(p){
+        var key = p.row + '_' + Math.round(p.x);
+        if(!groups[key]) groups[key] = [];
+        groups[key].push(p);
+      });
+      Object.keys(groups).forEach(function(k){
+        var grp = groups[k];
+        if(grp.length <= 1) return;
+        var SPREAD = 30;
+        var total = (grp.length - 1) * SPREAD;
+        grp.forEach(function(p, gi){ p.x = p.x - total/2 + gi * SPREAD; });
+      });
+      // Render dots + labels
+      positions.forEach(function(p){
+        var m = p.m, i = p.i, x = p.x, y = p.y, ts = p.ts;
         var col = STATUS_COLOR[m.status] || '#cbd5e1';
         svg += '<circle class="lc-milestone" cx="' + x + '" cy="' + y + '" r="' + DOT_R + '" fill="' + col + '" stroke="' + s.color + '" stroke-width="2.5" data-s="' + idx + '" data-i="' + i + '" style="cursor:pointer;filter:drop-shadow(0 1px 3px rgba(0,0,0,.2))"><title>' + esc(m.name + ' — ' + fmtDay(ts) + ' · ' + m.status.toUpperCase() + (m.detail ? '\n' + m.detail : '')) + '</title></circle>';
         if(m.status === 'done'){
