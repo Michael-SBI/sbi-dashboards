@@ -408,10 +408,15 @@ function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
     });
   }
 
-  // Claims — sorted by date_created
+  // Claims — only show a dot once the workflow field has been set past "Not Sent".
+  // The dot is positioned at date_updated (the moment the workflow last changed:
+  // either when the invoice was issued, or when it was later marked paid).
+  // When a claim is paid after being sent, date_updated ticks to the paid date,
+  // and the dot visually "moves" on the next refresh.
   const sortedClaims = [...claims].sort((a, b) => (a.dateCreated || 0) - (b.dateCreated || 0));
   sortedClaims.forEach(c => {
-    const ts = c.dateUpdated || c.dateCreated;
+    if (/^not sent$/i.test((c.workflow || '').trim())) return; // skip untouched claims
+    const ts = c.dateUpdated;
     if (!ts) return;
     admin.milestones.push({
       name: shortClaimName(c.name),
@@ -421,10 +426,11 @@ function buildLifecycle(project, claims, variations, schedule, siteWorksTasks) {
     });
   });
 
-  // Variations — grouped short label
+  // Variations — same rule: skip until workflow has been moved past default/unset
   const sortedVars = [...variations].sort((a, b) => (a.dateCreated || 0) - (b.dateCreated || 0));
   sortedVars.forEach(v => {
-    const ts = v.dateUpdated || v.dateCreated;
+    if (/^not sent$/i.test((v.workflow || '').trim())) return;
+    const ts = v.dateUpdated;
     if (!ts) return;
     admin.milestones.push({
       name: `V${v.num}`,
