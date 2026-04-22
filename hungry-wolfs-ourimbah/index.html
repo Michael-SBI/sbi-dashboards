@@ -1101,7 +1101,7 @@ textarea.editable{resize:vertical;min-height:90px}
       return;
     }
   
-    var W = 1100, ROW_HEIGHT = 245, PAD_L = 180, PAD_R = 80, PAD_T = 55;
+    var W = 1100, ROW_HEIGHT = 245, PAD_L = 80, PAD_R = 80, PAD_T = 55;
     var TRACK_OFFSET = 78, CURVE_R = 55, DOT_R = 9;
     var STATUS_COLOR = { done:'#16a34a', wip:'#f59e0b', blocked:'#dc2626', pending:'#cbd5e1' };
   
@@ -1182,7 +1182,7 @@ textarea.editable{resize:vertical;min-height:90px}
       return m ? pd(m.date) : null;
     }
   
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMinYMid meet" style="width:100%;height:auto;display:block">';
+    var svg = '<svg viewBox="-120 0 ' + (W + 120) + ' ' + H + '" preserveAspectRatio="xMinYMid meet" style="width:100%;height:auto;display:block">';
   
     for(var r = 0; r < ROWS; r++){
       var b = rowBounds(r);
@@ -1200,7 +1200,7 @@ textarea.editable{resize:vertical;min-height:90px}
     // Stream-name label at the start of each track
     lifecycle.streams.forEach(function(s, idx){
       var ly = yFor(0, idx);
-      svg += '<text x="' + (PAD_L - 12) + '" y="' + (ly + 4) + '" text-anchor="end" font-size="13" font-weight="800" fill="' + s.color + '">' + esc(s.label) + '</text>';
+      svg += '<text x="-12" y="' + (ly + 4) + '" text-anchor="end" font-size="13" font-weight="800" fill="' + s.color + '">' + esc(s.label) + '</text>';
     });
   
     lifecycle.streams.forEach(function(s, idx){
