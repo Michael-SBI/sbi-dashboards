@@ -1141,11 +1141,13 @@ textarea.editable{resize:vertical;min-height:90px}
   
     function rowFor(ts){ return Math.min(Math.floor((ts - MIN_T) / ROW_RANGE), ROWS - 1); }
     function rowBounds(r){ return { min: MIN_T + r * ROW_RANGE, max: MIN_T + (r + 1) * ROW_RANGE }; }
+    // Row 0 needs extra left padding for the stream label; other rows can hug the LHS tighter
+    function padL(r){ return r === 0 ? PAD_L : 30; }
     function xFor(ts, r){
       var b = rowBounds(r);
       var frac = (ts - b.min) / (b.max - b.min);
-      var inner = W - PAD_L - PAD_R;
-      return (r % 2 === 0) ? PAD_L + frac * inner : W - PAD_R - frac * inner;
+      var inner = W - padL(r) - PAD_R;
+      return (r % 2 === 0) ? padL(r) + frac * inner : W - PAD_R - frac * inner;
     }
     function yFor(r, trackIdx){ return PAD_T + r * ROW_HEIGHT + 70 + trackIdx * TRACK_OFFSET; }
   
@@ -1161,18 +1163,18 @@ textarea.editable{resize:vertical;min-height:90px}
         var rowStartTs = Math.max(start, b.min);
         var rowEndTs = Math.min(end, b.max);
         var entryX = (b.min >= start)
-          ? ((r % 2 === 0) ? PAD_L - 30 : W - PAD_R + 30)
+          ? ((r % 2 === 0) ? padL(r) - 30 : W - PAD_R + 30)
           : xFor(rowStartTs, r);
         var exitX = (b.max <= end)
-          ? ((r % 2 === 0) ? W - PAD_R + 30 : PAD_L - 30)
+          ? ((r % 2 === 0) ? W - PAD_R + 30 : padL(r) - 30)
           : xFor(rowEndTs, r);
         if(!started){ d += 'M ' + entryX + ' ' + y + ' '; started = true; }
         d += 'L ' + exitX + ' ' + y + ' ';
         var willContinue = r < ROWS - 1 && rowBounds(r + 1).min <= end && b.max <= end;
         if(willContinue){
           var nextY = yFor(r + 1, trackIdx);
-          var nextStartX = ((r + 1) % 2 === 0) ? PAD_L - 30 : W - PAD_R + 30;
-          var controlX = (r % 2 === 0) ? W - PAD_R + CURVE_R : PAD_L - CURVE_R;
+          var nextStartX = ((r + 1) % 2 === 0) ? padL(r + 1) - 30 : W - PAD_R + 30;
+          var controlX = (r % 2 === 0) ? W - PAD_R + CURVE_R : padL(r) - CURVE_R;
           d += 'C ' + controlX + ' ' + y + ', ' + controlX + ' ' + nextY + ', ' + nextStartX + ' ' + nextY + ' ';
         }
       }
