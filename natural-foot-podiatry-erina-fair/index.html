@@ -1099,7 +1099,7 @@ textarea.editable{resize:vertical;min-height:90px}
       return;
     }
   
-    var W = 1100, ROW_HEIGHT = 245, PAD_L = 80, PAD_R = 80, PAD_T = 55;
+    var W = 1100, ROW_HEIGHT = 245, PAD_L = 110, PAD_R = 80, PAD_T = 55;
     var TRACK_OFFSET = 78, CURVE_R = 55, DOT_R = 9;
     var STATUS_COLOR = { done:'#16a34a', wip:'#f59e0b', blocked:'#dc2626', pending:'#cbd5e1' };
   
@@ -1181,6 +1181,8 @@ textarea.editable{resize:vertical;min-height:90px}
     }
   
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMinYMid meet" style="width:100%;height:auto;display:block">';
+    // Arrow marker for directional flow on the grey spine
+    svg += '<defs><marker id="lc-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker></defs>';
   
     for(var r = 0; r < ROWS; r++){
       var b = rowBounds(r);
@@ -1193,7 +1195,12 @@ textarea.editable{resize:vertical;min-height:90px}
     }
   
     lifecycle.streams.forEach(function(s, idx){
-      svg += '<path d="' + buildSpinePath(idx) + '" stroke="#e2e8f0" stroke-width="5" fill="none" stroke-linecap="round"/>';
+      svg += '<path d="' + buildSpinePath(idx) + '" stroke="#e2e8f0" stroke-width="9" fill="none" stroke-linecap="round" marker-mid="url(#lc-arrow)"/>';
+    });
+    // Stream-name label at the start of each track
+    lifecycle.streams.forEach(function(s, idx){
+      var ly = yFor(0, idx);
+      svg += '<text x="' + (PAD_L - 12) + '" y="' + (ly + 4) + '" text-anchor="end" font-size="13" font-weight="800" fill="' + s.color + '">' + esc(s.label) + '</text>';
     });
   
     lifecycle.streams.forEach(function(s, idx){
@@ -1206,7 +1213,7 @@ textarea.editable{resize:vertical;min-height:90px}
           var segStart = pd(ms.date);
           var segEnd = pd(s.milestones[i+1].date);
           if(segEnd < segStart) continue;
-          svg += '<path d="' + buildSpinePath(idx, segStart, segEnd) + '" stroke="' + ms.segmentColor + '" stroke-width="6" fill="none" stroke-linecap="round" opacity=".95"/>';
+          svg += '<path d="' + buildSpinePath(idx, segStart, segEnd) + '" stroke="' + ms.segmentColor + '" stroke-width="9" fill="none" stroke-linecap="round" opacity=".95"/>';
         }
         return;
       }
@@ -1221,7 +1228,7 @@ textarea.editable{resize:vertical;min-height:90px}
       if(lastProg === null) return;
       var fromTs = s.activeFrom ? milestoneTs(s, s.activeFrom) : null;
       if(fromTs !== null && fromTs > lastProg) return;
-      svg += '<path d="' + buildSpinePath(idx, fromTs, lastProg) + '" stroke="' + s.color + '" stroke-width="4" fill="none" stroke-linecap="round" opacity=".9"/>';
+      svg += '<path d="' + buildSpinePath(idx, fromTs, lastProg) + '" stroke="' + s.color + '" stroke-width="7" fill="none" stroke-linecap="round" opacity=".9"/>';
     });
   
     var todayT = Date.now();
