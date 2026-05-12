@@ -34,6 +34,9 @@ const CLICKUP_API = 'https://api.clickup.com/api/v2';
 const TOKEN = process.env.CLICKUP_API_TOKEN || process.env.CLICKUP_TOKEN;
 const REPO_ROOT = path.resolve(__dirname);
 
+const SBI_PROJECTS_SPACE = '54603442';
+const JOB_NUMBER_PREFIX = /^(\d{6})\b/;
+
 const FIELDS = {
   budgetAllowance:   'ec6378ba-324d-445a-b9a1-75746b6afe78', // Budget Allowance SBI (currency)
   budgetAllowanceAlt:'f0c6feae-ba3d-446a-9dd6-a1e90b59343e', // Alternate Budget Allowance field (some lists use this)
@@ -156,6 +159,27 @@ function discoverProjects() {
     }
   }
   return projects;
+}
+
+async function fetchActiveClickUpFolders() {
+  const data = await clickup(`/space/${SBI_PROJECTS_SPACE}/folder?archived=false`);
+  const folders = data.folders || [];
+  return folders
+    .map(f => ({
+      id: f.id,
+      name: f.name,
+      jobNumber: (f.name.match(JOB_NUMBER_PREFIX) || [])[1] || null,
+      taskCount: f.task_count || 0,
+    }))
+    .filter(f => f.jobNumber);
+}
+
+function computeMissingDashboards(discovered, cuFolders) {
+  const dashboardJobs = new Set(discovered.map(p => p.jobNumber).filter(Boolean));
+  const dashboardFolderIds = new Set(discovered.map(p => String(p.folderId)).filter(Boolean));
+  return cuFolders.filter(f =>
+    !dashboardJobs.has(f.jobNumber) && !dashboardFolderIds.has(String(f.id))
+  );
 }
 
 function filterProjects(projects, args) {
@@ -707,7 +731,23 @@ async function main() {
   log('args:', JSON.stringify(args));
 
   const allProjects = discoverProjects();
-  log(`discovered ${allProjects.length} projects:`, allProjects.map(p => p.slug).join(', '));
+  log(`discovered ${allProjects.length} dashboards in sbi-dashboards/:`, allProjects.map(p => p.slug).join(', '));
+
+  let activeCuFolders = [];
+  let missingDashboards = [];
+  try {
+    activeCuFolders = await fetchActiveClickUpFolders();
+    missingDashboards = computeMissingDashboards(allProjects, activeCuFolders);
+    log(`ClickUp active job folders (6-digit prefix): ${activeCuFolders.length}`);
+    if (missingDashboards.length) {
+      warn(`${missingDashboards.length} active ClickUp jobs have NO dashboard:`);
+      missingDashboards.forEach(m => warn(`  - ${m.name} (folder ${m.id}, ${m.taskCount} tasks)`));
+    } else {
+      log('All active ClickUp jobs have dashboards.');
+    }
+  } catch (e) {
+    warn(`Failed to enumerate ClickUp active folders: ${e.message}`);
+  }
 
   const targets = filterProjects(allProjects, args);
   log(`targets after filter (${targets.length}):`, targets.map(p => p.slug).join(', '));
@@ -752,6 +792,8 @@ async function main() {
     total: targets.length,
     successes,
     failures,
+    activeCuFolders: activeCuFolders.length,
+    missingDashboards,
   }, null, 2), 'utf8');
 
   process.exit(failures.length ? 1 : 0);
