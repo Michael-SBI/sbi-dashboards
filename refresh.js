@@ -195,6 +195,79 @@ function filterProjects(projects, args) {
 }
 
 // ─────────────────────────────────────────────────────────────
+// INDEX PAGE REBUILD
+// ─────────────────────────────────────────────────────────────
+
+function escapeHtml(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function shortType(typeStr) {
+  if (!typeStr) return '';
+  // Take everything before the first em-dash, en-dash, or " - ", trim, uppercase.
+  // Handles: "BUILD" → "BUILD"; "Joinery — Retirement Village..." → "JOINERY";
+  // "BUILD — Door supply..." → "BUILD"; "CERT & DESIGN" → "CERT & DESIGN";
+  // "Do & Charge" → "DO & CHARGE".
+  const head = String(typeStr).split(/\s*[—–]\s*|\s-\s/)[0].trim();
+  return head.toUpperCase();
+}
+
+function renderCard(project) {
+  const slug = project.slug;
+  const data = project.existingData?.project || {};
+  const name = data.name || project.projectName || slug;
+  const jn = project.jobNumber || '';
+  const phase = shortType(data.type);
+  const typeLine = jn + (phase ? ' - ' + phase : '');
+  return `<a class="card" href="${escapeHtml(slug)}/"><h2>${escapeHtml(name)}</h2><div class="type">${escapeHtml(typeLine)}</div><div class="updated" data-slug="${escapeHtml(slug)}">Loading...</div></a>`;
+}
+
+function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
+  if (!fs.existsSync(indexPath)) {
+    warn(`index.html not found at ${indexPath} — skipping rebuild`);
+    return;
+  }
+
+  const activeFolderIds = new Set(activeCuFolders.map(f => String(f.id)));
+  const activeProjects = [];
+  const archivedProjects = [];
+  for (const p of allProjects) {
+    if (activeFolderIds.has(String(p.folderId))) activeProjects.push(p);
+    else archivedProjects.push(p);
+  }
+
+  // Active: ascending by jobNumber (matches existing convention — oldest first)
+  activeProjects.sort((a, b) => (a.jobNumber || '').localeCompare(b.jobNumber || ''));
+  // Archive: descending by jobNumber (most recently sold = most recently archived first)
+  archivedProjects.sort((a, b) => (b.jobNumber || '').localeCompare(a.jobNumber || ''));
+
+  const activeBlock = activeProjects.length
+    ? `<!-- DASHBOARDS:ACTIVE:BEGIN -->\n<h2 class="section-heading">Active (${activeProjects.length})</h2>\n<div class="grid">\n${activeProjects.map(renderCard).join('\n')}\n</div>\n<!-- DASHBOARDS:ACTIVE:END -->`
+    : `<!-- DASHBOARDS:ACTIVE:BEGIN -->\n<!-- DASHBOARDS:ACTIVE:END -->`;
+
+  const archiveBlock = archivedProjects.length
+    ? `<!-- DASHBOARDS:ARCHIVE:BEGIN -->\n<h2 class="section-heading">Recently Archived (${archivedProjects.length})</h2>\n<div class="grid archived">\n${archivedProjects.map(renderCard).join('\n')}\n</div>\n<!-- DASHBOARDS:ARCHIVE:END -->`
+    : `<!-- DASHBOARDS:ARCHIVE:BEGIN -->\n<!-- DASHBOARDS:ARCHIVE:END -->`;
+
+  let html = fs.readFileSync(indexPath, 'utf8');
+  const activeRe = /<!-- DASHBOARDS:ACTIVE:BEGIN -->[\s\S]*?<!-- DASHBOARDS:ACTIVE:END -->/;
+  const archiveRe = /<!-- DASHBOARDS:ARCHIVE:BEGIN -->[\s\S]*?<!-- DASHBOARDS:ARCHIVE:END -->/;
+
+  if (!activeRe.test(html) || !archiveRe.test(html)) {
+    warn('index.html missing DASHBOARDS markers — skipping rebuild');
+    return;
+  }
+  html = html.replace(activeRe, activeBlock);
+  html = html.replace(archiveRe, archiveBlock);
+  fs.writeFileSync(indexPath, html, 'utf8');
+  log(`Rebuilt index.html: ${activeProjects.length} active, ${archivedProjects.length} archived`);
+}
+
+// ─────────────────────────────────────────────────────────────
 // CLICKUP FETCH (per project)
 // ─────────────────────────────────────────────────────────────
 
@@ -727,17 +800,21 @@ async function main() {
     process.exit(2);
   }
 
-  const args = process.argv.slice(2);
-  log('args:', JSON.stringify(args));
+  const rawArgs = process.argv.slice(2);
+  const indexOnly = rawArgs.includes('--index-only');
+  const args = rawArgs.filter(a => a !== '--index-only');
+  log('args:', JSON.stringify(rawArgs));
 
   const allProjects = discoverProjects();
   log(`discovered ${allProjects.length} dashboards in sbi-dashboards/:`, allProjects.map(p => p.slug).join(', '));
 
   let activeCuFolders = [];
   let missingDashboards = [];
+  let folderFetchOk = false;
   try {
     activeCuFolders = await fetchActiveClickUpFolders();
     missingDashboards = computeMissingDashboards(allProjects, activeCuFolders);
+    folderFetchOk = true;
     log(`ClickUp active job folders (6-digit prefix): ${activeCuFolders.length}`);
     if (missingDashboards.length) {
       warn(`${missingDashboards.length} active ClickUp jobs have NO dashboard:`);
@@ -747,6 +824,17 @@ async function main() {
     }
   } catch (e) {
     warn(`Failed to enumerate ClickUp active folders: ${e.message}`);
+  }
+
+  if (indexOnly) {
+    log('--index-only: skipping dashboard refresh, rebuilding index.html only');
+    if (folderFetchOk) {
+      rebuildIndexPage(allProjects, activeCuFolders, path.join(REPO_ROOT, 'index.html'));
+    } else {
+      err('Cannot rebuild index — active folder fetch failed.');
+      process.exit(1);
+    }
+    process.exit(0);
   }
 
   const targets = filterProjects(allProjects, args);
@@ -784,6 +872,19 @@ async function main() {
     for (const f of failures) {
       console.log(`  ❌ ${f.slug}: ${f.error}`);
     }
+  }
+
+  // Rebuild index.html so the landing page reflects current active/archived split.
+  // Uses allProjects (every dashboard in the repo), not targets (the filtered subset
+  // we refreshed this run), so partial refreshes don't drop cards from the index.
+  if (folderFetchOk) {
+    try {
+      rebuildIndexPage(allProjects, activeCuFolders, path.join(REPO_ROOT, 'index.html'));
+    } catch (e) {
+      warn(`Failed to rebuild index page: ${e.message}`);
+    }
+  } else {
+    warn('Skipping index rebuild — active folder fetch failed earlier.');
   }
 
   // Write a summary file the GA workflow can use to post a meeting comment
