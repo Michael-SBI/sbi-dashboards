@@ -325,7 +325,7 @@ function buildClaimsAndVariations(list04Tasks) {
     const [wfName, wfColor] = INVOICE_WF[wfIdx] || ['Not Sent', '#94a3b8'];
 
     const isProgressClaim = /progress claim/i.test(t.name) || /progress claim/i.test(status);
-    const isVariation = /variation/i.test(t.name) || /^v\d/i.test(t.name);
+    const isVariation = /variation/i.test(status);
 
     const entry = {
       num: 0,
