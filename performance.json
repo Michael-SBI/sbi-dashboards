@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-03T02:23:14.519Z",
+  "generated": "2026-06-03T03:02:52.130Z",
   "jobCount": 24,
   "archivedCount": 9,
   "activeCount": 15,
@@ -13,10 +13,10 @@
       "pm": "Leah Procter",
       "client": "Lauren Moore",
       "soldDate": "2026-05-27",
-      "completedDate": "2026-05-20",
+      "completedDate": "2026-05-19",
       "siteStart": null,
       "siteEnd": null,
-      "buildCycleDays": -7,
+      "buildCycleDays": -8,
       "siteDays": null,
       "revenueExGST": 10800,
       "paidRevenueExGST": 0,
@@ -44,8 +44,8 @@
       "type": "JOINERY",
       "pm": "Leah Carraro",
       "client": "Meagan Carraro \n",
-      "soldDate": "2026-05-13",
-      "completedDate": "2026-05-13",
+      "soldDate": "2026-05-12",
+      "completedDate": "2026-05-12",
       "siteStart": null,
       "siteEnd": null,
       "buildCycleDays": 0,
@@ -109,10 +109,10 @@
       "pm": "TBC",
       "client": "John Dosanjh",
       "soldDate": "2026-05-07",
-      "completedDate": "2026-05-08",
+      "completedDate": "2026-05-07",
       "siteStart": "2026-05-14",
       "siteEnd": "2026-05-14",
-      "buildCycleDays": 1,
+      "buildCycleDays": 0,
       "siteDays": 0,
       "revenueExGST": 0,
       "paidRevenueExGST": 0,
@@ -149,17 +149,17 @@
       "revenueExGST": 166387,
       "paidRevenueExGST": 66555,
       "plannedCost": 117026,
-      "actualCost": 2653,
+      "actualCost": 8128,
       "plannedMarginAmt": 49360,
-      "actualMarginAmt": 163733,
+      "actualMarginAmt": 158258,
       "plannedMarginPct": 29.7,
-      "actualMarginPct": 98.4,
+      "actualMarginPct": 95.1,
       "labourBudget": 41411,
       "labourActual": 2625,
       "labourOverrun": -38786,
       "variationCount": 0,
       "variationValueExGST": 0,
-      "profitPerBuildDay": 54578,
+      "profitPerBuildDay": 52753,
       "revenuePerSiteDay": null,
       "salesCycleDays": 31,
       "variationPctOfContract": 0
@@ -205,10 +205,10 @@
       "pm": "Chadd Hofner",
       "client": "Greg Norrie",
       "soldDate": "2026-05-22",
-      "completedDate": "2026-04-14",
+      "completedDate": "2026-04-13",
       "siteStart": null,
       "siteEnd": null,
-      "buildCycleDays": -38,
+      "buildCycleDays": -39,
       "siteDays": null,
       "revenueExGST": 4215,
       "paidRevenueExGST": 0,
@@ -268,11 +268,11 @@
       "type": "BUILD",
       "pm": "chadd hofner",
       "client": "Tracey Fletcher",
-      "soldDate": "2026-03-16",
+      "soldDate": "2026-03-15",
       "completedDate": "2026-05-14",
       "siteStart": "2026-04-26",
       "siteEnd": "2026-04-28",
-      "buildCycleDays": 59,
+      "buildCycleDays": 60,
       "siteDays": 2,
       "revenueExGST": 6506,
       "paidRevenueExGST": 6506,
@@ -287,7 +287,7 @@
       "labourOverrun": -1499,
       "variationCount": 0,
       "variationValueExGST": 0,
-      "profitPerBuildDay": 68,
+      "profitPerBuildDay": 67,
       "revenuePerSiteDay": 3253,
       "salesCycleDays": 26,
       "variationPctOfContract": 0
@@ -396,11 +396,11 @@
       "type": "BUILD",
       "pm": "chadd hofner",
       "client": "Miguel San Roman.",
-      "soldDate": "2026-02-25",
+      "soldDate": "2026-02-24",
       "completedDate": "2026-05-04",
       "siteStart": "2026-04-19",
       "siteEnd": "2026-04-19",
-      "buildCycleDays": 68,
+      "buildCycleDays": 69,
       "siteDays": 0,
       "revenueExGST": 4312,
       "paidRevenueExGST": 4312,
@@ -415,7 +415,7 @@
       "labourOverrun": 434,
       "variationCount": 1,
       "variationValueExGST": 181,
-      "profitPerBuildDay": 26,
+      "profitPerBuildDay": 25,
       "revenuePerSiteDay": null,
       "salesCycleDays": 14,
       "variationPctOfContract": 4.2
@@ -428,11 +428,11 @@
       "type": "BUILD",
       "pm": "chadd hofner",
       "client": "Kevin",
-      "soldDate": "2026-02-09",
+      "soldDate": "2026-02-08",
       "completedDate": "2026-04-30",
       "siteStart": "2026-04-20",
       "siteEnd": "2026-04-22",
-      "buildCycleDays": 80,
+      "buildCycleDays": 81,
       "siteDays": 2,
       "revenueExGST": 11803,
       "paidRevenueExGST": 11803,
@@ -556,11 +556,11 @@
       "type": "BUILD",
       "pm": "chadd hofner",
       "client": "Mustafa",
-      "soldDate": "2025-12-05",
+      "soldDate": "2025-12-04",
       "completedDate": "2026-04-14",
       "siteStart": "2026-02-28",
       "siteEnd": "2026-03-28",
-      "buildCycleDays": 130,
+      "buildCycleDays": 131,
       "siteDays": 28,
       "revenueExGST": 205185,
       "paidRevenueExGST": 168207,
@@ -575,7 +575,7 @@
       "labourOverrun": 37036,
       "variationCount": 7,
       "variationValueExGST": 20295,
-      "profitPerBuildDay": 286,
+      "profitPerBuildDay": 284,
       "revenuePerSiteDay": 7328,
       "salesCycleDays": 3,
       "variationPctOfContract": 9.9
@@ -620,29 +620,29 @@
       "type": "BUILD",
       "pm": "Chadd Hofner",
       "client": "",
-      "soldDate": "2025-10-11",
-      "completedDate": "2026-04-29",
+      "soldDate": "2025-10-10",
+      "completedDate": "2026-06-01",
       "siteStart": null,
       "siteEnd": null,
-      "buildCycleDays": 200,
+      "buildCycleDays": 234,
       "siteDays": null,
-      "revenueExGST": 75386,
-      "paidRevenueExGST": 75386,
+      "revenueExGST": 78295,
+      "paidRevenueExGST": 78295,
       "plannedCost": 56857,
       "actualCost": 62378,
-      "plannedMarginAmt": 18530,
-      "actualMarginAmt": 13008,
-      "plannedMarginPct": 24.6,
-      "actualMarginPct": 17.3,
+      "plannedMarginAmt": 21438,
+      "actualMarginAmt": 15916,
+      "plannedMarginPct": 27.4,
+      "actualMarginPct": 20.3,
       "labourBudget": 21995,
       "labourActual": 30371,
       "labourOverrun": 8376,
-      "variationCount": 2,
-      "variationValueExGST": 1398,
-      "profitPerBuildDay": 65,
+      "variationCount": 3,
+      "variationValueExGST": 4306,
+      "profitPerBuildDay": 68,
       "revenuePerSiteDay": null,
       "salesCycleDays": null,
-      "variationPctOfContract": 1.9
+      "variationPctOfContract": 5.5
     },
     {
       "slug": "karuah-deck",
@@ -652,8 +652,8 @@
       "type": "BUILD",
       "pm": "chadd hofner",
       "client": "Tracey & Jayson",
-      "soldDate": "2025-09-16",
-      "completedDate": "2025-09-16",
+      "soldDate": "2025-09-15",
+      "completedDate": "2025-09-15",
       "siteStart": "2026-05-22",
       "siteEnd": "2026-05-22",
       "buildCycleDays": 0,
@@ -684,11 +684,11 @@
       "type": "BUILD",
       "pm": "chadd hofner",
       "client": "TEST",
-      "soldDate": "2025-08-19",
+      "soldDate": "2025-08-18",
       "completedDate": "2026-04-04",
       "siteStart": null,
       "siteEnd": null,
-      "buildCycleDays": 228,
+      "buildCycleDays": 229,
       "siteDays": null,
       "revenueExGST": 119567,
       "paidRevenueExGST": 119567,
@@ -703,7 +703,7 @@
       "labourOverrun": 0,
       "variationCount": 4,
       "variationValueExGST": 7986,
-      "profitPerBuildDay": 161,
+      "profitPerBuildDay": 160,
       "revenuePerSiteDay": null,
       "salesCycleDays": null,
       "variationPctOfContract": 6.7
@@ -725,17 +725,17 @@
       "revenueExGST": 175709,
       "paidRevenueExGST": 122478,
       "plannedCost": 136498,
-      "actualCost": 47063,
+      "actualCost": 110255,
       "plannedMarginAmt": 39212,
-      "actualMarginAmt": 128646,
+      "actualMarginAmt": 65454,
       "plannedMarginPct": 22.3,
-      "actualMarginPct": 73.2,
+      "actualMarginPct": 37.3,
       "labourBudget": 40793,
       "labourActual": 33886,
       "labourOverrun": -6907,
       "variationCount": 3,
       "variationValueExGST": 4181,
-      "profitPerBuildDay": 352,
+      "profitPerBuildDay": 179,
       "revenuePerSiteDay": null,
       "salesCycleDays": 9,
       "variationPctOfContract": 2.4
@@ -10873,194 +10873,339 @@
     ]
   },
   "ceo": {
-    "generated": "2026-06-03T02:23:00.701Z",
-    "model": "claude-opus-4-7",
-    "promptTokens": 393236,
-    "completionTokens": 7350,
-    "cacheCreationTokens": 0,
-    "cacheReadTokens": 0,
-    "monthCovered": "June 2026",
-    "keyInsight": "The 1 July 2026 DBP Act extension to existing Class 3/9c renovations lands in 27 days — directly affecting SBI's highest win-rate work (hospitality at 92%) while Sheldon and Skelcon already have registered building practitioners.",
-    "recommendations": [
-      {
-        "title": "Register as a DBP Building Practitioner before 1 July 2026 hospitality cliff",
-        "category": "Compliance",
-        "confidence": "high",
-        "horizon": "this-quarter",
-        "evidence": "From 1 July 2026, alteration and renovation work on existing Class 3 and 9c buildings (hotels, motels, hostels, boarding houses, aged care) becomes subject to the DBP Act, requiring registered building and design practitioners to lodge regulated designs on the NSW Planning Portal before work starts. Skelcon and Sheldon already operate as integrated design+build practitioners on these classes; smaller competitors on Oneflare do not.",
-        "sources": [
-          {
-            "url": "https://www.nsw.gov.au/housing-and-construction/compliance-and-regulation/professionals-working-on-regulated-buildings/building-classes-and-roles",
-            "title": "NSW Government — DBP Act building classes and roles"
-          },
-          {
-            "url": "https://pdclaw.au/amendments-design-building-residential-practitioners-act/",
-            "title": "PDC Law — DBP Act amendments to 1 July 2026"
-          }
-        ],
-        "reasoning": "SBI's Hospitality Fitout type has a 91.7% win rate at $140K avg — by far the most profitable category. Most boutique hotel, pub and accommodation refurb work falls in Class 3. If SBI cannot lodge as a registered building practitioner from July, they get locked out of this exact pipeline or forced to subcontract under a competitor who can.",
-        "action": "Lodge DBP building practitioner registration this quarter, ensure PI insurance covers Class 3/9c, and publish a 'DBP-registered hospitality fitout' landing page.",
-        "impact": "Protects ~$1.5M+/yr hospitality pipeline (11 wins × $140K) that competitors without registration will lose access to."
-      },
-      {
-        "title": "Kill the web form, double down on the 1300 number — your $107K channel",
-        "category": "Sales Channel",
-        "confidence": "high",
-        "horizon": "this-quarter",
-        "evidence": "SBI's own data: Web Form 0 wins from 4 leads. 1300 Number only 2 wins from 7 leads (29%) but at $107,093 average won value — the highest of any channel. Market benchmark: Evercon Newcastle now promises a 48-hour concept and budget forecast turnaround as a competitive differentiator.",
-        "sources": [
-          {
-            "url": "https://evercon.com.au/office-furniture-and-joinery-fit-outs-in-newcastle/",
-            "title": "Evercon — 48-hour concept turnaround promise"
-          }
-        ],
-        "reasoning": "Phone leads bring genuine large commercial buyers; web forms are dominated by tyre-kickers. The conversion gap (0% web vs 29% phone with 1.6× higher value) means SBI is paying for traffic that wastes design time. Competitors are now winning on speed-to-quote, not 24-48 hours.",
-        "action": "Replace the web form with a 'call us / book a 15-min discovery call' Calendly + 1300 number, and commit to an Evercon-style 48-hour preliminary budget letter.",
-        "impact": "Recover ~10-15 hours/week of sales+design time and lift the top-of-funnel value mix toward the $107K phone-lead average."
-      },
-      {
-        "title": "Stop chasing tenders — they are bleeding your win-rate maths",
-        "category": "Market Positioning",
-        "confidence": "high",
-        "horizon": "this-quarter",
-        "evidence": "SBI's repeat-clients table shows 0/6 on the internal Sales Task Template deals, 0/4 with Raine & Horne Rogers, 0/3 on McDonalds Morisset, 0/2 on Awaba House RFT, 0/2 on LAHC Adamstown. The LAHC builders register is now under Homes NSW and dominated by Tier-1 consortia like Stockland/Link Wentworth and Lendlease/St George.",
-        "sources": [
-          {
-            "url": "https://au.linkedin.com/company/nswlahc",
-            "title": "LAHC LinkedIn — consortium shortlists"
-          },
-          {
-            "url": "https://www.australiantenders.com.au/issuer/4263/tenders/land-and-housing-corporation",
-            "title": "Australian Tenders — LAHC tender history"
-          }
-        ],
-        "reasoning": "SBI is consistently losing tier-1 government and franchise tenders that consume PM and estimating capacity for no return.",
-        "action": "Implement a tender qualifying scorecard; auto-decline RFTs above $500K or with >3 pre-qualified competitors unless a sponsor relationship exists.",
-        "impact": "Free ~80-120 estimator/PM hours/quarter and lift overall win rate above 55%."
-      },
-      {
-        "title": "Productise an 'NCC 2025 Section J ready' fitout package",
-        "category": "Brand",
-        "confidence": "high",
-        "horizon": "6-months",
-        "evidence": "NCC 2025 mandates on-site solar PV under clause J9D5 for Class 3 and 5-9 buildings, roughly halves the regulated energy allowance, and requires switchboard space for future battery storage and EV charging readiness. ACT adopts 1 May 2026; NSW adoption expected to follow. None of SBI's named local competitors (Sheldon, Skelcon, Total Fitouts, CC Constructions, Evercon) currently market a Section J compliance package.",
-        "sources": [
-          {
-            "url": "https://ncc.abcb.gov.au/ncc-2025/ncc-2025-key-changes/ncc-2025-commercial-energy-efficiency-changes",
-            "title": "ABCB — NCC 2025 commercial energy efficiency changes"
-          },
-          {
-            "url": "https://greenchoiceconsulting.com.au/ncc-2025-section-j-explained/",
-            "title": "Green Choice Consulting — NCC 2025 Section J"
-          }
-        ],
-        "reasoning": "SBI's office fitout type wins 73% at $46K — these are exactly the small Class 5 tenancies where landlords and tenants will be confused by Section J. A 'compliance-included' fitout package becomes a clear, defensible point of difference vs Total Fitouts and Oneflare-style local builders who position on price.",
-        "action": "Build a 'Section J Ready' fixed-scope office package (lighting controls, PV-ready cabling, switchboard space) and partner with a NABERS-accredited assessor.",
-        "impact": "Adds 8-12% premium pricing on office fitouts and creates a defensible SEO term competitors won't rank for in 2026."
-      },
-      {
-        "title": "Reposition retail fitout as 'destination F&B and experience retail' only",
-        "category": "Market Positioning",
-        "confidence": "medium",
-        "horizon": "6-months",
-        "evidence": "SBI's Retail Fitout win rate is just 47% (8 won / 9 lost) — the worst of any major category, at $62K avg. Meanwhile MOVABLE's Newcastle 2026 outlook reports neighbourhood and experience-driven F&B retail outperforming traditional strip retail, while CC Constructions already markets itself as shopping-centre-approved retail shopfitter and Total Fitouts Newcastle has a dedicated retail/wellness practice.",
-        "sources": [
-          {
-            "url": "https://www.movable.com.au/article/what-the-next-5-years-could-look-like-for-commercial-property-in-newcastle/",
-            "title": "MOVABLE — Newcastle commercial property 5-year outlook"
-          },
-          {
-            "url": "https://ccconstructions.com.au/",
-            "title": "Complete Commercial Construction — shop fitter Central Coast Newcastle"
-          }
-        ],
-        "reasoning": "SBI cannot beat CC Constructions on standard shopping-centre retail rollouts but can win on hospitality-adjacent experience retail (cafes, boutique, wellness) which dovetails with the 92% hospitality win rate. Hospitality fitout rates in 2026 are $1,500-$4,000/m² vs basic retail at $800-$1,500 — bigger deals, better margins.",
-        "action": "Drop general retail fitout from the website nav; replace with 'Cafe, Bar & Experience Retail' as a single category leveraging the hospitality DBP credentials.",
-        "impact": "Lift retail-related avg deal value from $62K toward $140K and reallocate sales effort to higher-win categories."
-      },
-      {
-        "title": "Cap long-cycle jobs at 150 days or charge a programme premium",
-        "category": "Pricing",
-        "confidence": "high",
-        "horizon": "this-quarter",
-        "evidence": "SBI's archived data: Fenwicks Marina ran 200 build days at 17.3% margin (vs 24.6% planned) at just $65/day profit. Extend Rehab Coastal Physio ran 333 days at 30.3% margin. Erina Sawmill at 127 days delivered $422/build-day. Industry benchmark: Skelcon completes Newcastle office fitouts in 6-9 weeks (~45-65 days) for single-level work.",
-        "sources": [
-          {
-            "url": "https://skelcon.com.au/industries/commercial-fitout",
-            "title": "Skelcon — Newcastle commercial fitout timelines"
-          }
-        ],
-        "reasoning": "Long build cycles destroy profit-per-build-day even when revenue looks good. SBI's own numbers show jobs over 150 days collapse margin by 7-8 points. Programme risk is a pricing line, not a free option for the client.",
-        "action": "Add a 'programme over 16 weeks' premium of 8-10% to quotes, and write 'works pause' clauses for client-caused delays beyond a 4-week buffer.",
-        "impact": "Recover 7-8 margin points on long jobs, equivalent to ~$10-15K margin per 200-day project."
-      },
-      {
-        "title": "Lock in a 2-3 person joinery hire wave before NCC compliance work hits",
-        "category": "Talent",
-        "confidence": "medium",
-        "horizon": "6-months",
-        "evidence": "Indeed reports cabinet maker NSW average $43.30/hr (April 2026); SEEK lists qualified cabinet makers at $75-90K base. NSW non-residential pipeline is strengthening with A-grade Newcastle office demand and Cushman & Wakefield reporting 83% of Australian fitout contractors expect prices to rise slightly over the next six months — signalling capacity tightness.",
-        "sources": [
-          {
-            "url": "https://au.indeed.com/career/cabinet-maker/salaries/Sydney-NSW",
-            "title": "Indeed — NSW cabinet maker hourly rate"
-          },
-          {
-            "url": "https://www.cushmanwakefield.com/en/australia/insights/office-fit-out-cost-guide",
-            "title": "Cushman & Wakefield — Australia Fit Out Cost Guide 2026"
-          },
-          {
-            "url": "https://au.seek.com/career-advice/role/cabinetmaker/salary",
-            "title": "SEEK — Cabinet Maker salary Australia 2026"
-          }
-        ],
-        "reasoning": "SBI's joinery category at 70% win rate and $22K avg is a steady backbone — but capacity is the bottleneck for scaling hospitality (92% win rate, $140K). Sheldon's competitive edge is explicitly their in-house Central Coast manufacturing facility. Hiring ahead of the NCC 2025 and DBP-driven activity surge avoids paying peak Sydney rates.",
-        "action": "Hire 1 leading-hand cabinet maker + 1 second-year apprentice this quarter; pre-negotiate a 6-month casual install crew agreement.",
-        "impact": "Adds ~30% factory throughput, supports 4-5 extra hospitality jobs/year at $140K each."
-      },
-      {
-        "title": "Own the 'existing client' channel — turn 68% into 80% with a retainer",
-        "category": "Sales Channel",
-        "confidence": "medium",
-        "horizon": "6-months",
-        "evidence": "SBI's Existing Client source converts at 68.2% vs 31.7% from Search. Austral Herbs (Fountaindale) returned for a second build worth $527K. Coastwide Waterproofing returned for a second design deal. Market trend: Newcastle leasing activity is shifting to smaller 150-300sqm flexible floorplates with shorter terms, meaning the same tenants refit more often.",
-        "sources": [
-          {
-            "url": "https://www.movable.com.au/article/what-the-next-5-years-could-look-like-for-commercial-property-in-newcastle/",
-            "title": "MOVABLE — Newcastle office leasing shift to smaller flexible floorplates"
-          }
-        ],
-        "reasoning": "Existing clients convert at 2x the rate of search traffic. With Newcastle tenants moving to shorter leases and more frequent reconfigurations, there's a real product here — a paid 'workplace care plan' that locks in refresh work before tenants Google a competitor.",
-        "action": "Launch an annual 'Workplace Care' retainer ($3-6K/yr) for past clients covering minor joinery, partition tweaks, end-of-lease make-good audits, with priority quoting.",
-        "impact": "Convert 10-15 past clients into recurring revenue (~$50-75K/yr) and pre-empt search-channel competition for their next major refit."
-      }
-    ],
-    "researchScope": {
-      "competitorsFound": [
-        "Sheldon Interiors (Central Coast manufacturing)",
-        "Skelcon (Newcastle commercial builder)",
-        "Total Fitouts Central Coast & Newcastle",
-        "Evoke Projects (Central Coast/Newcastle, vet/medical focus)",
-        "CC Constructions / Complete Commercial Construction (Central Coast & Newcastle retail)",
-        "Ace Fitouts (Sydney/Newcastle/Central Coast/Wollongong, NSW Lotteries accredited)",
-        "Nyon Shopfitters (Sydney/Central Coast/Newcastle)",
-        "Evercon (Newcastle joinery, 48-hr concept promise)",
-        "Trade Design Group (Newcastle office fitout)",
-        "Zeal Interiors (Newcastle, NSW 297027C)",
-        "Complete Office Fitouts (Sydney servicing Central Coast/Newcastle)",
-        "OMNI Building Group (Newcastle commercial)"
+    "external": {
+      "generated": "2026-06-03T02:23:00.701Z",
+      "model": "claude-opus-4-7",
+      "promptTokens": 393236,
+      "completionTokens": 7350,
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 0,
+      "monthCovered": "June 2026",
+      "keyInsight": "The 1 July 2026 DBP Act extension to existing Class 3/9c renovations lands in 27 days — directly affecting SBI's highest win-rate work (hospitality at 92%) while Sheldon and Skelcon already have registered building practitioners.",
+      "recommendations": [
+        {
+          "title": "Register as a DBP Building Practitioner before 1 July 2026 hospitality cliff",
+          "category": "Compliance",
+          "confidence": "high",
+          "horizon": "this-quarter",
+          "evidence": "From 1 July 2026, alteration and renovation work on existing Class 3 and 9c buildings (hotels, motels, hostels, boarding houses, aged care) becomes subject to the DBP Act, requiring registered building and design practitioners to lodge regulated designs on the NSW Planning Portal before work starts. Skelcon and Sheldon already operate as integrated design+build practitioners on these classes; smaller competitors on Oneflare do not.",
+          "sources": [
+            {
+              "url": "https://www.nsw.gov.au/housing-and-construction/compliance-and-regulation/professionals-working-on-regulated-buildings/building-classes-and-roles",
+              "title": "NSW Government — DBP Act building classes and roles"
+            },
+            {
+              "url": "https://pdclaw.au/amendments-design-building-residential-practitioners-act/",
+              "title": "PDC Law — DBP Act amendments to 1 July 2026"
+            }
+          ],
+          "reasoning": "SBI's Hospitality Fitout type has a 91.7% win rate at $140K avg — by far the most profitable category. Most boutique hotel, pub and accommodation refurb work falls in Class 3. If SBI cannot lodge as a registered building practitioner from July, they get locked out of this exact pipeline or forced to subcontract under a competitor who can.",
+          "action": "Lodge DBP building practitioner registration this quarter, ensure PI insurance covers Class 3/9c, and publish a 'DBP-registered hospitality fitout' landing page.",
+          "impact": "Protects ~$1.5M+/yr hospitality pipeline (11 wins × $140K) that competitors without registration will lose access to."
+        },
+        {
+          "title": "Kill the web form, double down on the 1300 number — your $107K channel",
+          "category": "Sales Channel",
+          "confidence": "high",
+          "horizon": "this-quarter",
+          "evidence": "SBI's own data: Web Form 0 wins from 4 leads. 1300 Number only 2 wins from 7 leads (29%) but at $107,093 average won value — the highest of any channel. Market benchmark: Evercon Newcastle now promises a 48-hour concept and budget forecast turnaround as a competitive differentiator.",
+          "sources": [
+            {
+              "url": "https://evercon.com.au/office-furniture-and-joinery-fit-outs-in-newcastle/",
+              "title": "Evercon — 48-hour concept turnaround promise"
+            }
+          ],
+          "reasoning": "Phone leads bring genuine large commercial buyers; web forms are dominated by tyre-kickers. The conversion gap (0% web vs 29% phone with 1.6× higher value) means SBI is paying for traffic that wastes design time. Competitors are now winning on speed-to-quote, not 24-48 hours.",
+          "action": "Replace the web form with a 'call us / book a 15-min discovery call' Calendly + 1300 number, and commit to an Evercon-style 48-hour preliminary budget letter.",
+          "impact": "Recover ~10-15 hours/week of sales+design time and lift the top-of-funnel value mix toward the $107K phone-lead average."
+        },
+        {
+          "title": "Stop chasing tenders — they are bleeding your win-rate maths",
+          "category": "Market Positioning",
+          "confidence": "high",
+          "horizon": "this-quarter",
+          "evidence": "SBI's repeat-clients table shows 0/6 on the internal Sales Task Template deals, 0/4 with Raine & Horne Rogers, 0/3 on McDonalds Morisset, 0/2 on Awaba House RFT, 0/2 on LAHC Adamstown. The LAHC builders register is now under Homes NSW and dominated by Tier-1 consortia like Stockland/Link Wentworth and Lendlease/St George.",
+          "sources": [
+            {
+              "url": "https://au.linkedin.com/company/nswlahc",
+              "title": "LAHC LinkedIn — consortium shortlists"
+            },
+            {
+              "url": "https://www.australiantenders.com.au/issuer/4263/tenders/land-and-housing-corporation",
+              "title": "Australian Tenders — LAHC tender history"
+            }
+          ],
+          "reasoning": "SBI is consistently losing tier-1 government and franchise tenders that consume PM and estimating capacity for no return.",
+          "action": "Implement a tender qualifying scorecard; auto-decline RFTs above $500K or with >3 pre-qualified competitors unless a sponsor relationship exists.",
+          "impact": "Free ~80-120 estimator/PM hours/quarter and lift overall win rate above 55%."
+        },
+        {
+          "title": "Productise an 'NCC 2025 Section J ready' fitout package",
+          "category": "Brand",
+          "confidence": "high",
+          "horizon": "6-months",
+          "evidence": "NCC 2025 mandates on-site solar PV under clause J9D5 for Class 3 and 5-9 buildings, roughly halves the regulated energy allowance, and requires switchboard space for future battery storage and EV charging readiness. ACT adopts 1 May 2026; NSW adoption expected to follow. None of SBI's named local competitors (Sheldon, Skelcon, Total Fitouts, CC Constructions, Evercon) currently market a Section J compliance package.",
+          "sources": [
+            {
+              "url": "https://ncc.abcb.gov.au/ncc-2025/ncc-2025-key-changes/ncc-2025-commercial-energy-efficiency-changes",
+              "title": "ABCB — NCC 2025 commercial energy efficiency changes"
+            },
+            {
+              "url": "https://greenchoiceconsulting.com.au/ncc-2025-section-j-explained/",
+              "title": "Green Choice Consulting — NCC 2025 Section J"
+            }
+          ],
+          "reasoning": "SBI's office fitout type wins 73% at $46K — these are exactly the small Class 5 tenancies where landlords and tenants will be confused by Section J. A 'compliance-included' fitout package becomes a clear, defensible point of difference vs Total Fitouts and Oneflare-style local builders who position on price.",
+          "action": "Build a 'Section J Ready' fixed-scope office package (lighting controls, PV-ready cabling, switchboard space) and partner with a NABERS-accredited assessor.",
+          "impact": "Adds 8-12% premium pricing on office fitouts and creates a defensible SEO term competitors won't rank for in 2026."
+        },
+        {
+          "title": "Reposition retail fitout as 'destination F&B and experience retail' only",
+          "category": "Market Positioning",
+          "confidence": "medium",
+          "horizon": "6-months",
+          "evidence": "SBI's Retail Fitout win rate is just 47% (8 won / 9 lost) — the worst of any major category, at $62K avg. Meanwhile MOVABLE's Newcastle 2026 outlook reports neighbourhood and experience-driven F&B retail outperforming traditional strip retail, while CC Constructions already markets itself as shopping-centre-approved retail shopfitter and Total Fitouts Newcastle has a dedicated retail/wellness practice.",
+          "sources": [
+            {
+              "url": "https://www.movable.com.au/article/what-the-next-5-years-could-look-like-for-commercial-property-in-newcastle/",
+              "title": "MOVABLE — Newcastle commercial property 5-year outlook"
+            },
+            {
+              "url": "https://ccconstructions.com.au/",
+              "title": "Complete Commercial Construction — shop fitter Central Coast Newcastle"
+            }
+          ],
+          "reasoning": "SBI cannot beat CC Constructions on standard shopping-centre retail rollouts but can win on hospitality-adjacent experience retail (cafes, boutique, wellness) which dovetails with the 92% hospitality win rate. Hospitality fitout rates in 2026 are $1,500-$4,000/m² vs basic retail at $800-$1,500 — bigger deals, better margins.",
+          "action": "Drop general retail fitout from the website nav; replace with 'Cafe, Bar & Experience Retail' as a single category leveraging the hospitality DBP credentials.",
+          "impact": "Lift retail-related avg deal value from $62K toward $140K and reallocate sales effort to higher-win categories."
+        },
+        {
+          "title": "Cap long-cycle jobs at 150 days or charge a programme premium",
+          "category": "Pricing",
+          "confidence": "high",
+          "horizon": "this-quarter",
+          "evidence": "SBI's archived data: Fenwicks Marina ran 200 build days at 17.3% margin (vs 24.6% planned) at just $65/day profit. Extend Rehab Coastal Physio ran 333 days at 30.3% margin. Erina Sawmill at 127 days delivered $422/build-day. Industry benchmark: Skelcon completes Newcastle office fitouts in 6-9 weeks (~45-65 days) for single-level work.",
+          "sources": [
+            {
+              "url": "https://skelcon.com.au/industries/commercial-fitout",
+              "title": "Skelcon — Newcastle commercial fitout timelines"
+            }
+          ],
+          "reasoning": "Long build cycles destroy profit-per-build-day even when revenue looks good. SBI's own numbers show jobs over 150 days collapse margin by 7-8 points. Programme risk is a pricing line, not a free option for the client.",
+          "action": "Add a 'programme over 16 weeks' premium of 8-10% to quotes, and write 'works pause' clauses for client-caused delays beyond a 4-week buffer.",
+          "impact": "Recover 7-8 margin points on long jobs, equivalent to ~$10-15K margin per 200-day project."
+        },
+        {
+          "title": "Lock in a 2-3 person joinery hire wave before NCC compliance work hits",
+          "category": "Talent",
+          "confidence": "medium",
+          "horizon": "6-months",
+          "evidence": "Indeed reports cabinet maker NSW average $43.30/hr (April 2026); SEEK lists qualified cabinet makers at $75-90K base. NSW non-residential pipeline is strengthening with A-grade Newcastle office demand and Cushman & Wakefield reporting 83% of Australian fitout contractors expect prices to rise slightly over the next six months — signalling capacity tightness.",
+          "sources": [
+            {
+              "url": "https://au.indeed.com/career/cabinet-maker/salaries/Sydney-NSW",
+              "title": "Indeed — NSW cabinet maker hourly rate"
+            },
+            {
+              "url": "https://www.cushmanwakefield.com/en/australia/insights/office-fit-out-cost-guide",
+              "title": "Cushman & Wakefield — Australia Fit Out Cost Guide 2026"
+            },
+            {
+              "url": "https://au.seek.com/career-advice/role/cabinetmaker/salary",
+              "title": "SEEK — Cabinet Maker salary Australia 2026"
+            }
+          ],
+          "reasoning": "SBI's joinery category at 70% win rate and $22K avg is a steady backbone — but capacity is the bottleneck for scaling hospitality (92% win rate, $140K). Sheldon's competitive edge is explicitly their in-house Central Coast manufacturing facility. Hiring ahead of the NCC 2025 and DBP-driven activity surge avoids paying peak Sydney rates.",
+          "action": "Hire 1 leading-hand cabinet maker + 1 second-year apprentice this quarter; pre-negotiate a 6-month casual install crew agreement.",
+          "impact": "Adds ~30% factory throughput, supports 4-5 extra hospitality jobs/year at $140K each."
+        },
+        {
+          "title": "Own the 'existing client' channel — turn 68% into 80% with a retainer",
+          "category": "Sales Channel",
+          "confidence": "medium",
+          "horizon": "6-months",
+          "evidence": "SBI's Existing Client source converts at 68.2% vs 31.7% from Search. Austral Herbs (Fountaindale) returned for a second build worth $527K. Coastwide Waterproofing returned for a second design deal. Market trend: Newcastle leasing activity is shifting to smaller 150-300sqm flexible floorplates with shorter terms, meaning the same tenants refit more often.",
+          "sources": [
+            {
+              "url": "https://www.movable.com.au/article/what-the-next-5-years-could-look-like-for-commercial-property-in-newcastle/",
+              "title": "MOVABLE — Newcastle office leasing shift to smaller flexible floorplates"
+            }
+          ],
+          "reasoning": "Existing clients convert at 2x the rate of search traffic. With Newcastle tenants moving to shorter leases and more frequent reconfigurations, there's a real product here — a paid 'workplace care plan' that locks in refresh work before tenants Google a competitor.",
+          "action": "Launch an annual 'Workplace Care' retainer ($3-6K/yr) for past clients covering minor joinery, partition tweaks, end-of-lease make-good audits, with priority quoting.",
+          "impact": "Convert 10-15 past clients into recurring revenue (~$50-75K/yr) and pre-empt search-channel competition for their next major refit."
+        }
       ],
-      "trendsCovered": [
-        "NCC 2025 Section J commercial energy efficiency changes (mandatory PV J9D5, halved energy allowance)",
-        "DBP Act extension to existing Class 3 & 9c buildings from 1 July 2026",
-        "Newcastle commercial property 2026 outlook (A-grade office demand, F&B-led retail)",
-        "NSW non-residential construction forecasts 2026-27",
-        "Office fitout cost benchmarks Australia 2026 ($800-$3,500/m² range)",
-        "Hospitality fitout cost benchmarks 2026 ($1,500-$4,000/m²)",
-        "Cabinet maker / joinery wages NSW 2026 ($28-$43/hr range)",
-        "Cushman & Wakefield Contractor Sentiment Survey 2026",
-        "LAHC / Homes NSW tender consortium structure",
-        "Hospitality industry 2026 trends (premiumisation, experience retail, smaller flexible floorplates)"
+      "researchScope": {
+        "competitorsFound": [
+          "Sheldon Interiors (Central Coast manufacturing)",
+          "Skelcon (Newcastle commercial builder)",
+          "Total Fitouts Central Coast & Newcastle",
+          "Evoke Projects (Central Coast/Newcastle, vet/medical focus)",
+          "CC Constructions / Complete Commercial Construction (Central Coast & Newcastle retail)",
+          "Ace Fitouts (Sydney/Newcastle/Central Coast/Wollongong, NSW Lotteries accredited)",
+          "Nyon Shopfitters (Sydney/Central Coast/Newcastle)",
+          "Evercon (Newcastle joinery, 48-hr concept promise)",
+          "Trade Design Group (Newcastle office fitout)",
+          "Zeal Interiors (Newcastle, NSW 297027C)",
+          "Complete Office Fitouts (Sydney servicing Central Coast/Newcastle)",
+          "OMNI Building Group (Newcastle commercial)"
+        ],
+        "trendsCovered": [
+          "NCC 2025 Section J commercial energy efficiency changes (mandatory PV J9D5, halved energy allowance)",
+          "DBP Act extension to existing Class 3 & 9c buildings from 1 July 2026",
+          "Newcastle commercial property 2026 outlook (A-grade office demand, F&B-led retail)",
+          "NSW non-residential construction forecasts 2026-27",
+          "Office fitout cost benchmarks Australia 2026 ($800-$3,500/m² range)",
+          "Hospitality fitout cost benchmarks 2026 ($1,500-$4,000/m²)",
+          "Cabinet maker / joinery wages NSW 2026 ($28-$43/hr range)",
+          "Cushman & Wakefield Contractor Sentiment Survey 2026",
+          "LAHC / Homes NSW tender consortium structure",
+          "Hospitality industry 2026 trends (premiumisation, experience retail, smaller flexible floorplates)"
+        ]
+      }
+    },
+    "internal": {
+      "generated": "2026-06-03T03:00:58.360Z",
+      "model": "claude-opus-4-7",
+      "promptTokens": 12358,
+      "completionTokens": 4770,
+      "weekCovered": "Week ending 3 Jun 2026",
+      "keyInsight": "Sunshine Kebabs is bleeding margin in real time (18.1% actual vs 22.8% planned, $37k labour overrun, 7 variations) — intervene before close-out, not after.",
+      "patternsObserved": {
+        "notes": "Chadd Hofner is effectively the entire delivery function — 9 of 15 active jobs and all 9 archived jobs sit under his name (under 4 spelling variants). The archived book shows a clear bimodal pattern: small builds (<$15k) finish 30-60% over planned margin because labour isn't being captured, while large multi-month builds (Fenwicks 234 days, Coastal Physio 333 days, Erina Sawmill 127 days) drift on labour and variations. Pipeline is alarmingly top-heavy and untyped — 29 deals worth $501k sit in '(no type)' with almost nothing visible in Office/Hospitality Fitout where win rates are 73%/92%. Search-sourced leads (70 deals, 32% win rate) are consuming sales effort at less than half the conversion of Existing Client (68%) and Referral (46%)."
+      },
+      "recommendations": [
+        {
+          "title": "Sunshine Kebabs is heading for a loss — intervene now",
+          "category": "Margin Risk",
+          "confidence": "high",
+          "horizon": "this-week",
+          "evidence": "Job 251206 Sunshine Kebabs East Maitland (Chadd Hofner, $205,185 rev) is tracking at 18.1% actual margin vs 22.8% planned, with labour overrun of $37,036 and 7 variations totalling 9.9% of contract. This is the largest active job by revenue and the only active build already underwater.",
+          "dataPoints": [
+            "Sunshine Kebabs revenueExGST $205,185",
+            "plannedMarginPct 22.8 vs actualMarginPct 18.1",
+            "labourOverrun $37,036",
+            "variationCount 7, variationPctOfContract 9.9%"
+          ],
+          "reasoning": "This job mirrors the archived Fenwicks Marina pattern (planned 27.4% → actual 20.3%, labour overrun $8,376, 3 variations) but at 2.6x the revenue and with more than double the variations already logged. Without a margin-recovery review this week, Sunshine will close as the year's worst job.",
+          "action": "Run a job-cost freeze meeting on Sunshine Kebabs this week: price-up all 7 variations, lock remaining labour budget, and put a site-days cap before next invoice run.",
+          "impact": "Recovering even 3 margin points equates to ~$6,000 saved on this single job."
+        },
+        {
+          "title": "Chadd Hofner is carrying the entire delivery book",
+          "category": "Capacity",
+          "confidence": "high",
+          "horizon": "this-week",
+          "evidence": "Across spelling variants ('Chadd Hofner', 'chadd hofner', 'Chadd'), Chadd owns 9 of 15 active jobs and all 9 archived jobs. His active book includes the two largest builds (Sunshine Kebabs $205k, Karuah Internal $176k) plus Natural Foot Podiatry ($79k) and Peninsula Villages pilot. Average build cycle on his archived jobs is 88-129 days.",
+          "dataPoints": [
+            "chadd hofner: 5 archived + 2 active; Chadd Hofner: 4 archived + 5 active",
+            "Sunshine Kebabs $205,185, Karuah Internal $175,709, Natural Foot Podiatry $78,530 all under Chadd",
+            "avgBuildCycle 129 days for Chadd Hofner; 88 for chadd hofner",
+            "Other PMs (Leah Procter, Leah Carraro, Gemma King, Michael Cook, Chadd Yorston) each carry exactly 1 active job"
+          ],
+          "reasoning": "Single-point-of-failure on PM capacity explains the labour overruns on long builds — Chadd can't be on-site supervising Sunshine Kebabs and pricing variations on Peninsula Villages and managing Karuah simultaneously. The other named PMs are clearly under-loaded.",
+          "action": "Reassign Peninsula Villages pilot (and the 60+ room rollout that follows) plus Natural Foot Podiatry to a named secondary PM this week; consolidate the four Chadd name-spellings in the system.",
+          "impact": "Frees ~30% of Chadd's PM time to protect the $380k of large active builds."
+        },
+        {
+          "title": "Small jobs are systematically over-quoted on labour",
+          "category": "Estimating",
+          "confidence": "high",
+          "horizon": "this-quarter",
+          "evidence": "Every small archived build came in with a NEGATIVE labour overrun (i.e. used less than budgeted): Tracey Fletcher -$1,499 (margin 23.1%→61.7%), Marine Rescue -$757 (23.1%→54.1%), Endo Water Damage -$1,116 (23.1%→35.9%). Default plannedMarginPct of 23.1% appears on 6 of 9 archived jobs and 4 active jobs — a template, not an estimate.",
+          "dataPoints": [
+            "Tracey Fletcher labour budget $2,880 vs actual $1,381",
+            "Marine Rescue labour budget $2,070 vs actual $1,313",
+            "Endo Water Damage labour budget $5,385 vs actual $4,269",
+            "plannedMarginPct 23.1 appears on 10 separate jobs"
+          ],
+          "reasoning": "Either we're padding small-job labour (leaving money on the table by quoting high) OR we're not capturing site labour against these jobs (data quality). Both explanations need testing because the pattern doesn't appear on large jobs — Erina Sawmill, Fenwicks, Coastal Physio all OVERRAN labour budget.",
+          "action": "Audit labour timesheets on the last 3 closed small jobs against actuals; replace the 23.1% default margin with size-banded templates (e.g. 30% under $15k, 25% $15-100k, 22% $100k+).",
+          "impact": "Better pricing discipline on the 70% of deals under $25k where SBI wins 70%."
+        },
+        {
+          "title": "Pipeline is invisible — $501k untagged and no closing-stage deals",
+          "category": "Pipeline Health",
+          "confidence": "high",
+          "horizon": "this-week",
+          "evidence": "29 of the ~40 open pipeline deals ($501,000 in value) are tagged '(no type)'. Visible categories show only Joinery ($80k/4), Hospitality Fitout ($100k/2), Office Fitout ($10k/3) — yet Hospitality Fitout has a 92% win rate at $140k avg won value and Office Fitout 73%.",
+          "dataPoints": [
+            "(no type) count 29, totalValue $501,000",
+            "Hospitality Fitout pipeline 2 deals / $100k vs 92% historic win rate",
+            "Office Fitout pipeline 3 deals / $10k vs $46,824 avg won value",
+            "No 'closing'/'presentation' stage data appears at all"
+          ],
+          "reasoning": "Leadership cannot forecast or prioritise sales effort when 83% of pipeline value is untyped. The two highest-converting types (Hospitality, Office) appear thin in pipeline relative to their economic importance — either we're under-pursuing them or they're hiding in '(no type)'.",
+          "action": "Block 90 minutes this week to triage the 29 untyped deals into type + stage; flag the Hospitality Fitout and Office Fitout opportunities for priority follow-up.",
+          "impact": "Surfaces ~$100k+ of likely high-win-rate work currently invisible to forecasting."
+        },
+        {
+          "title": "Search-sourced leads are eating sales time at half the conversion",
+          "category": "Sales Process",
+          "confidence": "medium",
+          "horizon": "this-quarter",
+          "evidence": "Search source: 70 deals, 19 won, 41 lost — 31.7% win rate. Existing Client: 28 deals, 15 won — 68% win rate. Referral: 16 deals — 46% win rate. Search has 2.5x the volume of Existing Client deals but converts at less than half the rate.",
+          "dataPoints": [
+            "Search 70 deals / 31.7% win rate / $65,894 avg won value",
+            "Existing Client 28 deals / 68.2% win rate / $39,844 avg won value",
+            "Referral 16 deals / 46.2% win rate",
+            "Web Form 4 deals / 0% win rate"
+          ],
+          "reasoning": "Each Search lead consumes equivalent estimating time but produces less than half the wins. Meanwhile, repeat-client momentum is weak — only 3 of 13 repeat-client entries have actually won deals, suggesting we're not converting the warm pipeline as well as we could.",
+          "action": "Introduce a Search-lead qualification gate (budget + decision-maker + timeline) before estimating; redirect freed estimating hours into proactive outreach to top archived clients (Wyong Golf, Austral Herbs, Banksia Paediatrics).",
+          "impact": "Could lift overall win rate 5-8 points by reallocating effort to a 68%-converting channel."
+        },
+        {
+          "title": "Mingara Club margin estimate looks broken — 97.3% planned",
+          "category": "Estimating",
+          "confidence": "high",
+          "horizon": "this-week",
+          "evidence": "Active job 251213 Mingara Club Small Office Fitout shows plannedMarginPct of 97.3% — an obviously bad estimate input — and is now tracking 64.8% actual with a $13,653 labour overrun and 3 variations. Revenue $88,668.",
+          "dataPoints": [
+            "Mingara Club plannedMarginPct 97.3",
+            "actualMarginPct 64.8",
+            "labourOverrun $13,653",
+            "variationCount 3 / 7.1% of contract",
+            "PM listed as 'PM' (no name)"
+          ],
+          "reasoning": "A 97% planned margin is a data-entry error that has corrupted the pmSummary (avgMarginGap -32.5 for PM 'PM'). It also means nobody has been benchmarking actuals against a meaningful plan — the job is over labour budget and trending down, but the variance signal was masked.",
+          "action": "Re-estimate Mingara Club this week with a realistic baseline (use Erina Sawmill 23-27% as comp), assign a named PM, and add a validation rule that flags any planned margin >50%.",
+          "impact": "Restores margin-variance visibility on an $88k active job and on PM reporting."
+        },
+        {
+          "title": "Long-cycle builds repeat the same labour-blowout trap",
+          "category": "Cycle Time",
+          "confidence": "high",
+          "horizon": "this-quarter",
+          "evidence": "Three archived large builds blew labour budget and ran extreme cycles: Coastal Physio 333 days / labour overrun $13,906 / 9 variations; Fenwicks Marina 234 days / overrun $8,376 / 3 variations; Erina Sawmill 127 days / overrun $2,996 / 60 site days. Active Karuah Internal ($176k, sold May 2025 — over a year ago) and Sunshine Kebabs are now in the same risk window.",
+          "dataPoints": [
+            "Coastal Physio buildCycleDays 333, labourOverrun $13,906",
+            "Fenwicks Marina buildCycleDays 234, marginGap -7.1",
+            "Erina Sawmill buildCycleDays 127, siteDays 60",
+            "Karuah Internal sold 2025-05-27 — 372 days active",
+            "Sunshine Kebabs sold 2025-12-04, variationCount 7"
+          ],
+          "reasoning": "Builds that cross the ~120-day threshold consistently lose labour discipline and accumulate variations — but variations aren't being priced to recover the time cost. Karuah Internal has already exceeded all archived cycle times.",
+          "action": "Set a 120-day build-cycle review trigger: at day 120 every active build gets a forced re-forecast on labour-to-completion + variations-to-bill. Apply immediately to Karuah Internal and Sunshine Kebabs.",
+          "impact": "Catches labour drift 60-90 days earlier on $380k+ of at-risk active work."
+        },
+        {
+          "title": "Top archived clients aren't reappearing in pipeline",
+          "category": "Client Concentration",
+          "confidence": "medium",
+          "horizon": "this-quarter",
+          "evidence": "Top historic clients by value — Wyong Golf Club ($611k), Austral Herbs ($528k, 2 deals), Banksia Paediatrics ($354k), Dinki Di ($351k), Geoff O'Reilly ($267k) — do not appear in current pipeline or active jobs. Repeat-client list shows 10 of 13 entries with 0 wins, including Raine & Horne (4 deals), RFQ McDonalds Morisset (3 deals).",
+          "dataPoints": [
+            "Wyong Golf Club $611,595 — no current activity",
+            "Austral Herbs $527,872 across 2 deals — no current activity",
+            "Raine & Horne Rogers Group 4 deals / 0 won",
+            "RFQ McDonalds Morisset Remodel 3 deals / 0 won"
+          ],
+          "reasoning": "The five biggest revenue relationships in SBI's history are dormant, while a chunk of repeat-client effort is going to accounts that never close (Raine & Horne, McDonalds). That's a quiet but compounding revenue risk.",
+          "action": "This quarter: schedule a check-in call with the top 5 archived clients (Wyong Golf, Austral Herbs, Banksia, Dinki Di, Geoff O'Reilly); deprioritise unconverted repeat accounts after 3rd loss.",
+          "impact": "Each reactivation has historic deal value of $250k-$600k; one win pays for the quarter."
+        }
       ]
     }
   }

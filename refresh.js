@@ -899,13 +899,20 @@ async function main() {
 
   // ─── Performance dashboard pipeline ────────────────────────
   // After the per-project refresh + index rebuild, regenerate the
-  // performance page and (monthly) the CEO Lens advice. Each step is
-  // isolated — a failure in one does not block subsequent steps or
-  // change the refresh exit code.
+  // performance page and (weekly internal / monthly external) CEO Lens
+  // advice. Order matters:
+  //   1. fetch-sales-data — fresh deals list
+  //   2. performance      — produces performance.json (input for CEO lenses)
+  //   3. ceo-internal     — self-skips if <7d old (weekly cadence)
+  //   4. ceo-external     — self-skips if <28d old (monthly cadence)
+  //   5. performance-final — re-render so HTML picks up any new ceo-*.json
+  // Each step is isolated — failure in one does not block the others.
   await runPostProcess([
-    { name: 'fetch-sales-data', script: 'fetch-sales-data.js', requires: ['CLICKUP_API_TOKEN'] },
-    { name: 'ceo-advice',        script: 'ceo-advice.js',        requires: ['ANTHROPIC_API_KEY'] },
-    { name: 'performance',       script: 'performance.js',       requires: [] },
+    { name: 'fetch-sales-data',  script: 'fetch-sales-data.js',     requires: ['CLICKUP_API_TOKEN'] },
+    { name: 'performance',       script: 'performance.js',          requires: [] },
+    { name: 'ceo-internal',      script: 'ceo-advice-internal.js',  requires: ['ANTHROPIC_API_KEY'] },
+    { name: 'ceo-external',      script: 'ceo-advice.js',           requires: ['ANTHROPIC_API_KEY'] },
+    { name: 'performance-final', script: 'performance.js',          requires: [] },
   ]);
 
   process.exit(failures.length ? 1 : 0);

@@ -183,10 +183,16 @@ function loadSalesData() {
 }
 
 function loadCeoAdvice() {
-  const p = path.join(REPO_ROOT, 'ceo-advice.json');
-  if (!fs.existsSync(p)) return null;
-  try { return JSON.parse(fs.readFileSync(p, 'utf8')); }
-  catch (e) { warn('failed to parse ceo-advice.json:', e.message); return null; }
+  function loadOne(filename) {
+    const p = path.join(REPO_ROOT, filename);
+    if (!fs.existsSync(p)) return null;
+    try { return JSON.parse(fs.readFileSync(p, 'utf8')); }
+    catch (e) { warn('failed to parse ' + filename + ':', e.message); return null; }
+  }
+  return {
+    external: loadOne('ceo-advice.json'),
+    internal: loadOne('ceo-advice-internal.json'),
+  };
 }
 
 function extractTaskId(url) {
@@ -340,10 +346,42 @@ tr.archived td a{color:#7fa8cc}
 .discipline{background:#3a1a1a;border-left:3px solid #ef4444;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#fecaca;line-height:1.5}
 .discipline b{color:#fff}
 
-.dq-card{background:linear-gradient(135deg,#1a3a5c 0%,#234e7b 100%);border:1px solid #3a6a9c;border-left:4px solid #22c55e;border-radius:10px;padding:18px 22px;margin:24px 0}
-.dq-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:6px}
-.dq-title{font-size:16px;font-weight:700;color:#fff;margin:0}
-.dq-meta{font-size:11px;color:#cfdcea}
+details.dq-card,details.ceo-card{background:linear-gradient(135deg,#1a3a5c 0%,#234e7b 100%);border:1px solid #3a6a9c;border-radius:10px;margin:24px 0;overflow:hidden}
+details.dq-card{border-left:4px solid #22c55e}
+details.ceo-card{background:linear-gradient(135deg,#2a1f3d 0%,#3d2a5c 100%);border-color:#5a3a8c;border-left:4px solid #a78bfa}
+details.ceo-card.internal{background:linear-gradient(135deg,#0f2e2a 0%,#164e44 100%);border-color:#2d6e5e;border-left:4px solid #2dd4bf}
+details.ceo-card.internal[open] .ceo-rec[open]{border-color:rgba(45,212,191,.3)}
+details.ceo-card.internal .ceo-rec-chevron{color:#2dd4bf}
+details.ceo-card.internal .ceo-chevron{color:#7ce0d0}
+details.ceo-card.internal .ceo-headline{border-left-color:#2dd4bf;color:#ccfbf1}
+details.ceo-card.internal .ceo-chip.cat{background:#0f766e}
+.ceo-rec-body .datapoints{font-size:11px;color:#cfdcea;line-height:1.55;margin:0 0 12px;padding:8px 12px;background:rgba(0,0,0,.25);border-radius:5px}
+.ceo-rec-body .datapoints b{color:#fff;display:block;margin-bottom:4px;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+.ceo-rec-body .datapoints ul{margin:0;padding-left:18px}
+.ceo-rec-body .datapoints li{margin-bottom:3px}
+details.dq-card>summary,details.ceo-card>summary{padding:18px 22px;cursor:pointer;list-style:none;display:block;transition:background .15s}
+details.dq-card>summary::-webkit-details-marker,details.ceo-card>summary::-webkit-details-marker{display:none}
+details.dq-card>summary::marker,details.ceo-card>summary::marker{content:""}
+details.dq-card>summary:hover,details.ceo-card>summary:hover{background:rgba(255,255,255,.04)}
+details.dq-card[open]>summary,details.ceo-card[open]>summary{border-bottom:1px solid rgba(255,255,255,.08)}
+.dq-card>div:not(.dq-summary-row),.ceo-card>div:not(.ceo-summary-row),.ceo-card>.ceo-list,.ceo-card>.ceo-scope,.ceo-card>.ceo-headline,.dq-card>.dq-list,.dq-card>.dq-foot,.dq-card>.dq-intro{padding-left:22px;padding-right:22px}
+.dq-card>.dq-list,.ceo-card>.ceo-list{padding-top:4px;padding-bottom:18px}
+.dq-card>.dq-foot{padding-bottom:18px}
+.ceo-card>.ceo-scope{margin-bottom:18px}
+.dq-card>.dq-intro{padding-top:14px}
+.ceo-card>.ceo-headline{margin-top:14px}
+
+.dq-summary-row,.ceo-summary-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.dq-summary-row .left,.ceo-summary-row .left{flex:1;min-width:200px}
+.dq-summary-row .right,.ceo-summary-row .right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.dq-chevron,.ceo-chevron{display:inline-block;width:14px;height:14px;color:#7fa8cc;transition:transform .2s;flex-shrink:0}
+details[open]>summary .dq-chevron,details[open]>summary .ceo-chevron{transform:rotate(90deg)}
+.dq-title,.ceo-title{font-size:16px;font-weight:700;color:#fff;margin:0;display:flex;align-items:center;gap:10px}
+.dq-meta,.ceo-meta{font-size:11px;color:#cfdcea}
+.dq-pill,.ceo-pill{display:inline-block;padding:3px 9px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;background:rgba(0,0,0,.3);color:#fff}
+.dq-pill.high{background:#7f1d1d}
+.dq-pill.med{background:#854d0e}
+.dq-pill.low{background:#14532d}
 .dq-intro{font-size:12px;color:#cfdcea;line-height:1.5;margin:0 0 16px;max-width:780px}
 .dq-list{display:grid;gap:10px}
 .dq-action{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start}
@@ -367,31 +405,36 @@ tr.archived td a{color:#7fa8cc}
 .dq-foot{font-size:11px;color:#cfdcea;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);line-height:1.5}
 .dq-foot b{color:#fff}
 
-.ceo-card{background:linear-gradient(135deg,#2a1f3d 0%,#3d2a5c 100%);border:1px solid #5a3a8c;border-left:4px solid #a78bfa;border-radius:10px;padding:20px 24px;margin:24px 0}
-.ceo-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:6px}
-.ceo-title{font-size:16px;font-weight:700;color:#fff;margin:0}
-.ceo-meta{font-size:11px;color:#cfdcea}
-.ceo-headline{background:rgba(0,0,0,.25);border-left:3px solid #fbbf24;padding:12px 16px;border-radius:6px;margin:14px 0 18px;font-size:14px;color:#fef3c7;line-height:1.5;font-style:italic}
+.ceo-headline{background:rgba(0,0,0,.25);border-left:3px solid #fbbf24;padding:12px 16px;border-radius:6px;font-size:14px;color:#fef3c7;line-height:1.5;font-style:italic;margin-bottom:18px}
 .ceo-headline b{color:#fff;font-style:normal}
-.ceo-list{display:grid;gap:14px}
-.ceo-rec{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:16px 18px}
-.ceo-rec-top{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;align-items:center}
-.ceo-rec h4{font-size:14px;font-weight:700;color:#fff;margin:0 0 10px;line-height:1.35}
-.ceo-chip{display:inline-block;padding:3px 9px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.ceo-list{display:grid;gap:8px}
+details.ceo-rec{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden;transition:background .15s}
+details.ceo-rec:hover{background:rgba(0,0,0,.28)}
+details.ceo-rec>summary{padding:12px 16px;cursor:pointer;list-style:none}
+details.ceo-rec>summary::-webkit-details-marker,details.ceo-rec>summary::marker{display:none;content:""}
+details.ceo-rec[open]{background:rgba(0,0,0,.3);border-color:rgba(167,139,250,.3)}
+details.ceo-rec[open]>summary{border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:14px}
+.ceo-rec-summary{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center}
+.ceo-rec-chevron{color:#a78bfa;transition:transform .2s;flex-shrink:0;font-size:11px;width:12px;text-align:center}
+details.ceo-rec[open] .ceo-rec-chevron{transform:rotate(90deg)}
+.ceo-rec-chips{display:flex;flex-wrap:wrap;gap:6px;grid-column:2;margin-bottom:4px}
+.ceo-rec-title{font-size:13px;font-weight:600;color:#fff;line-height:1.35;grid-column:2}
+.ceo-rec-body{padding:14px 16px 16px 16px}
+.ceo-chip{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
 .ceo-chip.cat{background:#5b21b6;color:#fff}
 .ceo-chip.conf-high{background:#15803d;color:#fff}
 .ceo-chip.conf-medium{background:#a16207;color:#fff}
 .ceo-chip.conf-low{background:#525252;color:#fff}
 .ceo-chip.hor{background:#1e3a8a;color:#fff}
-.ceo-rec .ev{font-size:12px;color:#e9d5ff;line-height:1.55;margin:0 0 8px}
-.ceo-rec .rs{font-size:12px;color:#cfdcea;line-height:1.55;margin:0 0 10px;padding-left:10px;border-left:2px solid rgba(255,255,255,.15)}
-.ceo-rec .act{font-size:12px;color:#fbbf24;font-weight:600;line-height:1.45;margin-bottom:6px}
-.ceo-rec .act:before{content:"→ Action: "}
-.ceo-rec .imp{font-size:11px;color:#cfdcea;line-height:1.4}
-.ceo-rec .imp:before{content:"⚡ Impact: ";color:#a78bfa;font-weight:600}
-.ceo-rec .sources{font-size:10px;color:#a78bfa;margin-top:10px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.1)}
-.ceo-rec .sources a{color:#c4b5fd;text-decoration:none}
-.ceo-rec .sources a:hover{text-decoration:underline}
+.ceo-rec-body .ev{font-size:12px;color:#e9d5ff;line-height:1.55;margin:0 0 10px}
+.ceo-rec-body .rs{font-size:12px;color:#cfdcea;line-height:1.55;margin:0 0 12px;padding-left:10px;border-left:2px solid rgba(255,255,255,.15)}
+.ceo-rec-body .act{font-size:12px;color:#fbbf24;font-weight:600;line-height:1.45;margin-bottom:6px}
+.ceo-rec-body .act:before{content:"→ Action: "}
+.ceo-rec-body .imp{font-size:11px;color:#cfdcea;line-height:1.4;margin-bottom:6px}
+.ceo-rec-body .imp:before{content:"⚡ Impact: ";color:#a78bfa;font-weight:600}
+.ceo-rec-body .sources{font-size:10px;color:#a78bfa;margin-top:10px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.1)}
+.ceo-rec-body .sources a{color:#c4b5fd;text-decoration:none}
+.ceo-rec-body .sources a:hover{text-decoration:underline}
 .ceo-scope{font-size:11px;color:#cfdcea;margin-top:16px;padding:10px 14px;background:rgba(0,0,0,.18);border-radius:6px;line-height:1.5}
 .ceo-scope b{color:#fff}
 .ceo-empty{background:rgba(0,0,0,.22);border:1px dashed rgba(255,255,255,.15);border-radius:8px;padding:18px 22px;font-size:12px;color:#cfdcea;line-height:1.6}
@@ -953,29 +996,59 @@ function renderSalesPipeline() {
     '</div>';
   }).join('');
 
+  const sevCounts = view.actions.reduce(function(acc, a) {
+    acc[a.severity] = (acc[a.severity] || 0) + 1;
+    return acc;
+  }, {});
+  const sevPills =
+    (sevCounts.high ? '<span class="dq-pill high">' + sevCounts.high + ' high</span>' : '') +
+    (sevCounts.med  ? '<span class="dq-pill med">'  + sevCounts.med  + ' med</span>'  : '') +
+    (sevCounts.low  ? '<span class="dq-pill low">'  + sevCounts.low  + ' low</span>'  : '');
+
   const dqCard =
-    '<div class="dq-card">' +
-      '<div class="dq-head">' +
-        '<h3 class="dq-title">🧹 Data Quality Backlog</h3>' +
-        '<span class="dq-meta">Refreshed weekly from live ClickUp · ' + scopeLabel + '</span>' +
-      '</div>' +
+    '<details class="dq-card">' +
+      '<summary>' +
+        '<div class="dq-summary-row">' +
+          '<div class="left">' +
+            '<h3 class="dq-title">' +
+              '<span class="dq-chevron">▶</span>' +
+              '🧹 Data Quality Backlog' +
+              '<span class="dq-meta" style="font-weight:400;margin-left:6px">· ' + view.actions.length + ' actions</span>' +
+            '</h3>' +
+          '</div>' +
+          '<div class="right">' + sevPills + '</div>' +
+        '</div>' +
+      '</summary>' +
       '<p class="dq-intro">These actions clean up the gaps that make the numbers above less trustworthy. Each is assigned to the SBI role best placed to do it. The list re-computes every Tuesday refresh — items disappear automatically once the underlying data is fixed.</p>' +
       '<div class="dq-list">' + actionsHtml + '</div>' +
       '<div class="dq-foot"><b>How it works:</b> counts recompute live from ClickUp every Tuesday at 7am AEST. <b>If your count drops to zero,</b> the action disappears next refresh. <b>If a new gap emerges</b> (e.g. tagging discipline slips for a few weeks), it surfaces here automatically.</div>' +
-    '</div>' + renderCeoLens();
+    '</details>' + renderCeoLens('internal') + renderCeoLens('external');
 
-  function renderCeoLens() {
-    const c = DATA.ceo;
+  function renderCeoLens(flavour) {
+    const isInternal = flavour === 'internal';
+    const c = isInternal ? (DATA.ceo && DATA.ceo.internal) : (DATA.ceo && DATA.ceo.external);
+    const title = isInternal
+      ? '🔍 CEO Lens — Internal Perspective'
+      : '🧠 CEO Lens — External Perspective';
+    const classMod = isInternal ? ' internal' : '';
+    const periodLabel = isInternal ? 'Weekly internal brief' : 'Monthly external brief';
+    const scriptName = isInternal ? 'ceo-advice-internal.js' : 'ceo-advice.js';
+
     if (!c || !c.recommendations) {
-      return '<div class="ceo-card">' +
-        '<div class="ceo-head"><h3 class="ceo-title">🧠 CEO Lens — External Perspective</h3><span class="ceo-meta">Not yet generated</span></div>' +
+      return '<details class="ceo-card' + classMod + '">' +
+        '<summary><div class="ceo-summary-row">' +
+          '<div class="left"><h3 class="ceo-title"><span class="ceo-chevron">▶</span>' + title + '</h3></div>' +
+          '<div class="right"><span class="ceo-meta">Not yet generated</span></div>' +
+        '</div></summary>' +
         '<div class="ceo-empty">' +
-          '<b>Monthly strategic brief:</b> when this runs, it uses Claude Opus 4.7 with web search to research NSW Central Coast + Newcastle fitout competitors, construction outlook, BCA changes, SEO trends, pricing benchmarks, and trade-market shifts. ' +
-          'Outputs 5-8 recommendations grounded in SBI\\'s actual numbers, each citing source URLs.' +
+          '<b>' + periodLabel + ':</b> ' +
+          (isInternal
+            ? 'when this runs, it analyses the SBI dataset (archived jobs, active jobs, pipeline, repeat clients) and surfaces operational patterns no single team member sees — estimating accuracy, cycle-time outliers, capacity flags, concentration risk.'
+            : 'when this runs, it uses Claude Opus 4.7 with web search to research NSW Central Coast + Newcastle fitout competitors, construction outlook, BCA changes, SEO trends, pricing benchmarks, and trade-market shifts.') +
           '<br><br>' +
-          '<b>To enable:</b> set <code>ANTHROPIC_API_KEY</code> in Windows user environment variables, then run <code>node ceo-advice.js</code> once. After that, the monthly Tuesday cron handles it automatically. Cost: ~$1-$3 per monthly run.' +
+          '<b>To enable:</b> set <code>ANTHROPIC_API_KEY</code> in Windows user environment variables, then run <code>node ' + scriptName + '</code> once.' +
         '</div>' +
-      '</div>';
+      '</details>';
     }
 
     const headline = c.keyInsight
@@ -986,38 +1059,71 @@ function renderSalesPipeline() {
       const sourcesHtml = (r.sources || []).map(function(s) {
         return '<a href="' + escapeAttr(s.url) + '" target="_blank" rel="noopener">' + escapeHtml(s.title || s.url) + '</a>';
       }).join(' · ');
-      return '<div class="ceo-rec">' +
-        '<div class="ceo-rec-top">' +
-          '<span class="ceo-chip cat">' + escapeHtml(r.category || '—') + '</span>' +
-          '<span class="ceo-chip conf-' + escapeAttr(r.confidence || 'medium') + '">' + escapeHtml(r.confidence || '—') + ' confidence</span>' +
-          '<span class="ceo-chip hor">' + escapeHtml(r.horizon || '—').replace('-', ' ') + '</span>' +
+      const dataPointsHtml = (r.dataPoints && r.dataPoints.length)
+        ? '<div class="datapoints"><b>📊 Data points</b><ul>' +
+            r.dataPoints.map(function(dp) { return '<li>' + escapeHtml(dp) + '</li>'; }).join('') +
+          '</ul></div>'
+        : '';
+      return '<details class="ceo-rec">' +
+        '<summary>' +
+          '<div class="ceo-rec-summary">' +
+            '<span class="ceo-rec-chevron">▶</span>' +
+            '<div class="ceo-rec-chips">' +
+              '<span class="ceo-chip cat">' + escapeHtml(r.category || '—') + '</span>' +
+              '<span class="ceo-chip conf-' + escapeAttr(r.confidence || 'medium') + '">' + escapeHtml(r.confidence || '—') + ' confidence</span>' +
+              '<span class="ceo-chip hor">' + escapeHtml(r.horizon || '—').replace('-', ' ') + '</span>' +
+            '</div>' +
+            '<div class="ceo-rec-title">' + escapeHtml(r.title || '') + '</div>' +
+          '</div>' +
+        '</summary>' +
+        '<div class="ceo-rec-body">' +
+          '<p class="ev">' + escapeHtml(r.evidence || '') + '</p>' +
+          dataPointsHtml +
+          '<p class="rs">' + escapeHtml(r.reasoning || '') + '</p>' +
+          '<div class="act">' + escapeHtml(r.action || '') + '</div>' +
+          '<div class="imp">' + escapeHtml(r.impact || '') + '</div>' +
+          (sourcesHtml ? '<div class="sources">📎 ' + sourcesHtml + '</div>' : '') +
         '</div>' +
-        '<h4>' + escapeHtml(r.title || '') + '</h4>' +
-        '<p class="ev">' + escapeHtml(r.evidence || '') + '</p>' +
-        '<p class="rs">' + escapeHtml(r.reasoning || '') + '</p>' +
-        '<div class="act">' + escapeHtml(r.action || '') + '</div>' +
-        '<div class="imp">' + escapeHtml(r.impact || '') + '</div>' +
-        (sourcesHtml ? '<div class="sources">📎 ' + sourcesHtml + '</div>' : '') +
-      '</div>';
+      '</details>';
     }).join('');
 
-    const scope = c.researchScope || {};
-    const scopeHtml = (scope.competitorsFound || []).length
-      ? '<div class="ceo-scope">' +
+    // Footer scope block differs by flavour
+    let scopeHtml = '';
+    if (isInternal) {
+      if (c.patternsObserved && c.patternsObserved.notes) {
+        scopeHtml = '<div class="ceo-scope"><b>Patterns observed across the dataset:</b> ' + escapeHtml(c.patternsObserved.notes) + '</div>';
+      }
+    } else {
+      const scope = c.researchScope || {};
+      if ((scope.competitorsFound || []).length) {
+        scopeHtml = '<div class="ceo-scope">' +
           '<b>Competitors researched:</b> ' + (scope.competitorsFound || []).map(escapeHtml).join(' · ') + '<br>' +
           '<b>Topics covered:</b> ' + (scope.trendsCovered || []).map(escapeHtml).join(' · ') +
-        '</div>'
-      : '';
+        '</div>';
+      }
+    }
 
-    return '<div class="ceo-card">' +
-      '<div class="ceo-head">' +
-        '<h3 class="ceo-title">🧠 CEO Lens — External Perspective</h3>' +
-        '<span class="ceo-meta">' + escapeHtml(c.monthCovered || 'Monthly brief') + ' · generated ' + (c.generated ? c.generated.slice(0, 10) : '—') + ' · ' + (c.model || 'claude') + '</span>' +
-      '</div>' +
+    const periodCovered = isInternal ? (c.weekCovered || 'Weekly brief') : (c.monthCovered || 'Monthly brief');
+    const summaryMeta = escapeHtml(periodCovered) + ' · ' + (c.recommendations || []).length + ' recommendations';
+
+    return '<details class="ceo-card' + classMod + '">' +
+      '<summary>' +
+        '<div class="ceo-summary-row">' +
+          '<div class="left">' +
+            '<h3 class="ceo-title">' +
+              '<span class="ceo-chevron">▶</span>' +
+              title +
+            '</h3>' +
+          '</div>' +
+          '<div class="right">' +
+            '<span class="ceo-meta">' + summaryMeta + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</summary>' +
       headline +
       '<div class="ceo-list">' + recs + '</div>' +
       scopeHtml +
-    '</div>';
+    '</details>';
   }
 
   function escapeHtml(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
