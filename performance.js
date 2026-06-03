@@ -60,6 +60,23 @@ function getStream(streams, id) {
   return (streams || []).find(s => s.id === id) || null;
 }
 
+// Map known misspellings / casing variants to canonical name. Until the
+// source ClickUp fields are cleaned up, this prevents per-PM rollups from
+// fragmenting across 4-5 spellings of the same person.
+const PM_CANONICAL = {
+  'chadd hofner':  'Chadd Hoffner',
+  'chadd hoffner': 'Chadd Hoffner',
+  'chadd':         'Chadd Hoffner',
+  // NOTE: 'Chadd Yorston' appears on 260424-morriset-office-fitout —
+  // intentionally NOT merged. Confirm with user whether this is the same person.
+};
+
+function canonicalisePm(pm) {
+  if (!pm) return pm;
+  const key = pm.trim().toLowerCase();
+  return PM_CANONICAL[key] || pm.trim();
+}
+
 function computePerf(slug, data, archived) {
   const project = data.project || {};
   const claims = data.claims || [];
@@ -137,7 +154,7 @@ function computePerf(slug, data, archived) {
     jobNumber: project.jobNumber || '',
     name: project.name || slug,
     type: project.type || '',
-    pm: (project.pm || '').trim(),
+    pm: canonicalisePm(project.pm || ''),
     client: project.client || '',
     soldDate: soldDate ? soldDate.toISOString().slice(0, 10) : null,
     completedDate: completedDate ? completedDate.toISOString().slice(0, 10) : null,
