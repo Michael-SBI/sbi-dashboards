@@ -1,0 +1,192 @@
+{
+  "generated": "2026-06-03T02:23:00.701Z",
+  "model": "claude-opus-4-7",
+  "promptTokens": 393236,
+  "completionTokens": 7350,
+  "cacheCreationTokens": 0,
+  "cacheReadTokens": 0,
+  "monthCovered": "June 2026",
+  "keyInsight": "The 1 July 2026 DBP Act extension to existing Class 3/9c renovations lands in 27 days — directly affecting SBI's highest win-rate work (hospitality at 92%) while Sheldon and Skelcon already have registered building practitioners.",
+  "recommendations": [
+    {
+      "title": "Register as a DBP Building Practitioner before 1 July 2026 hospitality cliff",
+      "category": "Compliance",
+      "confidence": "high",
+      "horizon": "this-quarter",
+      "evidence": "From 1 July 2026, alteration and renovation work on existing Class 3 and 9c buildings (hotels, motels, hostels, boarding houses, aged care) becomes subject to the DBP Act, requiring registered building and design practitioners to lodge regulated designs on the NSW Planning Portal before work starts. Skelcon and Sheldon already operate as integrated design+build practitioners on these classes; smaller competitors on Oneflare do not.",
+      "sources": [
+        {
+          "url": "https://www.nsw.gov.au/housing-and-construction/compliance-and-regulation/professionals-working-on-regulated-buildings/building-classes-and-roles",
+          "title": "NSW Government — DBP Act building classes and roles"
+        },
+        {
+          "url": "https://pdclaw.au/amendments-design-building-residential-practitioners-act/",
+          "title": "PDC Law — DBP Act amendments to 1 July 2026"
+        }
+      ],
+      "reasoning": "SBI's Hospitality Fitout type has a 91.7% win rate at $140K avg — by far the most profitable category. Most boutique hotel, pub and accommodation refurb work falls in Class 3. If SBI cannot lodge as a registered building practitioner from July, they get locked out of this exact pipeline or forced to subcontract under a competitor who can.",
+      "action": "Lodge DBP building practitioner registration this quarter, ensure PI insurance covers Class 3/9c, and publish a 'DBP-registered hospitality fitout' landing page.",
+      "impact": "Protects ~$1.5M+/yr hospitality pipeline (11 wins × $140K) that competitors without registration will lose access to."
+    },
+    {
+      "title": "Kill the web form, double down on the 1300 number — your $107K channel",
+      "category": "Sales Channel",
+      "confidence": "high",
+      "horizon": "this-quarter",
+      "evidence": "SBI's own data: Web Form 0 wins from 4 leads. 1300 Number only 2 wins from 7 leads (29%) but at $107,093 average won value — the highest of any channel. Market benchmark: Evercon Newcastle now promises a 48-hour concept and budget forecast turnaround as a competitive differentiator.",
+      "sources": [
+        {
+          "url": "https://evercon.com.au/office-furniture-and-joinery-fit-outs-in-newcastle/",
+          "title": "Evercon — 48-hour concept turnaround promise"
+        }
+      ],
+      "reasoning": "Phone leads bring genuine large commercial buyers; web forms are dominated by tyre-kickers. The conversion gap (0% web vs 29% phone with 1.6× higher value) means SBI is paying for traffic that wastes design time. Competitors are now winning on speed-to-quote, not 24-48 hours.",
+      "action": "Replace the web form with a 'call us / book a 15-min discovery call' Calendly + 1300 number, and commit to an Evercon-style 48-hour preliminary budget letter.",
+      "impact": "Recover ~10-15 hours/week of sales+design time and lift the top-of-funnel value mix toward the $107K phone-lead average."
+    },
+    {
+      "title": "Stop chasing tenders — they are bleeding your win-rate maths",
+      "category": "Market Positioning",
+      "confidence": "high",
+      "horizon": "this-quarter",
+      "evidence": "SBI's repeat-clients table shows 0/6 on the internal Sales Task Template deals, 0/4 with Raine & Horne Rogers, 0/3 on McDonalds Morisset, 0/2 on Awaba House RFT, 0/2 on LAHC Adamstown. The LAHC builders register is now under Homes NSW and dominated by Tier-1 consortia like Stockland/Link Wentworth and Lendlease/St George.",
+      "sources": [
+        {
+          "url": "https://au.linkedin.com/company/nswlahc",
+          "title": "LAHC LinkedIn — consortium shortlists"
+        },
+        {
+          "url": "https://www.australiantenders.com.au/issuer/4263/tenders/land-and-housing-corporation",
+          "title": "Australian Tenders — LAHC tender history"
+        }
+      ],
+      "reasoning": "SBI is consistently losing tier-1 government and franchise tenders that consume PM and estimating capacity for no return.",
+      "action": "Implement a tender qualifying scorecard; auto-decline RFTs above $500K or with >3 pre-qualified competitors unless a sponsor relationship exists.",
+      "impact": "Free ~80-120 estimator/PM hours/quarter and lift overall win rate above 55%."
+    },
+    {
+      "title": "Productise an 'NCC 2025 Section J ready' fitout package",
+      "category": "Brand",
+      "confidence": "high",
+      "horizon": "6-months",
+      "evidence": "NCC 2025 mandates on-site solar PV under clause J9D5 for Class 3 and 5-9 buildings, roughly halves the regulated energy allowance, and requires switchboard space for future battery storage and EV charging readiness. ACT adopts 1 May 2026; NSW adoption expected to follow. None of SBI's named local competitors (Sheldon, Skelcon, Total Fitouts, CC Constructions, Evercon) currently market a Section J compliance package.",
+      "sources": [
+        {
+          "url": "https://ncc.abcb.gov.au/ncc-2025/ncc-2025-key-changes/ncc-2025-commercial-energy-efficiency-changes",
+          "title": "ABCB — NCC 2025 commercial energy efficiency changes"
+        },
+        {
+          "url": "https://greenchoiceconsulting.com.au/ncc-2025-section-j-explained/",
+          "title": "Green Choice Consulting — NCC 2025 Section J"
+        }
+      ],
+      "reasoning": "SBI's office fitout type wins 73% at $46K — these are exactly the small Class 5 tenancies where landlords and tenants will be confused by Section J. A 'compliance-included' fitout package becomes a clear, defensible point of difference vs Total Fitouts and Oneflare-style local builders who position on price.",
+      "action": "Build a 'Section J Ready' fixed-scope office package (lighting controls, PV-ready cabling, switchboard space) and partner with a NABERS-accredited assessor.",
+      "impact": "Adds 8-12% premium pricing on office fitouts and creates a defensible SEO term competitors won't rank for in 2026."
+    },
+    {
+      "title": "Reposition retail fitout as 'destination F&B and experience retail' only",
+      "category": "Market Positioning",
+      "confidence": "medium",
+      "horizon": "6-months",
+      "evidence": "SBI's Retail Fitout win rate is just 47% (8 won / 9 lost) — the worst of any major category, at $62K avg. Meanwhile MOVABLE's Newcastle 2026 outlook reports neighbourhood and experience-driven F&B retail outperforming traditional strip retail, while CC Constructions already markets itself as shopping-centre-approved retail shopfitter and Total Fitouts Newcastle has a dedicated retail/wellness practice.",
+      "sources": [
+        {
+          "url": "https://www.movable.com.au/article/what-the-next-5-years-could-look-like-for-commercial-property-in-newcastle/",
+          "title": "MOVABLE — Newcastle commercial property 5-year outlook"
+        },
+        {
+          "url": "https://ccconstructions.com.au/",
+          "title": "Complete Commercial Construction — shop fitter Central Coast Newcastle"
+        }
+      ],
+      "reasoning": "SBI cannot beat CC Constructions on standard shopping-centre retail rollouts but can win on hospitality-adjacent experience retail (cafes, boutique, wellness) which dovetails with the 92% hospitality win rate. Hospitality fitout rates in 2026 are $1,500-$4,000/m² vs basic retail at $800-$1,500 — bigger deals, better margins.",
+      "action": "Drop general retail fitout from the website nav; replace with 'Cafe, Bar & Experience Retail' as a single category leveraging the hospitality DBP credentials.",
+      "impact": "Lift retail-related avg deal value from $62K toward $140K and reallocate sales effort to higher-win categories."
+    },
+    {
+      "title": "Cap long-cycle jobs at 150 days or charge a programme premium",
+      "category": "Pricing",
+      "confidence": "high",
+      "horizon": "this-quarter",
+      "evidence": "SBI's archived data: Fenwicks Marina ran 200 build days at 17.3% margin (vs 24.6% planned) at just $65/day profit. Extend Rehab Coastal Physio ran 333 days at 30.3% margin. Erina Sawmill at 127 days delivered $422/build-day. Industry benchmark: Skelcon completes Newcastle office fitouts in 6-9 weeks (~45-65 days) for single-level work.",
+      "sources": [
+        {
+          "url": "https://skelcon.com.au/industries/commercial-fitout",
+          "title": "Skelcon — Newcastle commercial fitout timelines"
+        }
+      ],
+      "reasoning": "Long build cycles destroy profit-per-build-day even when revenue looks good. SBI's own numbers show jobs over 150 days collapse margin by 7-8 points. Programme risk is a pricing line, not a free option for the client.",
+      "action": "Add a 'programme over 16 weeks' premium of 8-10% to quotes, and write 'works pause' clauses for client-caused delays beyond a 4-week buffer.",
+      "impact": "Recover 7-8 margin points on long jobs, equivalent to ~$10-15K margin per 200-day project."
+    },
+    {
+      "title": "Lock in a 2-3 person joinery hire wave before NCC compliance work hits",
+      "category": "Talent",
+      "confidence": "medium",
+      "horizon": "6-months",
+      "evidence": "Indeed reports cabinet maker NSW average $43.30/hr (April 2026); SEEK lists qualified cabinet makers at $75-90K base. NSW non-residential pipeline is strengthening with A-grade Newcastle office demand and Cushman & Wakefield reporting 83% of Australian fitout contractors expect prices to rise slightly over the next six months — signalling capacity tightness.",
+      "sources": [
+        {
+          "url": "https://au.indeed.com/career/cabinet-maker/salaries/Sydney-NSW",
+          "title": "Indeed — NSW cabinet maker hourly rate"
+        },
+        {
+          "url": "https://www.cushmanwakefield.com/en/australia/insights/office-fit-out-cost-guide",
+          "title": "Cushman & Wakefield — Australia Fit Out Cost Guide 2026"
+        },
+        {
+          "url": "https://au.seek.com/career-advice/role/cabinetmaker/salary",
+          "title": "SEEK — Cabinet Maker salary Australia 2026"
+        }
+      ],
+      "reasoning": "SBI's joinery category at 70% win rate and $22K avg is a steady backbone — but capacity is the bottleneck for scaling hospitality (92% win rate, $140K). Sheldon's competitive edge is explicitly their in-house Central Coast manufacturing facility. Hiring ahead of the NCC 2025 and DBP-driven activity surge avoids paying peak Sydney rates.",
+      "action": "Hire 1 leading-hand cabinet maker + 1 second-year apprentice this quarter; pre-negotiate a 6-month casual install crew agreement.",
+      "impact": "Adds ~30% factory throughput, supports 4-5 extra hospitality jobs/year at $140K each."
+    },
+    {
+      "title": "Own the 'existing client' channel — turn 68% into 80% with a retainer",
+      "category": "Sales Channel",
+      "confidence": "medium",
+      "horizon": "6-months",
+      "evidence": "SBI's Existing Client source converts at 68.2% vs 31.7% from Search. Austral Herbs (Fountaindale) returned for a second build worth $527K. Coastwide Waterproofing returned for a second design deal. Market trend: Newcastle leasing activity is shifting to smaller 150-300sqm flexible floorplates with shorter terms, meaning the same tenants refit more often.",
+      "sources": [
+        {
+          "url": "https://www.movable.com.au/article/what-the-next-5-years-could-look-like-for-commercial-property-in-newcastle/",
+          "title": "MOVABLE — Newcastle office leasing shift to smaller flexible floorplates"
+        }
+      ],
+      "reasoning": "Existing clients convert at 2x the rate of search traffic. With Newcastle tenants moving to shorter leases and more frequent reconfigurations, there's a real product here — a paid 'workplace care plan' that locks in refresh work before tenants Google a competitor.",
+      "action": "Launch an annual 'Workplace Care' retainer ($3-6K/yr) for past clients covering minor joinery, partition tweaks, end-of-lease make-good audits, with priority quoting.",
+      "impact": "Convert 10-15 past clients into recurring revenue (~$50-75K/yr) and pre-empt search-channel competition for their next major refit."
+    }
+  ],
+  "researchScope": {
+    "competitorsFound": [
+      "Sheldon Interiors (Central Coast manufacturing)",
+      "Skelcon (Newcastle commercial builder)",
+      "Total Fitouts Central Coast & Newcastle",
+      "Evoke Projects (Central Coast/Newcastle, vet/medical focus)",
+      "CC Constructions / Complete Commercial Construction (Central Coast & Newcastle retail)",
+      "Ace Fitouts (Sydney/Newcastle/Central Coast/Wollongong, NSW Lotteries accredited)",
+      "Nyon Shopfitters (Sydney/Central Coast/Newcastle)",
+      "Evercon (Newcastle joinery, 48-hr concept promise)",
+      "Trade Design Group (Newcastle office fitout)",
+      "Zeal Interiors (Newcastle, NSW 297027C)",
+      "Complete Office Fitouts (Sydney servicing Central Coast/Newcastle)",
+      "OMNI Building Group (Newcastle commercial)"
+    ],
+    "trendsCovered": [
+      "NCC 2025 Section J commercial energy efficiency changes (mandatory PV J9D5, halved energy allowance)",
+      "DBP Act extension to existing Class 3 & 9c buildings from 1 July 2026",
+      "Newcastle commercial property 2026 outlook (A-grade office demand, F&B-led retail)",
+      "NSW non-residential construction forecasts 2026-27",
+      "Office fitout cost benchmarks Australia 2026 ($800-$3,500/m² range)",
+      "Hospitality fitout cost benchmarks 2026 ($1,500-$4,000/m²)",
+      "Cabinet maker / joinery wages NSW 2026 ($28-$43/hr range)",
+      "Cushman & Wakefield Contractor Sentiment Survey 2026",
+      "LAHC / Homes NSW tender consortium structure",
+      "Hospitality industry 2026 trends (premiumisation, experience retail, smaller flexible floorplates)"
+    ]
+  }
+}

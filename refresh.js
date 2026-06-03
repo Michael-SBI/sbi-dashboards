@@ -897,7 +897,47 @@ async function main() {
     missingDashboards,
   }, null, 2), 'utf8');
 
+  // ─── Performance dashboard pipeline ────────────────────────
+  // After the per-project refresh + index rebuild, regenerate the
+  // performance page and (monthly) the CEO Lens advice. Each step is
+  // isolated — a failure in one does not block subsequent steps or
+  // change the refresh exit code.
+  await runPostProcess([
+    { name: 'fetch-sales-data', script: 'fetch-sales-data.js', requires: ['CLICKUP_API_TOKEN'] },
+    { name: 'ceo-advice',        script: 'ceo-advice.js',        requires: ['ANTHROPIC_API_KEY'] },
+    { name: 'performance',       script: 'performance.js',       requires: [] },
+  ]);
+
   process.exit(failures.length ? 1 : 0);
+}
+
+async function runPostProcess(steps) {
+  const { spawnSync } = require('child_process');
+  console.log('\n────────── PERFORMANCE PIPELINE ──────────');
+  for (const step of steps) {
+    const missing = step.requires.filter(k => !process.env[k]);
+    if (missing.length) {
+      warn(`${step.name}: skipped — env var${missing.length > 1 ? 's' : ''} ${missing.join(', ')} not set`);
+      continue;
+    }
+    const t0 = Date.now();
+    log(`${step.name}: starting…`);
+    try {
+      const r = spawnSync(process.execPath, [path.join(REPO_ROOT, step.script)], {
+        stdio: 'inherit',
+        env: process.env,
+        cwd: REPO_ROOT,
+      });
+      const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
+      if (r.status === 0) {
+        log(`${step.name}: ✅ ${elapsed}s`);
+      } else {
+        warn(`${step.name}: ⚠️ exit ${r.status} after ${elapsed}s — continuing`);
+      }
+    } catch (e) {
+      warn(`${step.name}: ❌ spawn error — ${e.message}`);
+    }
+  }
 }
 
 main().catch(e => {
