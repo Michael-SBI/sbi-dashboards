@@ -240,8 +240,8 @@ function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
     else archivedProjects.push(p);
   }
 
-  // Active: ascending by jobNumber (matches existing convention — oldest first)
-  activeProjects.sort((a, b) => (a.jobNumber || '').localeCompare(b.jobNumber || ''));
+  // Active: descending by jobNumber (YYMMDD) — newest project first
+  activeProjects.sort((a, b) => (b.jobNumber || '').localeCompare(a.jobNumber || ''));
   // Archive: descending by jobNumber (most recently sold = most recently archived first)
   archivedProjects.sort((a, b) => (b.jobNumber || '').localeCompare(a.jobNumber || ''));
 
