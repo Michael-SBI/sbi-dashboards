@@ -35,7 +35,9 @@ const TOKEN = process.env.CLICKUP_API_TOKEN || process.env.CLICKUP_TOKEN;
 const REPO_ROOT = path.resolve(__dirname);
 
 const SBI_PROJECTS_SPACE = '54603442';
+const DEALS_LIST = '900301389267';
 const JOB_NUMBER_PREFIX = /^(\d{6})\b/;
+const DATE_SOLD_FIELD = '318fa7ac-a502-496d-a7fa-d28cbe07ae6c'; // Date Sold on the sales task (epoch ms)
 
 const FIELDS = {
   budgetAllowance:   'ec6378ba-324d-445a-b9a1-75746b6afe78', // Budget Allowance SBI (currency)
@@ -105,6 +107,79 @@ async function clickup(endpoint, opts = {}) {
 function getCustomField(task, fieldId) {
   const cf = (task.custom_fields || []).find(c => c.id === fieldId);
   return cf ? cf.value : undefined;
+}
+
+// Job number YYMMDD → epoch ms (UTC midnight). Used only as a last-resort fallback
+// when a project's live Date Sold can't be resolved from its sales task.
+function jobNumberToEpoch(jobNumber) {
+  const m = /^(\d{2})(\d{2})(\d{2})$/.exec(jobNumber || '');
+  if (!m) return null;
+  const [, yy, mm, dd] = m;
+  const t = Date.UTC(2000 + Number(yy), Number(mm) - 1, Number(dd));
+  return Number.isNaN(t) ? null : t;
+}
+
+function salesTaskIdFromUrl(url) {
+  const m = /\/t\/([a-z0-9]+)/i.exec(url || '');
+  return m ? m[1] : null;
+}
+
+const isWonStatus = (s) => /won|sold/i.test(s || '');
+
+// The "sold date" = when the sales task was moved to its Won Sold status. ClickUp records
+// this as date_done (the won status is a done-type status); fall back to date_closed, then
+// the Date Sold custom field. Returns epoch ms or null.
+function wonDate(task) {
+  const v = task.date_done || task.date_closed || getCustomField(task, DATE_SOLD_FIELD);
+  return v ? Number(v) : null;
+}
+
+// Resolve the live Won-Sold date for each active project. Primary source: the project's
+// salesTaskUrl (the authoritative linked sales task). Projects with no link are matched
+// against the Deals list by job number — but ONLY a Won task counts (so a number collision
+// with a lost/abandoned deal can't supply a bogus date). Returns Map(slug -> epoch ms | null).
+async function resolveSoldDates(activeProjects) {
+  const out = new Map();
+  const needDealsLookup = [];
+
+  // 1) Direct fetch by sales-task id (parallel, fault-tolerant)
+  await Promise.all(activeProjects.map(async (p) => {
+    const id = salesTaskIdFromUrl(p.existingData?.project?.salesTaskUrl);
+    if (!id) { needDealsLookup.push(p); return; }
+    try {
+      const task = await clickup(`/task/${id}`);
+      out.set(p.slug, wonDate(task));
+    } catch (e) {
+      warn(`sold-date fetch failed for ${p.slug} (task ${id}): ${e.message}`);
+      out.set(p.slug, null);
+    }
+  }));
+
+  // 2) Deals-list lookup by job number for projects without a usable link.
+  //    Match the first 6-digit run anywhere in the name (handles the "TS251213" prefix),
+  //    and keep only WON tasks that carry a real won date.
+  if (needDealsLookup.length) {
+    const wonByJob = new Map();
+    try {
+      for (let page = 0; page < 6; page++) {
+        const data = await clickup(`/list/${DEALS_LIST}/task?include_closed=true&subtasks=false&page=${page}`);
+        const tasks = data.tasks || [];
+        for (const t of tasks) {
+          const jn = (t.name.match(/(\d{6})/) || [])[1];
+          if (!jn || !isWonStatus(t.status?.status)) continue;
+          const d = wonDate(t);
+          if (d != null && !wonByJob.has(jn)) wonByJob.set(jn, d);
+        }
+        if (data.last_page) break;
+      }
+    } catch (e) {
+      warn(`Deals-list sold-date lookup failed: ${e.message}`);
+    }
+    for (const p of needDealsLookup) {
+      out.set(p.slug, wonByJob.has(p.jobNumber) ? wonByJob.get(p.jobNumber) : null);
+    }
+  }
+  return out;
 }
 
 function findJsonBlock(html, id) {
@@ -226,7 +301,7 @@ function renderCard(project) {
   return `<a class="card" href="${escapeHtml(slug)}/"><h2>${escapeHtml(name)}</h2><div class="type">${escapeHtml(typeLine)}</div><div class="updated" data-slug="${escapeHtml(slug)}">Loading...</div></a>`;
 }
 
-function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
+async function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
   if (!fs.existsSync(indexPath)) {
     warn(`index.html not found at ${indexPath} — skipping rebuild`);
     return;
@@ -240,8 +315,21 @@ function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
     else archivedProjects.push(p);
   }
 
-  // Active: ascending by jobNumber (YYMMDD) — oldest project first
-  activeProjects.sort((a, b) => (a.jobNumber || '').localeCompare(b.jobNumber || ''));
+  // Active: ascending by LIVE Date Sold (sales-task field) — oldest project first.
+  // Falls back to the job-number date only when the sold date can't be resolved.
+  const soldBySlug = await resolveSoldDates(activeProjects);
+  const soldEpoch = (p) => {
+    const live = soldBySlug.get(p.slug);
+    if (live != null) return live;
+    const fallback = jobNumberToEpoch(p.jobNumber);
+    return fallback != null ? fallback : Number.POSITIVE_INFINITY; // unknown → sort last
+  };
+  const missingSold = activeProjects.filter(p => soldBySlug.get(p.slug) == null);
+  if (missingSold.length) {
+    warn(`${missingSold.length} active job(s) have NO Date Sold on the sales task (sorted by job-number date as fallback):`);
+    missingSold.forEach(p => warn(`  - ${p.jobNumber} ${p.projectName} (${p.slug})`));
+  }
+  activeProjects.sort((a, b) => soldEpoch(a) - soldEpoch(b));
   // Archive: descending by jobNumber (most recently sold = most recently archived first)
   archivedProjects.sort((a, b) => (b.jobNumber || '').localeCompare(a.jobNumber || ''));
 
@@ -829,7 +917,7 @@ async function main() {
   if (indexOnly) {
     log('--index-only: skipping dashboard refresh, rebuilding index.html only');
     if (folderFetchOk) {
-      rebuildIndexPage(allProjects, activeCuFolders, path.join(REPO_ROOT, 'index.html'));
+      await rebuildIndexPage(allProjects, activeCuFolders, path.join(REPO_ROOT, 'index.html'));
     } else {
       err('Cannot rebuild index — active folder fetch failed.');
       process.exit(1);
@@ -879,7 +967,7 @@ async function main() {
   // we refreshed this run), so partial refreshes don't drop cards from the index.
   if (folderFetchOk) {
     try {
-      rebuildIndexPage(allProjects, activeCuFolders, path.join(REPO_ROOT, 'index.html'));
+      await rebuildIndexPage(allProjects, activeCuFolders, path.join(REPO_ROOT, 'index.html'));
     } catch (e) {
       warn(`Failed to rebuild index page: ${e.message}`);
     }
