@@ -1151,10 +1151,12 @@ function renderSalesPipeline() {
     stats +
     dqCard +
     '<div class="discipline">' +
-      '<b>Ambiguous-outcome warning:</b> ' + view.ambiguousPct + '% of deals in this view (' + view.ambiguousCount + ' of ' + view.totalDeals + ') are in legacy status <b>"done complete"</b> ' +
-      '— could be won, lost, or abandoned. Excluded from win-rate maths (shown in the <b>?</b> column for transparency). ' +
-      'Historic years (2023, 2024) are heavily affected because the team used "done complete" as the default close status before formalising closed-won / done-lost. 2025+ data is more reliable.' +
-      '<br><b>Data discipline gap:</b> ' + view.noTypePct + '% of deals have no <b>Job Type</b> set, and ' + view.noSrcPct + '% have no <b>Lead Source</b> set. ' +
+      (view.ambiguousCount > 0
+        ? ('<b>Ambiguous-outcome warning:</b> ' + view.ambiguousPct + '% of deals in this view (' + view.ambiguousCount + ' of ' + view.totalDeals + ') are in legacy status <b>"done complete"</b> ' +
+           '— could be won, lost, or abandoned. Excluded from win-rate maths (shown in the <b>?</b> column for transparency). ' +
+           'Historic years (2023, 2024) are heavily affected because the team used "done complete" as the default close status before formalising closed-won / done-lost. 2025+ data is more reliable.<br>')
+        : '') +
+      '<b>Data discipline gap:</b> ' + view.noTypePct + '% of deals have no <b>Job Type</b> set, and ' + view.noSrcPct + '% have no <b>Lead Source</b> set. ' +
       'The breakdowns below only reflect the ' + (100 - view.noTypePct) + '% / ' + (100 - view.noSrcPct) + '% with tagged data. ' +
       'Every new deal needs both fields filled in.' +
       '<br><b>Sales-cycle caveat:</b> "avg cycle" = date_created → date_done on the deal task. Some legacy deals were closed long after creation; treat as a directional signal.' +

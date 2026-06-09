@@ -10,9 +10,11 @@
  *   - perTaskSalesCycle[taskId] → days from date_created to date_closed
  *     (used by performance.js to merge sales-cycle into per-archived-job rows)
  *
- * "Won" = status `closed won` or `done complete`.
- * "Lost" = status `done lost` or `declined to quote`.
+ * "Won" = status `closed won`.
+ * "Lost" = status `done lost after proposal` or `declined_no proposal`.
  * Open  = anything else not in a terminal state.
+ * (Status names updated for the 2026-06 Deals-list status rename. The old
+ *  `done lost` / `declined to quote` / `done complete` statuses no longer exist.)
  *
  * Environment: CLICKUP_API_TOKEN
  *
@@ -30,13 +32,16 @@ const CLICKUP_API = 'https://api.clickup.com/api/v2';
 const TOKEN = process.env.CLICKUP_API_TOKEN || process.env.CLICKUP_TOKEN;
 const REPO_ROOT = path.resolve(__dirname);
 
+// Terminal statuses, per the 2026-06 Deals-list status rename.
+//   WON  = `closed won` (type=done)
+//   LOST = `done lost after proposal` (type=closed) + `declined_no proposal` (type=done).
+//          These replace the old `done lost` / `declined to quote`. The rename is what
+//          broke the win-rate maths — losses fell through to "open", giving a 100% win rate.
 const WON_STATUSES = new Set(['closed won']);
-const LOST_STATUSES = new Set(['done lost', 'declined to quote']);
-// `done complete` is a legacy "deal task closed" status used before the
-// team formalised closed-won / done-lost. Of the 244 historic deals in
-// this status, some are wins, some are losses, some are abandoned —
-// untrustworthy as a win signal. Excluded from win-rate maths; surfaced
-// separately as "outcome unknown" in the UI.
+const LOST_STATUSES = new Set(['done lost after proposal', 'declined_no proposal']);
+// `done complete` was a legacy generic "deal closed" status, fully migrated during the
+// rename (0 deals remain in it). Kept here so that if any straggler reappears it surfaces
+// as "outcome unknown" rather than silently skewing the win-rate.
 const AMBIGUOUS_STATUSES = new Set(['done complete']);
 
 function log(...a) { console.log('[sales]', ...a); }
