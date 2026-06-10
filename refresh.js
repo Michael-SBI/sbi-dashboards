@@ -4,8 +4,11 @@
  * ============================
  * Refreshes deterministic data (claims, budget, schedule, site works,
  * compliance, metrics) on existing project dashboards by pulling fresh
- * ClickUp data via the REST API. Narrative fields (actions, projectSummary,
- * milestoneGroups, phase) are preserved from the existing dashboard.
+ * ClickUp data via the REST API. Narrative + engine-computed fields (actions,
+ * projectSummary, milestoneGroups, phase, and the Project Intelligence Engine
+ * reads changesSinceReview / outstanding / emailLog.ballInCourt) are preserved
+ * from the existing dashboard via the `{...existing}` spread in the merge below
+ * — they are populated by the engine (project-health-check html mode), not here.
  *
  * Usage:
  *   node refresh.js                       # refresh all projects
@@ -843,7 +846,11 @@ async function refreshProject(project) {
     siteWorksTasks,
     compliance,
     lifecycle,
-    // PRESERVED: project, phase, health, milestoneGroups, actions, projectSummary, footer
+    // PRESERVED (via the {...existing} spread above): project, phase, health,
+    // milestoneGroups, actions, projectSummary, footer, directorRecommendation,
+    // emailLog (incl. ballInCourt), and the engine reads changesSinceReview +
+    // outstanding. These are engine/LLM-computed — the deterministic refresh
+    // must not overwrite them; it only recomputes the numeric/data fields below.
   };
 
   // 5. Inject into existing HTML
