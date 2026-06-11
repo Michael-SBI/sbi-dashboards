@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>Project Status — Wyoming Medical - Door | SBI</title>
+<title>Project Status — TEMPLATE | SBI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Instrument+Sans:wght@400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
@@ -200,6 +200,27 @@ img{max-width:100%;display:block}
 .bic-body{font-family:var(--font-display);font-weight:380;font-size:19px;line-height:1.35;color:var(--ink);font-variation-settings:'opsz' 36}
 .bic-body strong{font-weight:500;font-variation-settings:'opsz' 36, 'wght' 500}
 .bic-since{font-size:11px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;font-weight:600;text-align:right}
+
+/* ─────────  This-week review band (Changes + Outstanding)  ───────── */
+.review{margin:32px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rev-col{border:1px solid var(--ink);border-top:4px solid var(--ink-3);background:var(--paper-2);padding:20px 24px}
+.rev-col.is-outstanding{border-top-color:var(--warning)}
+.rev-head{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2);margin-bottom:14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.rev-head .rev-since{color:var(--ink-3);letter-spacing:.06em;font-weight:600;text-transform:none}
+.rev-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.rev-item{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;font-size:14px;line-height:1.42;color:var(--ink-2)}
+.rev-dot{width:8px;height:8px;border-radius:50%;margin-top:6px;background:var(--neutral);flex:none}
+.rev-dot.is-status{background:var(--good)}
+.rev-dot.is-financial{background:var(--spoke-dark)}
+.rev-dot.is-compliance,.rev-dot.is-schedule{background:var(--warning)}
+.rev-dot.is-email,.rev-dot.is-comment{background:var(--ink-3)}
+.rev-dot.is-chat{background:var(--critical)}
+.rev-item.is-out{grid-template-columns:1fr auto;border-left:3px solid var(--warning);padding-left:13px}
+.rev-item.is-out.sev-gate,.rev-item.is-out.sev-pastdue{border-left-color:var(--critical)}
+.rev-item.is-out.sev-comment{border-left-color:var(--ink-3)}
+.rev-reason{display:inline-block;font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-left:6px;vertical-align:1px}
+.rev-owner{font-family:var(--font-body);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;align-self:center}
+.rev-empty{font-family:var(--font-display);font-weight:380;font-size:15px;font-style:italic;color:var(--ink-3)}
 
 /* ─────────  Phase ribbon  ───────── */
 .phase{
@@ -407,8 +428,35 @@ img{max-width:100%;display:block}
 .gantt-bar.is-todo{background:var(--ink-3)}
 .gantt-meta{font-size:10px;color:var(--ink-3);letter-spacing:.04em;margin-left:8px}
 
-/* ─────────  Milestones (date-positioned timeline)  ───────── */
-.ms-group{margin-bottom:32px}
+/* ─────────  Milestones — vertical spine connects all groups (the snake's backbone) ───────── */
+.ms-spine{position:relative;padding-left:38px;margin-top:8px}
+.ms-spine::before{
+  content:'';position:absolute;
+  left:11px;top:10px;bottom:10px;width:2px;
+  background:linear-gradient(to bottom,
+    var(--spoke) 0,
+    var(--spoke) calc(var(--spine-pct,0%) - 1px),
+    var(--rule) var(--spine-pct,0%),
+    var(--rule) 100%);
+  z-index:0;
+}
+.ms-group{margin-bottom:34px;position:relative;padding-top:2px}
+.ms-group:last-child{margin-bottom:8px}
+.ms-group::before{
+  /* the vertebra — group dot on the spine */
+  content:'';position:absolute;
+  left:-31px;top:8px;width:14px;height:14px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--rule);z-index:2;
+  transition:all .3s ease-out;
+}
+.ms-group.gr-done::before{background:var(--spoke);border-color:var(--spoke)}
+.ms-group.gr-active::before{
+  background:var(--paper);border-color:var(--ink);
+  box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink),0 0 0 8px rgba(39,39,39,.06);
+}
+.ms-group.gr-active .ms-group-title{
+  font-style:italic;font-variation-settings:'opsz' 96,'SOFT' 80;
+}
 .ms-group-head{
   display:flex;align-items:baseline;justify-content:space-between;gap:12px;
   margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--rule);
@@ -481,20 +529,6 @@ img{max-width:100%;display:block}
 .sentiment-card .s-label{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
 .sentiment-card .s-val{font-family:var(--font-display);font-weight:380;font-variation-settings:'opsz' 96;font-size:24px;color:var(--ink);line-height:1.1;margin-bottom:8px}
 .sentiment-card .s-detail{font-size:12.5px;color:var(--ink-2);line-height:1.5}
-.pd-rec{
-  background:var(--paper-2);border-left:4px solid var(--spoke);
-  padding:20px 26px;margin:0 0 32px;
-  display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;
-}
-.pd-rec-label{
-  font-family:var(--font-display);font-style:italic;font-weight:500;
-  font-variation-settings:'opsz' 36, 'SOFT' 80;
-  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--spoke-dark);white-space:nowrap;line-height:1.4;padding-top:2px;
-}
-.pd-rec-body{font-size:14.5px;line-height:1.6;color:var(--ink)}
-.email-item .e-meta .sales{color:var(--ink-3);font-style:italic}
-@media (max-width:680px){.pd-rec{grid-template-columns:1fr;gap:8px}}
 
 /* ─────────  Colophon footer  ───────── */
 .colophon{
@@ -522,6 +556,7 @@ img{max-width:100%;display:block}
   .stat:nth-child(2n){border-left:1px solid var(--rule)}
   .bic{grid-template-columns:1fr;gap:14px}
   .bic-since{text-align:left}
+  .review{grid-template-columns:1fr}
   .budget-row{grid-template-columns:1fr 90px;gap:8px;padding:14px 0}
   .budget-row .b-bar{grid-column:1/-1;margin:6px 0 0}
   .budget-row .b-pct{grid-column:1/-1;text-align:left;margin-top:4px}
@@ -561,7 +596,547 @@ img{max-width:100%;display:block}
      PROJECT DATA — replaced on each generation
      ════════════════════════════════════════════════════════════════════ -->
 <script type="application/json" id="project-data">
-{"project":{"jobNumber":"260415","name":"Wyoming Medical - Door","type":"BUILD — Door supply + install (commercial medical centre)","client":"Greg Norrie","email":"greg@tradieenterprises.com.au","phone":"+61 412 117 489","site":"Wyoming Medical Centre, Wyoming NSW","dealValue":4636.18,"dealValueExGST":4214.71,"dateSold":"23 May 2026","salesTaskUrl":"https://app.clickup.com/t/86d2n81c0","folderId":"90169767005","pm":"Chadd Hoffner","extra":"Single internal door supply + install — jamb, Borg lock, Opti-Lite vision panel. Tradie Enterprises (Greg Norrie) is the head contractor.","jobSummary":"Supply and install a single internal door, jamb and hardware (Borg lock, Opti-Lite vision panel) at the Wyoming Medical Centre. Includes site measure, delivery co-ordination, install and final inspection.","scopeItems":["Supply 1x door + jamb (sized to verified site measure)","Supply Borg keypad lock + Opti-Lite vision panel","Site measure to confirm dimensions before order release","Install door, jamb and hardware on site","Final inspection, client walkthrough and site demob","PM, admin and supplier co-ordination"]},"generated":"Tue 9 June 2026 · 07:22 AEST","health":{"status":"green","label":"ON TRACK"},"phase":{"design":"done","preMfg":"pending","manufacturing":"pending","onSite":"pending","completion":"pending","closeout":"pending"},"metrics":{"contractValue":{"value":"$4,636","sub":"Contract $4,636 + Variations $0","color":"purple"},"schedule":{"value":"0 / 4","sub":"Site works subtasks","color":"blue"},"compliance":{"value":"1 / 9","sub":"Admin/compliance items","color":"amber"},"siteWorks":{"value":"0/0","sub":"6 Jun → 13 Jun","color":"blue"},"milestone":{"value":"Handover","sub":"Due 25 May","color":"orange"}},"claims":[{"num":1,"name":"Progress Claim 2 - Final 40%","amount":1854.47,"pct":10,"workflow":"Not Sent","workflowColor":"#94a3b8","status":"progress claims","notes":"","dateCreated":1779590456754,"dateUpdated":1779666665932},{"num":2,"name":"Progress Claim 1 - Deposit 60%","amount":2781.71,"pct":40,"workflow":"Invoice Paid","workflowColor":"#1bbc9c","status":"progress claims","notes":"","dateCreated":1779590448394,"dateUpdated":1780468294142}],"variations":[],"budget":{"labour":[{"code":"300","name":"Wyoming Medical - Door BUILD LABOUR","budget":850,"actual":0,"status":"to do","assignee":null,"workflow":"Not Started","workflowColor":"#AF7E2E","subtasks":[]},{"code":"301","name":"Wyoming Medical - Door PROJECT MANAGEMENT","budget":200,"actual":98,"status":"to do","assignee":null,"workflow":"Not Started","workflowColor":"#AF7E2E","subtasks":[]}],"nonLabour":[{"code":"306","name":"Wyoming Medical - Door ADMIN OFFICE","budget":140,"actual":78,"status":"to do","assignee":null,"workflow":"Not Started","workflowColor":"#AF7E2E","subtasks":[]},{"code":"310","name":"BUILD SUPPLIER","budget":1605.95,"actual":0,"status":"to do","assignee":null,"workflow":"Not Started","workflowColor":"#AF7E2E","subtasks":[]}],"totalBudget":2795.95,"totalActual":176},"schedule":[],"siteWorksTasks":[],"compliance":[{"name":"*SETUP NEW CLICKUP JOB","status":"done","assignee":null},{"name":"CERTIFICATION CDC, DA","status":"done","assignee":null},{"name":"HOME WARRANTY INSURANCE","status":"done","assignee":null},{"name":"Shared Project Folder changes- Won Job.","status":"done","assignee":null},{"name":"CLIENT FORMS/DOCS","status":"done","assignee":null},{"name":"WHS & SWMS","status":"done","assignee":null},{"name":"Customer - Send out Google Review once job completed","status":"todo","assignee":null},{"name":"New Supplier/Contractor - Send out Google Review once job completed","status":"todo","assignee":null},{"name":"XERO TASKS","status":"todo","assignee":null}],"milestoneGroups":[{"title":"Sales & Handover","listNames":"01 Sales · 03 Admin · 05 PM","nodes":[{"name":"Sales data\nentered","status":"done","icon":"📝","date":"23 May"},{"name":"Folder\nready","status":"done","icon":"📁","date":"23 May"},{"name":"Cost sheet\nbuilt","status":"done","icon":"📊","date":"23 May"},{"name":"Procurement\nbudgets set","status":"done","icon":"💵","date":"23 May"},{"name":"Handover\nmeeting","status":"todo","icon":"🤝","date":"25 May"}]},{"title":"Client Onboarding","listNames":"03 Admin · 04 Claims · 05 PM","nodes":[{"name":"Client\nonboarding","status":"todo","icon":"✉️","date":"25 May"},{"name":"Deposit\ninvoice","status":"todo","icon":"💰","date":"25 May"},{"name":"Schedule sent\nto client","status":"todo","icon":"📅","date":"26 May"}]},{"title":"Procurement & Pre-Mfg","listNames":"07 Pre-Mfg · 08 Procurement","nodes":[{"name":"RFQs sent\n(3 subs)","status":"todo","icon":"📨","date":"23 May"},{"name":"Quotes\nreceived","status":"todo","icon":"📝","date":"28 May"},{"name":"Orders\nplaced","status":"todo","icon":"🛒","date":"30 May"},{"name":"Pre-Mfg\nstart","status":"todo","icon":"⚙️","date":"30 May"}]},{"title":"Manufacturing","listNames":"09 Manufacturing","nodes":[{"name":"Materials\nreceived","status":"todo","icon":"📦","date":"30 May"},{"name":"Mfg/Dispatch\ncomplete","status":"todo","icon":"🏭","date":"6 Jun"}]},{"title":"Site Works & Closeout","listNames":"06 Schedule · 10 Site · 04 Claims","nodes":[{"name":"Site\nmeasure","status":"todo","icon":"📏","date":"6 Jun"},{"name":"Delivery","status":"todo","icon":"🚚","date":"9 Jun"},{"name":"Install","status":"todo","icon":"🔨","date":"11 Jun"},{"name":"Final\ninspection","status":"todo","icon":"✅","date":"13 Jun"},{"name":"Final\nclaim","status":"todo","icon":"💵","date":"13 Jun"}]}],"actions":[{"num":1,"title":"Project Doc still has default name (v3 API rename returns 405)","owner":"Michael","priority":"normal","detail":"The project doc is named '✨️12 SBI PROJECT DOC' rather than the project-specific name. Rename manually in ClickUp UI — page 1 content (contacts + plans) is populated."},{"num":2,"title":"Insurance follow-up: all 3 subs flagged 'no insurances'","owner":"Chadd / Gail","priority":"high","detail":"APS, Bunnings, Criterion all linked to 310 BUILD SUPPLIER but flagged 'no insurances' on Contractors & Suppliers list. PM to chase certificates of currency before any RFQs go out."},{"num":3,"title":"Send RFQs to 3 subs under 310 BUILD SUPPLIER","owner":"Chadd","priority":"high","detail":"Scope-of-works already written to 310 task description (SBI-AUTO-SCOPE marker). 3 RFQ tracking subtasks waiting at 'Not Started' workflow."},{"num":4,"title":"Handover meeting Mon 25 May","owner":"Chadd / Gemma / Gail / Michael","priority":"high","detail":"Handover task in List 05 due Mon 25 May. Chadd to take over as PM. Run through Project Doc page 1 + Buildsoft cost sheet ($2,795.95 ex GST budget, 33.7% gross margin)."},{"num":5,"title":"Send deposit invoice (PC1 $1,854.47 incl GST)","owner":"Gail","priority":"high","detail":"Progress Claim 1 - Deposit 40%. Workflow currently 'Not Sent'. Due 23 May."},{"num":6,"title":"Rename {job name} placeholders in List 06 [SCHEDULE] tasks","owner":"Michael","priority":"normal","detail":"5 schedule tasks still show '{job name}' placeholder rather than 'Wyoming Medical - Door'. Cosmetic but worth fixing."},{"num":7,"title":"Shared-drive folder hasn't been renamed","owner":"Leah","priority":"normal","detail":"Folder at G:\\Shared drives\\SBI JOB FILES_Share\\ is still '260415 Wyoming medical' — should be '260415 BUILD Wyoming Medical - Door' to match ClickUp."}],"projectSummary":[{"title":"Brand-new project — handover in 1 day","owner":"CHADD","detail":"Sold 23 May, handover 25 May. Tight 3-week build (procurement 23–30 May, mfg 30 May–6 Jun, site 6–13 Jun). Single door supply + install at Wyoming Medical Centre — Greg Norrie (Tradie Enterprises) is the client. Deal value $4,636 incl GST.","color":"#1d4ed8"},{"title":"All 3 subs lack insurance certificates","owner":"CHADD","detail":"APS, Bunnings, Criterion all flagged 'no insurances' on the Contractors & Suppliers list. Must be resolved before RFQs go out or any order is placed. Highest near-term risk on this job.","color":"#dc2626"},{"title":"Margin healthy at 33.7% gross","owner":"MICHAEL","detail":"$2,795.95 ex GST cost vs $4,214.67 ex GST sell. Buildsoft source was a PDF (not xlsx) — reconstructed a Buildsoft-shape xlsx from the Trade Breakup PDF in 1.2 COST SHEETS folder.","color":"#7c3aed"},{"title":"Project Doc rename blocked by v3 API bug","owner":"MICHAEL","detail":"The ClickUp v3 docs rename endpoint returns 405. Doc is still named the default '✨️12 SBI PROJECT DOC'. Content is populated. Rename via UI when convenient.","color":"#d97706"}],"footer":{"pm":"Chadd Hofner","client":"Greg Norrie — Tradie Enterprises"},"lifecycle":{"streams":[{"id":"admin","label":"📋 Admin & Finance","color":"#4338ca","activeFrom":null,"milestones":[{"name":"Sold","date":"2026-04-15","status":"done","detail":"Deal value $4,636 incl GST"},{"name":"Progress Claim 1 Deposit 60%","date":"2026-06-03","status":"done","detail":"Progress Claim 1 - Deposit 60% · $2,782 · Invoice Paid"}]},{"id":"mfg","label":"🏭 Manufacturing","color":"#ca8a04","activeFrom":null,"milestones":[]},{"id":"site","label":"🏗️ Site Works","color":"#15803d","activeFrom":null,"milestones":[]}]},"emailLog":{"ballInCourt":{"owner":"SBI","text":"Greg is waiting on Michael to confirm the required opening size so he can arrange the electrical cutout — last chase 20 May, still unanswered.","since":"13 days"},"openCommitments":[{"title":"Confirm required door opening size to Greg","owner":"Michael","dueText":"ASAP — Greg has chased twice (18 May, 20 May)","brief":"Greg has accepted and signed the proposal and needs the opening size to arrange the electrical cutout and any electrical moves. Cannot release the door order or schedule site cutout works until this is confirmed."},{"title":"Send drawing of the proposed door detail to Greg","owner":"Michael","dueText":"Tied to opening-size confirmation — promised 14 May","brief":"Greg's 14 May email asked for the drawing of the detail Michael mentioned. Has not yet been sent — bundle with the opening-size reply."}],"recentActivity":[{"date":"20 May","sender":"Greg Norrie","direction":"IN","summary":"Confirmed proposal signed and accepted. Asked Michael to confirm required opening size ASAP so electrical cutout and any electrical moves can be arranged.","stage":"sales"},{"date":"18 May","sender":"Greg Norrie","direction":"IN","summary":"Chasing so the deposit can be progressed. Re-flagged the 14 May ask — send the drawing and confirm the required opening size ASAP.","stage":"sales"}],"sentiment":{"label":"Watch","level":"warn","detail":"Greg is polite and motivated — he has signed and is actively trying to progress the job — but he has now chased twice for the same opening-size confirmation. Tone is patient but the silence is starting to hold up his own electrical works."}},"directorRecommendation":"Greg has signed, paid attention, and is now chasing us — and the trail has gone quiet on our side for nearly two weeks. Today: send the confirmed opening size plus the door detail drawing Greg asked for on 14 May, so he can release the electrical cutout works at his end. The handover meeting on Mon 25 May has already lapsed without a reply going out — close this loop before it puts pressure on the 6 Jun site measure date and before the deposit invoice (PC1) lands in an unhappy inbox."}
+{
+  "project": {
+    "jobNumber": "260415",
+    "name": "Wyoming Medical - Door",
+    "type": "BUILD — Door supply + install (commercial medical centre)",
+    "client": "Greg Norrie",
+    "email": "greg@tradieenterprises.com.au",
+    "phone": "+61 412 117 489",
+    "site": "Wyoming Medical Centre, Wyoming NSW",
+    "dealValue": 4636.18,
+    "dealValueExGST": 4214.71,
+    "dateSold": "23 May 2026",
+    "salesTaskUrl": "https://app.clickup.com/t/86d2n81c0",
+    "folderId": "90169767005",
+    "pm": "Chadd Hoffner",
+    "extra": "Single internal door supply + install — jamb, Borg lock, Opti-Lite vision panel. Tradie Enterprises (Greg Norrie) is the head contractor.",
+    "jobSummary": "Supply and install a single internal door, jamb and hardware (Borg lock, Opti-Lite vision panel) at the Wyoming Medical Centre. Includes site measure, delivery co-ordination, install and final inspection.",
+    "scopeItems": [
+      "Supply 1x door + jamb (sized to verified site measure)",
+      "Supply Borg keypad lock + Opti-Lite vision panel",
+      "Site measure to confirm dimensions before order release",
+      "Install door, jamb and hardware on site",
+      "Final inspection, client walkthrough and site demob",
+      "PM, admin and supplier co-ordination"
+    ]
+  },
+  "generated": "Tue 9 June 2026 · 07:22 AEST",
+  "health": {
+    "status": "green",
+    "label": "ON TRACK"
+  },
+  "phase": {
+    "design": "done",
+    "preMfg": "pending",
+    "manufacturing": "pending",
+    "onSite": "pending",
+    "completion": "pending",
+    "closeout": "pending"
+  },
+  "metrics": {
+    "contractValue": {
+      "value": "$4,636",
+      "sub": "Contract $4,636 + Variations $0",
+      "color": "purple"
+    },
+    "schedule": {
+      "value": "0 / 4",
+      "sub": "Site works subtasks",
+      "color": "blue"
+    },
+    "compliance": {
+      "value": "1 / 9",
+      "sub": "Admin/compliance items",
+      "color": "amber"
+    },
+    "siteWorks": {
+      "value": "0/0",
+      "sub": "6 Jun → 13 Jun",
+      "color": "blue"
+    },
+    "milestone": {
+      "value": "Handover",
+      "sub": "Due 25 May",
+      "color": "orange"
+    }
+  },
+  "claims": [
+    {
+      "num": 1,
+      "name": "Progress Claim 2 - Final 40%",
+      "amount": 1854.47,
+      "pct": 10,
+      "workflow": "Not Sent",
+      "workflowColor": "#94a3b8",
+      "status": "progress claims",
+      "notes": "",
+      "dateCreated": 1779590456754,
+      "dateUpdated": 1779666665932
+    },
+    {
+      "num": 2,
+      "name": "Progress Claim 1 - Deposit 60%",
+      "amount": 2781.71,
+      "pct": 40,
+      "workflow": "Invoice Paid",
+      "workflowColor": "#1bbc9c",
+      "status": "progress claims",
+      "notes": "",
+      "dateCreated": 1779590448394,
+      "dateUpdated": 1780468294142
+    }
+  ],
+  "variations": [],
+  "budget": {
+    "labour": [
+      {
+        "code": "300",
+        "name": "Wyoming Medical - Door BUILD LABOUR",
+        "budget": 850,
+        "actual": 0,
+        "status": "to do",
+        "assignee": null,
+        "workflow": "Not Started",
+        "workflowColor": "#AF7E2E",
+        "subtasks": []
+      },
+      {
+        "code": "301",
+        "name": "Wyoming Medical - Door PROJECT MANAGEMENT",
+        "budget": 200,
+        "actual": 98,
+        "status": "to do",
+        "assignee": null,
+        "workflow": "Not Started",
+        "workflowColor": "#AF7E2E",
+        "subtasks": []
+      }
+    ],
+    "nonLabour": [
+      {
+        "code": "306",
+        "name": "Wyoming Medical - Door ADMIN OFFICE",
+        "budget": 140,
+        "actual": 78,
+        "status": "to do",
+        "assignee": null,
+        "workflow": "Not Started",
+        "workflowColor": "#AF7E2E",
+        "subtasks": []
+      },
+      {
+        "code": "310",
+        "name": "BUILD SUPPLIER",
+        "budget": 1605.95,
+        "actual": 0,
+        "status": "to do",
+        "assignee": null,
+        "workflow": "Not Started",
+        "workflowColor": "#AF7E2E",
+        "subtasks": []
+      }
+    ],
+    "totalBudget": 2795.95,
+    "totalActual": 176
+  },
+  "schedule": [],
+  "siteWorksTasks": [],
+  "compliance": [
+    {
+      "name": "*SETUP NEW CLICKUP JOB",
+      "status": "done",
+      "assignee": null
+    },
+    {
+      "name": "CERTIFICATION CDC, DA",
+      "status": "done",
+      "assignee": null
+    },
+    {
+      "name": "HOME WARRANTY INSURANCE",
+      "status": "done",
+      "assignee": null
+    },
+    {
+      "name": "Shared Project Folder changes- Won Job.",
+      "status": "done",
+      "assignee": null
+    },
+    {
+      "name": "CLIENT FORMS/DOCS",
+      "status": "done",
+      "assignee": null
+    },
+    {
+      "name": "WHS & SWMS",
+      "status": "done",
+      "assignee": null
+    },
+    {
+      "name": "Customer - Send out Google Review once job completed",
+      "status": "todo",
+      "assignee": null
+    },
+    {
+      "name": "New Supplier/Contractor - Send out Google Review once job completed",
+      "status": "todo",
+      "assignee": null
+    },
+    {
+      "name": "XERO TASKS",
+      "status": "todo",
+      "assignee": null
+    }
+  ],
+  "milestoneGroups": [
+    {
+      "title": "Sales & Handover",
+      "listNames": "01 Sales · 03 Admin · 05 PM",
+      "nodes": [
+        {
+          "name": "Sales data\nentered",
+          "status": "done",
+          "icon": "📝",
+          "date": "23 May"
+        },
+        {
+          "name": "Folder\nready",
+          "status": "done",
+          "icon": "📁",
+          "date": "23 May"
+        },
+        {
+          "name": "Cost sheet\nbuilt",
+          "status": "done",
+          "icon": "📊",
+          "date": "23 May"
+        },
+        {
+          "name": "Procurement\nbudgets set",
+          "status": "done",
+          "icon": "💵",
+          "date": "23 May"
+        },
+        {
+          "name": "Handover\nmeeting",
+          "status": "todo",
+          "icon": "🤝",
+          "date": "25 May"
+        }
+      ]
+    },
+    {
+      "title": "Client Onboarding",
+      "listNames": "03 Admin · 04 Claims · 05 PM",
+      "nodes": [
+        {
+          "name": "Client\nonboarding",
+          "status": "todo",
+          "icon": "✉️",
+          "date": "25 May"
+        },
+        {
+          "name": "Deposit\ninvoice",
+          "status": "todo",
+          "icon": "💰",
+          "date": "25 May"
+        },
+        {
+          "name": "Schedule sent\nto client",
+          "status": "todo",
+          "icon": "📅",
+          "date": "26 May"
+        }
+      ]
+    },
+    {
+      "title": "Procurement & Pre-Mfg",
+      "listNames": "07 Pre-Mfg · 08 Procurement",
+      "nodes": [
+        {
+          "name": "RFQs sent\n(3 subs)",
+          "status": "todo",
+          "icon": "📨",
+          "date": "23 May"
+        },
+        {
+          "name": "Quotes\nreceived",
+          "status": "todo",
+          "icon": "📝",
+          "date": "28 May"
+        },
+        {
+          "name": "Orders\nplaced",
+          "status": "todo",
+          "icon": "🛒",
+          "date": "30 May"
+        },
+        {
+          "name": "Pre-Mfg\nstart",
+          "status": "todo",
+          "icon": "⚙️",
+          "date": "30 May"
+        }
+      ]
+    },
+    {
+      "title": "Manufacturing",
+      "listNames": "09 Manufacturing",
+      "nodes": [
+        {
+          "name": "Materials\nreceived",
+          "status": "todo",
+          "icon": "📦",
+          "date": "30 May"
+        },
+        {
+          "name": "Mfg/Dispatch\ncomplete",
+          "status": "todo",
+          "icon": "🏭",
+          "date": "6 Jun"
+        }
+      ]
+    },
+    {
+      "title": "Site Works & Closeout",
+      "listNames": "06 Schedule · 10 Site · 04 Claims",
+      "nodes": [
+        {
+          "name": "Site\nmeasure",
+          "status": "todo",
+          "icon": "📏",
+          "date": "6 Jun"
+        },
+        {
+          "name": "Delivery",
+          "status": "todo",
+          "icon": "🚚",
+          "date": "9 Jun"
+        },
+        {
+          "name": "Install",
+          "status": "todo",
+          "icon": "🔨",
+          "date": "11 Jun"
+        },
+        {
+          "name": "Final\ninspection",
+          "status": "todo",
+          "icon": "✅",
+          "date": "13 Jun"
+        },
+        {
+          "name": "Final\nclaim",
+          "status": "todo",
+          "icon": "💵",
+          "date": "13 Jun"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "num": 1,
+      "title": "Project Doc still has default name (v3 API rename returns 405)",
+      "owner": "Michael",
+      "priority": "normal",
+      "detail": "The project doc is named '✨️12 SBI PROJECT DOC' rather than the project-specific name. Rename manually in ClickUp UI — page 1 content (contacts + plans) is populated."
+    },
+    {
+      "num": 2,
+      "title": "Insurance follow-up: all 3 subs flagged 'no insurances'",
+      "owner": "Chadd / Gail",
+      "priority": "high",
+      "detail": "APS, Bunnings, Criterion all linked to 310 BUILD SUPPLIER but flagged 'no insurances' on Contractors & Suppliers list. PM to chase certificates of currency before any RFQs go out."
+    },
+    {
+      "num": 3,
+      "title": "Send RFQs to 3 subs under 310 BUILD SUPPLIER",
+      "owner": "Chadd",
+      "priority": "high",
+      "detail": "Scope-of-works already written to 310 task description (SBI-AUTO-SCOPE marker). 3 RFQ tracking subtasks waiting at 'Not Started' workflow."
+    },
+    {
+      "num": 4,
+      "title": "Handover meeting Mon 25 May",
+      "owner": "Chadd / Gemma / Gail / Michael",
+      "priority": "high",
+      "detail": "Handover task in List 05 due Mon 25 May. Chadd to take over as PM. Run through Project Doc page 1 + Buildsoft cost sheet ($2,795.95 ex GST budget, 33.7% gross margin)."
+    },
+    {
+      "num": 5,
+      "title": "Send deposit invoice (PC1 $1,854.47 incl GST)",
+      "owner": "Gail",
+      "priority": "high",
+      "detail": "Progress Claim 1 - Deposit 40%. Workflow currently 'Not Sent'. Due 23 May."
+    },
+    {
+      "num": 6,
+      "title": "Rename {job name} placeholders in List 06 [SCHEDULE] tasks",
+      "owner": "Michael",
+      "priority": "normal",
+      "detail": "5 schedule tasks still show '{job name}' placeholder rather than 'Wyoming Medical - Door'. Cosmetic but worth fixing."
+    },
+    {
+      "num": 7,
+      "title": "Shared-drive folder hasn't been renamed",
+      "owner": "Leah",
+      "priority": "normal",
+      "detail": "Folder at G:\\Shared drives\\SBI JOB FILES_Share\\ is still '260415 Wyoming medical' — should be '260415 BUILD Wyoming Medical - Door' to match ClickUp."
+    }
+  ],
+  "projectSummary": [
+    {
+      "title": "Brand-new project — handover in 1 day",
+      "owner": "CHADD",
+      "detail": "Sold 23 May, handover 25 May. Tight 3-week build (procurement 23–30 May, mfg 30 May–6 Jun, site 6–13 Jun). Single door supply + install at Wyoming Medical Centre — Greg Norrie (Tradie Enterprises) is the client. Deal value $4,636 incl GST.",
+      "color": "#1d4ed8"
+    },
+    {
+      "title": "All 3 subs lack insurance certificates",
+      "owner": "CHADD",
+      "detail": "APS, Bunnings, Criterion all flagged 'no insurances' on the Contractors & Suppliers list. Must be resolved before RFQs go out or any order is placed. Highest near-term risk on this job.",
+      "color": "#dc2626"
+    },
+    {
+      "title": "Margin healthy at 33.7% gross",
+      "owner": "MICHAEL",
+      "detail": "$2,795.95 ex GST cost vs $4,214.67 ex GST sell. Buildsoft source was a PDF (not xlsx) — reconstructed a Buildsoft-shape xlsx from the Trade Breakup PDF in 1.2 COST SHEETS folder.",
+      "color": "#7c3aed"
+    },
+    {
+      "title": "Project Doc rename blocked by v3 API bug",
+      "owner": "MICHAEL",
+      "detail": "The ClickUp v3 docs rename endpoint returns 405. Doc is still named the default '✨️12 SBI PROJECT DOC'. Content is populated. Rename via UI when convenient.",
+      "color": "#d97706"
+    }
+  ],
+  "footer": {
+    "pm": "Chadd Hofner",
+    "client": "Greg Norrie — Tradie Enterprises"
+  },
+  "lifecycle": {
+    "streams": [
+      {
+        "id": "admin",
+        "label": "📋 Admin & Finance",
+        "color": "#4338ca",
+        "activeFrom": null,
+        "milestones": [
+          {
+            "name": "Sold",
+            "date": "2026-04-15",
+            "status": "done",
+            "detail": "Deal value $4,636 incl GST"
+          },
+          {
+            "name": "Progress Claim 1 Deposit 60%",
+            "date": "2026-06-03",
+            "status": "done",
+            "detail": "Progress Claim 1 - Deposit 60% · $2,782 · Invoice Paid"
+          }
+        ]
+      },
+      {
+        "id": "mfg",
+        "label": "🏭 Manufacturing",
+        "color": "#ca8a04",
+        "activeFrom": null,
+        "milestones": []
+      },
+      {
+        "id": "site",
+        "label": "🏗️ Site Works",
+        "color": "#15803d",
+        "activeFrom": null,
+        "milestones": []
+      }
+    ]
+  },
+  "emailLog": {
+    "ballInCourt": {
+      "owner": "SBI",
+      "text": "Gail — confirm deposit paid · order/measure Polytec door this week ahead of ~24 Jun install",
+      "since": "Pre-install"
+    },
+    "openCommitments": [
+      {
+        "title": "Confirm required door opening size to Greg",
+        "owner": "Michael",
+        "dueText": "ASAP — Greg has chased twice (18 May, 20 May)",
+        "brief": "Greg has accepted and signed the proposal and needs the opening size to arrange the electrical cutout and any electrical moves. Cannot release the door order or schedule site cutout works until this is confirmed."
+      },
+      {
+        "title": "Send drawing of the proposed door detail to Greg",
+        "owner": "Michael",
+        "dueText": "Tied to opening-size confirmation — promised 14 May",
+        "brief": "Greg's 14 May email asked for the drawing of the detail Michael mentioned. Has not yet been sent — bundle with the opening-size reply."
+      }
+    ],
+    "recentActivity": [
+      {
+        "date": "20 May",
+        "sender": "Greg Norrie",
+        "direction": "IN",
+        "summary": "Confirmed proposal signed and accepted. Asked Michael to confirm required opening size ASAP so electrical cutout and any electrical moves can be arranged.",
+        "stage": "sales"
+      },
+      {
+        "date": "18 May",
+        "sender": "Greg Norrie",
+        "direction": "IN",
+        "summary": "Chasing so the deposit can be progressed. Re-flagged the 14 May ask — send the drawing and confirm the required opening size ASAP.",
+        "stage": "sales"
+      }
+    ],
+    "sentiment": {
+      "label": "Watch",
+      "level": "warn",
+      "detail": "Greg is polite and motivated — he has signed and is actively trying to progress the job — but he has now chased twice for the same opening-size confirmation. Tone is patient but the silence is starting to hold up his own electrical works."
+    }
+  },
+  "directorRecommendation": "Greg has signed, paid attention, and is now chasing us — and the trail has gone quiet on our side for nearly two weeks. Today: send the confirmed opening size plus the door detail drawing Greg asked for on 14 May, so he can release the electrical cutout works at his end. The handover meeting on Mon 25 May has already lapsed without a reply going out — close this loop before it puts pressure on the 6 Jun site measure date and before the deposit invoice (PC1) lands in an unhappy inbox.",
+  "changesSinceReview": {
+    "since": "baseline",
+    "items": [
+      {
+        "text": "Baseline — first automated health read",
+        "kind": "status"
+      },
+      {
+        "text": "Drawing Rev0 (Shravan) + Markup Rev0 (Michael) done",
+        "kind": "status"
+      },
+      {
+        "text": "Door jamb delivered; Polytec door measure + order scheduled this week",
+        "kind": "schedule"
+      },
+      {
+        "text": "Deposit PC1 60% invoiced",
+        "kind": "financial"
+      }
+    ]
+  },
+  "outstanding": [
+    {
+      "text": "'Gail to advise once deposit has been paid' still open (due ~1 Jun) — confirm deposit received",
+      "owner": "Gail Cook",
+      "reason": "past-due"
+    },
+    {
+      "text": "Construction Plans (All Comments) still 'to do'",
+      "owner": "Shravan Rajbhar",
+      "reason": "phase-gate"
+    },
+    {
+      "text": "Keeler hardware + RFQ Bunnings / APS still 'to do' — order ahead of install",
+      "owner": "Chadd Yorston",
+      "reason": "unassigned"
+    }
+  ]
+}
 </script>
 
 <div class="shell">
@@ -591,6 +1166,9 @@ img{max-width:100%;display:block}
 
   <!-- ─── PHASE RIBBON ─── -->
   <section class="phase reveal" data-reveal="4" id="phaseRibbon"></section>
+
+  <!-- ─── THIS WEEK / REVIEW BAND (Changes since review · Outstanding) ─── -->
+  <section class="review reveal" data-reveal="5" id="reviewBand"></section>
 
   <!-- ─── CHAPTER NAV ─── -->
   <nav class="toc" id="toc">
@@ -636,7 +1214,7 @@ img{max-width:100%;display:block}
 
   <section class="chapter" id="ch-comms">
     <div class="chap-head"><span class="chap-num">VII.</span><h2 class="chap-title">Client Comms</h2></div>
-    <p class="chap-kicker">PM brief drawn from the email log (project + carried-over sales correspondence) with a Project Director's read.</p>
+    <p class="chap-kicker">Open commitments, recent activity, sentiment and responsiveness — drawn from the email log.</p>
     <div id="commsBody"></div>
   </section>
 
@@ -893,6 +1471,58 @@ img{max-width:100%;display:block}
   }).join('');
   document.getElementById('phaseRibbon').innerHTML = phaseHtml;
 
+  // ─── THIS WEEK / REVIEW BAND ───
+  // Engine-computed reads (project-health-check html mode). Both preserved by the
+  // weekly refresh via {...existing}; this band is the "meeting briefing" surface.
+  (function(){
+    var el = document.getElementById('reviewBand');
+    if(!el) return;
+    var changes = D.changesSinceReview || null;
+    var chSince = changes && changes.since ? changes.since : '';
+    var chItems = changes && Array.isArray(changes.items) ? changes.items
+                : (Array.isArray(changes) ? changes : []);
+    var outstanding = Array.isArray(D.outstanding) ? D.outstanding : [];
+
+    var changesHtml = '<div class="rev-col is-changes">'
+      + '<div class="rev-head"><span>Changes since last review</span>'
+      + (chSince ? '<span class="rev-since">since '+esc(chSince)+'</span>' : '')
+      + '</div>';
+    if(chItems.length){
+      changesHtml += '<ul class="rev-list">' + chItems.map(function(it){
+        var text = typeof it === 'string' ? it : (it.text || '');
+        var kind = (it && typeof it === 'object' && it.kind) ? it.kind : 'other';
+        return '<li class="rev-item"><span class="rev-dot is-'+esc(kind)+'"></span><span>'+esc(text)+'</span></li>';
+      }).join('') + '</ul>';
+    } else {
+      changesHtml += '<div class="rev-empty">No significant changes since the last review.</div>';
+    }
+    changesHtml += '</div>';
+
+    var outHtml = '<div class="rev-col is-outstanding">'
+      + '<div class="rev-head"><span>⚠️ Outstanding</span>'
+      + (outstanding.length ? '<span class="rev-since">'+outstanding.length+' item'+(outstanding.length>1?'s':'')+'</span>' : '')
+      + '</div>';
+    if(outstanding.length){
+      outHtml += '<ul class="rev-list">' + outstanding.map(function(o){
+        var text = typeof o === 'string' ? o : (o.text || '');
+        var owner = (o && typeof o === 'object' && o.owner) ? pmFirstName(o.owner) : '';
+        var reason = (o && typeof o === 'object' && o.reason) ? o.reason : '';
+        var sev = /gate/i.test(reason) ? 'sev-gate'
+                : /(past|overdue)/i.test(reason) ? 'sev-pastdue'
+                : /comment|ask/i.test(reason) ? 'sev-comment' : '';
+        return '<li class="rev-item is-out '+sev+'">'
+          + '<span>'+esc(text)+(reason ? '<span class="rev-reason">'+esc(reason)+'</span>' : '')+'</span>'
+          + (owner ? '<span class="rev-owner">'+esc(owner)+'</span>' : '')
+          + '</li>';
+      }).join('') + '</ul>';
+    } else {
+      outHtml += '<div class="rev-empty">Nothing outstanding — phase gates clear.</div>';
+    }
+    outHtml += '</div>';
+
+    el.innerHTML = changesHtml + outHtml;
+  })();
+
   // ─── TOC ───
   var tocItems = [
     {id:'ch-sales', n:'I', label:'Sales'},
@@ -1142,16 +1772,27 @@ img{max-width:100%;display:block}
     document.getElementById('schedBody').innerHTML = ganttHtml;
   })();
 
-  // ─── CHAPTER VI — MILESTONES ───
+  // ─── CHAPTER VI — MILESTONES (with spine) ───
   (function(){
     var groups = D.milestoneGroups || [];
     if(!groups.length){
       document.getElementById('msBody').innerHTML = '<p style="color:var(--ink-3);font-size:13px">No milestones recorded.</p>';
       return;
     }
-    var html = '';
-    groups.forEach(function(g){
-      html += '<div class="ms-group">'
+    // Derive group status from nodes: all done → done, any done/active → active, else pending
+    var groupStatuses = groups.map(function(g){
+      var ns = g.nodes || [];
+      if(!ns.length) return 'pending';
+      var doneN = ns.filter(function(n){ return /done|complete|closed/.test(String(n.status||'').toLowerCase()); }).length;
+      var activeN = ns.filter(function(n){ return /progress|wip|active/.test(String(n.status||'').toLowerCase()); }).length;
+      if(doneN === ns.length) return 'done';
+      if(doneN > 0 || activeN > 0) return 'active';
+      return 'pending';
+    });
+    var html = '<div class="ms-spine" id="msSpine">';
+    groups.forEach(function(g, i){
+      var grCls = 'gr-' + groupStatuses[i];
+      html += '<div class="ms-group ' + grCls + '">'
         + '<div class="ms-group-head">'
         +   '<div class="ms-group-title">' + esc(g.title || '') + '</div>'
         +   '<div class="ms-group-lists">' + esc(g.listNames || '') + '</div>'
@@ -1168,24 +1809,52 @@ img{max-width:100%;display:block}
       });
       html += '</div></div>';
     });
+    html += '</div>';
     document.getElementById('msBody').innerHTML = html;
+
+    // After DOM paints, compute spine fill % to land on the active group's dot (or full if all done)
+    requestAnimationFrame(function(){
+      var spine = document.getElementById('msSpine');
+      if(!spine) return;
+      var children = spine.querySelectorAll('.ms-group');
+      var spineRect = spine.getBoundingClientRect();
+      // top of spine line = spine top + 10 (matches CSS ::before top:10)
+      // bottom of spine line = spine bottom - 10
+      var spineTop = spineRect.top + 10;
+      var spineBottom = spineRect.bottom - 10;
+      var spineHeight = spineBottom - spineTop;
+      // Find active group (or last done if none active)
+      var activeIdx = groupStatuses.indexOf('active');
+      var targetIdx = activeIdx;
+      if(targetIdx < 0){
+        // No active — paint to last-done group
+        var lastDone = -1;
+        groupStatuses.forEach(function(s, i){ if(s === 'done') lastDone = i; });
+        targetIdx = lastDone;
+      }
+      var pct;
+      if(targetIdx < 0){
+        pct = 0;
+      } else if(groupStatuses.every(function(s){ return s === 'done'; })){
+        pct = 100;
+      } else {
+        // Land on the target group's dot center (top:8 within group + 7 to dot center = 15px from group top)
+        var target = children[targetIdx];
+        var dotCenterY = target.getBoundingClientRect().top + 15;
+        pct = Math.max(0, Math.min(100, ((dotCenterY - spineTop) / spineHeight) * 100));
+      }
+      spine.style.setProperty('--spine-pct', pct.toFixed(1) + '%');
+    });
   })();
 
   // ─── CHAPTER VII — CLIENT COMMS ───
   (function(){
-    var pdHtml = '';
-    if(D.directorRecommendation){
-      pdHtml = '<div class="pd-rec">'
-        + '<div class="pd-rec-label">Project Director’s read</div>'
-        + '<div class="pd-rec-body">' + esc(D.directorRecommendation) + '</div>'
-        + '</div>';
-    }
     var el = D.emailLog;
     if(!el){
-      document.getElementById('commsBody').innerHTML = pdHtml
+      document.getElementById('commsBody').innerHTML = ''
         + '<div class="comms-empty">'
-        +   '<div class="hand">no client emails logged yet</div>'
-        +   '<div style="font-size:13px">No entries in the project Email Log or the original Sales Correspondence subtask. The email routine populates this within ~2h of the first email in or out.</div>'
+        +   '<div class="hand">coming next</div>'
+        +   '<div style="font-size:13px">Email-log signal will be wired into this chapter in Phase 2 — open commitments to the client, recent activity, sentiment and responsiveness, drawn from the pinned Project Health Dashboard task at the top of each Email Log list.</div>'
         + '</div>';
       return;
     }
@@ -1204,10 +1873,8 @@ img{max-width:100%;display:block}
     if(el.recentActivity && el.recentActivity.length){
       html += '<div class="comms-h">Recent activity</div>';
       el.recentActivity.forEach(function(e){
-        var dirCls = e.direction === 'OUT' ? 'out' : 'in';
-        var stageTag = e.stage === 'sales' ? ' · <span class="sales">sales stage</span>' : '';
         html += '<div class="email-item">'
-          + '<div class="e-meta"><span class="' + dirCls + '">' + esc(e.direction || '') + '</span> · ' + esc(e.date || '') + ' · ' + esc(e.sender || '') + stageTag + '</div>'
+          + '<div class="e-meta"><span class="' + (e.direction === 'OUT' ? 'out' : 'in') + '">' + esc(e.direction || '') + '</span> · ' + esc(e.date || '') + ' · ' + esc(e.sender || '') + '</div>'
           + '<div class="e-sum">' + esc(e.summary || '') + '</div>'
           + '</div>';
       });
@@ -1231,7 +1898,7 @@ img{max-width:100%;display:block}
         + '</div>';
     }
     html += '</div></div>';
-    document.getElementById('commsBody').innerHTML = pdHtml + html;
+    document.getElementById('commsBody').innerHTML = html;
   })();
 
   // ─── CHAPTER VIII — ACTIONS ───
