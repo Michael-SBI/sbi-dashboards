@@ -1,58 +1,83 @@
 {
-  "generated": "2026-06-09T01:57:26.724Z",
-  "totalDeals": 689,
+  "generated": "2026-06-15T21:57:34.809Z",
+  "totalDeals": 691,
   "wonCount": 186,
-  "lostCount": 463,
-  "openCount": 40,
+  "lostCount": 466,
+  "openCount": 39,
   "ambiguousCount": 0,
-  "overallWinRate": 0.28659476117103233,
+  "overallWinRate": 0.2852760736196319,
   "overallAvgSalesCycleDays": 45.34285714285714,
   "byStatus": {
-    "inquiries recieved": 7,
+    "inquiries recieved": 2,
+    "active outreach": 2,
+    "presentation sent": 3,
+    "estimating & design": 5,
+    "qualified lead": 4,
     "closed won": 186,
-    "estimating & design": 6,
-    "initial meeting booked": 2,
-    "active outreach": 1,
+    "initial meeting booked": 1,
+    "declined_no proposal": 12,
+    "meet/inspection completed": 2,
     "done lost after proposal": 454,
-    "re-price proposal": 5,
-    "on hold drip feed": 16,
-    "declined_no proposal": 9,
-    "(subtask) wip": 1,
-    "qualified lead": 2
+    "re-price proposal": 3,
+    "on hold drip feed": 15,
+    "re-present proposal": 1,
+    "(subtask) wip": 1
   },
   "byType": {
-    "Flooring": {
-      "total": 7,
-      "won": 3,
+    "Joinery": {
+      "total": 139,
+      "won": 51,
+      "lost": 69,
+      "open": 19,
+      "ambiguous": 0,
+      "winRate": 0.425,
+      "avgSalesCycleDays": 38,
+      "avgWonValue": 22248.407450980387,
+      "totalWonValue": 1134668.7799999998
+    },
+    "Residential": {
+      "total": 8,
+      "won": 4,
       "lost": 3,
       "open": 1,
       "ambiguous": 0,
-      "winRate": 0.5,
-      "avgSalesCycleDays": 153.66666666666666,
-      "avgWonValue": 81779.63,
-      "totalWonValue": 245338.89
+      "winRate": 0.5714285714285714,
+      "avgSalesCycleDays": 53.75,
+      "avgWonValue": 34277.3075,
+      "totalWonValue": 137109.23
+    },
+    "Mezzanine": {
+      "total": 2,
+      "won": 1,
+      "lost": 0,
+      "open": 1,
+      "ambiguous": 0,
+      "winRate": 1,
+      "avgSalesCycleDays": 317,
+      "avgWonValue": 26349.95,
+      "totalWonValue": 26349.95
+    },
+    "Other": {
+      "total": 37,
+      "won": 19,
+      "lost": 17,
+      "open": 1,
+      "ambiguous": 0,
+      "winRate": 0.5277777777777778,
+      "avgSalesCycleDays": 19.5,
+      "avgWonValue": 11611.885555555556,
+      "totalWonValue": 209013.94
     },
     "Design": {
-      "total": 28,
+      "total": 29,
       "won": 15,
       "lost": 13,
-      "open": 0,
+      "open": 1,
       "ambiguous": 0,
       "winRate": 0.5357142857142857,
       "avgSalesCycleDays": 57.642857142857146,
       "avgWonValue": 33073.666666666664,
       "totalWonValue": 496105
-    },
-    "Joinery": {
-      "total": 132,
-      "won": 51,
-      "lost": 67,
-      "open": 14,
-      "ambiguous": 0,
-      "winRate": 0.4322033898305085,
-      "avgSalesCycleDays": 38,
-      "avgWonValue": 22248.407450980387,
-      "totalWonValue": 1134668.7799999998
     },
     "Office Fitout": {
       "total": 102,
@@ -88,37 +113,15 @@
       "totalWonValue": 237443
     },
     "Hospitality Fitout": {
-      "total": 25,
+      "total": 26,
       "won": 11,
       "lost": 11,
-      "open": 3,
+      "open": 4,
       "ambiguous": 0,
       "winRate": 0.5,
       "avgSalesCycleDays": 61.63636363636363,
       "avgWonValue": 140075.59545454546,
       "totalWonValue": 1540831.55
-    },
-    "Residential": {
-      "total": 7,
-      "won": 4,
-      "lost": 3,
-      "open": 0,
-      "ambiguous": 0,
-      "winRate": 0.5714285714285714,
-      "avgSalesCycleDays": 53.75,
-      "avgWonValue": 34277.3075,
-      "totalWonValue": 137109.23
-    },
-    "Other": {
-      "total": 36,
-      "won": 19,
-      "lost": 17,
-      "open": 0,
-      "ambiguous": 0,
-      "winRate": 0.5277777777777778,
-      "avgSalesCycleDays": 19.5,
-      "avgWonValue": 11611.885555555556,
-      "totalWonValue": 209013.94
     },
     "External ": {
       "total": 2,
@@ -153,16 +156,16 @@
       "avgWonValue": 70145.778,
       "totalWonValue": 350728.89
     },
-    "Mezzanine": {
-      "total": 1,
-      "won": 1,
-      "lost": 0,
+    "Flooring": {
+      "total": 6,
+      "won": 3,
+      "lost": 3,
       "open": 0,
       "ambiguous": 0,
-      "winRate": 1,
-      "avgSalesCycleDays": 317,
-      "avgWonValue": 26349.95,
-      "totalWonValue": 26349.95
+      "winRate": 0.5,
+      "avgSalesCycleDays": 153.66666666666666,
+      "avgWonValue": 81779.63,
+      "totalWonValue": 245338.89
     },
     "Electrical": {
       "total": 4,
@@ -176,12 +179,12 @@
       "totalWonValue": 205000
     },
     "(no type set)": {
-      "total": 378,
+      "total": 370,
       "won": 64,
-      "lost": 301,
-      "open": 13,
+      "lost": 302,
+      "open": 4,
       "ambiguous": 0,
-      "winRate": 0.17534246575342466,
+      "winRate": 0.17486338797814208,
       "avgSalesCycleDays": 32.403225806451616,
       "avgWonValue": 25945.22476190476,
       "totalWonValue": 1634549.16
@@ -189,21 +192,21 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 563,
+      "total": 560,
       "won": 143,
-      "lost": 388,
-      "open": 32,
+      "lost": 391,
+      "open": 26,
       "ambiguous": 0,
-      "winRate": 0.2693032015065913,
+      "winRate": 0.26779026217228463,
       "avgSalesCycleDays": 42.52272727272727,
       "avgWonValue": 29483.34142857143,
       "totalWonValue": 4127667.8000000003
     },
     "Existing Client": {
-      "total": 28,
+      "total": 31,
       "won": 15,
       "lost": 8,
-      "open": 5,
+      "open": 8,
       "ambiguous": 0,
       "winRate": 0.6521739130434783,
       "avgSalesCycleDays": 38.333333333333336,
@@ -211,15 +214,26 @@
       "totalWonValue": 597670.8400000001
     },
     "Search": {
-      "total": 70,
+      "total": 71,
       "won": 19,
       "lost": 49,
-      "open": 2,
+      "open": 3,
       "ambiguous": 0,
       "winRate": 0.27941176470588236,
       "avgSalesCycleDays": 51.526315789473685,
       "avgWonValue": 66170.20368421053,
       "totalWonValue": 1257233.87
+    },
+    "Referral": {
+      "total": 17,
+      "won": 6,
+      "lost": 9,
+      "open": 2,
+      "ambiguous": 0,
+      "winRate": 0.4,
+      "avgSalesCycleDays": 57.666666666666664,
+      "avgWonValue": 12528.99,
+      "totalWonValue": 75173.94
     },
     "Web Form": {
       "total": 4,
@@ -242,17 +256,6 @@
       "avgSalesCycleDays": 52.5,
       "avgWonValue": 107093.445,
       "totalWonValue": 214186.89
-    },
-    "Referral": {
-      "total": 16,
-      "won": 6,
-      "lost": 9,
-      "open": 1,
-      "ambiguous": 0,
-      "winRate": 0.4,
-      "avgSalesCycleDays": 57.666666666666664,
-      "avgWonValue": 12528.99,
-      "totalWonValue": 75173.94
     },
     "Flyer": {
       "total": 1,
@@ -317,45 +320,6 @@
           "status": "done lost after proposal",
           "outcome": "lost",
           "dealValue": null
-        }
-      ]
-    },
-    {
-      "clientKey": "aarow building roup",
-      "displayName": "AAROW BUILDING ROUP",
-      "dealCount": 4,
-      "wonCount": 0,
-      "lostCount": 0,
-      "openCount": 4,
-      "totalWonValue": 0,
-      "deals": [
-        {
-          "id": "86d392hwa",
-          "name": "AAROW BUILDING ROUP",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d392ht6",
-          "name": "AAROW BUILDING ROUP",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d392hp4",
-          "name": "AAROW BUILDING ROUP",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d392hp1",
-          "name": "AAROW BUILDING ROUP",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": 0
         }
       ]
     },
@@ -644,6 +608,7 @@
   ],
   "perTaskSalesCycle": {
     "86d38pdh5": 0,
+    "86d379w1q": 9,
     "86d36t006": 1,
     "86d34tzj0": 7,
     "86d33bebv": 9,
@@ -654,6 +619,7 @@
     "86d3215c5": 13,
     "86d31yt6p": 9,
     "86d31mk74": 15,
+    "86d317yud": 28,
     "86d30ap98": 5,
     "86d2z32bj": 13,
     "86d2ynpcf": 11,
@@ -680,6 +646,7 @@
     "86d2ep3gd": 11,
     "86d2e9n1c": 12,
     "86d2dtut6": 54,
+    "86d2dttdc": 82,
     "86d2dtq11": 13,
     "86d2dd8c2": 7,
     "86d2d7wkx": 14,
@@ -1295,46 +1262,80 @@
   },
   "deals": [
     {
-      "id": "86d392hwa",
-      "name": "AAROW BUILDING ROUP",
-      "types": [],
+      "id": "86d3auvmp",
+      "name": "Greg Golcman - (6xdraws/1xpanel/2xdoors)",
+      "types": [
+        "Joinery"
+      ],
       "leadSource": null,
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "aarow building roup"
+      "clientKey": "greg golcman"
     },
     {
-      "id": "86d392ht6",
-      "name": "AAROW BUILDING ROUP",
-      "types": [],
+      "id": "86d3apza3",
+      "name": "Cassie Tofler (Joinery Website)",
+      "types": [
+        "Joinery"
+      ],
       "leadSource": null,
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "aarow building roup"
+      "clientKey": "cassie tofler"
     },
     {
-      "id": "86d392hp4",
-      "name": "AAROW BUILDING ROUP",
-      "types": [],
+      "id": "86d3aayvp",
+      "name": "TS260611 - John Dosanjh (Rear deck roof) ",
+      "types": [
+        "Residential"
+      ],
+      "leadSource": "Existing Client",
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "ts260611"
+    },
+    {
+      "id": "86d3a42h5",
+      "name": "TS260612 Zuber - Laundry",
+      "types": [
+        "Joinery"
+      ],
       "leadSource": null,
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "aarow building roup"
+      "clientKey": "ts260612 zuber"
+    },
+    {
+      "id": "86d39c8dj",
+      "name": "TS260609 Wadalba School- Chloe Wilkins (Music)",
+      "types": [
+        "Joinery"
+      ],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "ts260609 wadalba school"
     },
     {
       "id": "86d392hp1",
-      "name": "AAROW BUILDING ROUP",
+      "name": "TS260608 AAROW BUILDING GROUP",
       "types": [
-        "Flooring"
+        "Mezzanine"
       ],
       "leadSource": null,
       "outcome": "open",
@@ -1342,19 +1343,21 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "aarow building roup"
+      "clientKey": "ts260608 aarow building group"
     },
     {
       "id": "86d38v0n3",
-      "name": "Ash's Pet Kennel",
-      "types": [],
-      "leadSource": null,
+      "name": "TS260608 Ash's Pet Kennel",
+      "types": [
+        "Other"
+      ],
+      "leadSource": "Existing Client",
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "ashs pet kennel"
+      "clientKey": "ts260608 ashs pet kennel"
     },
     {
       "id": "86d38pdh5",
@@ -1373,7 +1376,9 @@
     {
       "id": "86d38920c",
       "name": "TS260605 Justine Forsyth - Pure Fishing Asia Pacific (Office Fitout Tuggerah)",
-      "types": [],
+      "types": [
+        "Office Fitout"
+      ],
       "leadSource": null,
       "outcome": "open",
       "dealValue": null,
@@ -1384,20 +1389,24 @@
     },
     {
       "id": "86d385qnf",
-      "name": "cabinet - Kevin",
-      "types": [],
+      "name": "TS260609 Cabinet - Kevin",
+      "types": [
+        "Joinery"
+      ],
       "leadSource": null,
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "cabinet"
+      "clientKey": "ts260609 cabinet"
     },
     {
       "id": "86d37bub7",
       "name": "TS260609 Liesha Hanekroot (Joinery Website)",
-      "types": [],
+      "types": [
+        "Joinery"
+      ],
       "leadSource": null,
       "outcome": "open",
       "dealValue": null,
@@ -1409,7 +1418,9 @@
     {
       "id": "86d37an4c",
       "name": "TS260604 James Sackett Ocean Landscapes",
-      "types": [],
+      "types": [
+        "Joinery"
+      ],
       "leadSource": null,
       "outcome": "open",
       "dealValue": null,
@@ -1420,7 +1431,7 @@
     },
     {
       "id": "86d37a4gq",
-      "name": "Kitchen cabinet update",
+      "name": "TS260603 Kitchen cabinet update",
       "types": [
         "Joinery"
       ],
@@ -1430,24 +1441,25 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "kitchen cabinet update"
+      "clientKey": "ts260603 kitchen cabinet update"
     },
     {
       "id": "86d379w1q",
       "name": "Jessica- Cessnock",
       "types": [],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 9,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "jessica"
     },
     {
       "id": "86d3761u0",
-      "name": "Raine & Horne Rogers Group",
+      "name": "TS260603 Raine & Horne Rogers Group",
       "types": [
+        "Design",
         "Office Fitout"
       ],
       "leadSource": null,
@@ -1456,7 +1468,7 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "raine & horne rogers group"
+      "clientKey": "ts260603 raine & horne rogers group"
     },
     {
       "id": "86d36t006",
@@ -1486,7 +1498,7 @@
     },
     {
       "id": "86d35j158",
-      "name": "David Boyd New awning windows",
+      "name": "TS260529 David Boyd New awning windows",
       "types": [
         "Retail Fitout"
       ],
@@ -1496,11 +1508,11 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "david boyd new awning windows"
+      "clientKey": "ts260529 david boyd new awning windows"
     },
     {
       "id": "86d35hcmw",
-      "name": "John Ryan-Thomas (Joinery Website)",
+      "name": "TS260530 John Ryan-Thomas (Joinery Website)",
       "types": [
         "Joinery"
       ],
@@ -1510,7 +1522,7 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "john ryan"
+      "clientKey": "ts260530 john ryan"
     },
     {
       "id": "86d34tzj0",
@@ -1689,10 +1701,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 28,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "yvette dew"
     },
@@ -1700,9 +1712,9 @@
       "id": "86d312dzf",
       "name": "TS260518 Ambleside village- Morriset",
       "types": [
-        "Office Fitout"
+        "Hospitality Fitout"
       ],
-      "leadSource": null,
+      "leadSource": "Existing Client",
       "outcome": "open",
       "dealValue": 10000,
       "salesCycleDays": null,
@@ -1884,7 +1896,7 @@
       "types": [
         "Retail Fitout"
       ],
-      "leadSource": null,
+      "leadSource": "Search",
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
@@ -2036,7 +2048,7 @@
       "types": [
         "Office Fitout"
       ],
-      "leadSource": null,
+      "leadSource": "Referral",
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
@@ -2177,10 +2189,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 82,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "jess"
     },
