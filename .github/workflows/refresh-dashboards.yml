@@ -3,7 +3,7 @@ name: Refresh Dashboards
 # Triggered by:
 #   - Make.com via repository_dispatch (event type "refresh")
 #   - Manual run from the GitHub Actions UI
-#   - Weekly cron: Tuesday 06:30 AEST (= Monday 20:30 UTC)
+#   - Daily cron: ~06:30 AEST (19:30 UTC; GitHub may delay scheduled runs up to ~1h)
 #
 # Optional payload (repository_dispatch):
 #   { "event_type": "refresh", "client_payload": { "projects": "hungry-wolfs,marine-rescue" } }
@@ -21,9 +21,10 @@ on:
         required: false
         default: ''
   schedule:
-    # Tuesday 06:30 AEST = Monday 20:30 UTC (AEST = UTC+10; AEDT = UTC+11)
-    # Using 19:30 UTC Monday to be safe across DST (06:30 AEDT)
-    - cron: '30 19 * * 1'
+    # Daily ~06:30 AEST. 19:30 UTC = 05:30 AEST (UTC+10) / 06:30 AEDT (UTC+11).
+    # Kept at 19:30 UTC (DST-safe toward 06:30); GitHub may delay scheduled runs.
+    # Changed weekly→daily 2026-06-17 so dashboards refresh every morning.
+    - cron: '30 19 * * *'
 
 permissions:
   contents: write          # to commit + push the refreshed HTML files
