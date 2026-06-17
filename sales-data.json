@@ -1,36 +1,36 @@
 {
-  "generated": "2026-06-15T22:01:38.220Z",
-  "totalDeals": 691,
-  "wonCount": 186,
-  "lostCount": 466,
-  "openCount": 39,
+  "generated": "2026-06-17T21:29:05.925Z",
+  "totalDeals": 692,
+  "wonCount": 187,
+  "lostCount": 471,
+  "openCount": 34,
   "ambiguousCount": 0,
-  "overallWinRate": 0.2852760736196319,
-  "overallAvgSalesCycleDays": 45.34285714285714,
+  "overallWinRate": 0.28419452887537994,
+  "overallAvgSalesCycleDays": 45.25568181818182,
   "byStatus": {
     "inquiries recieved": 2,
-    "active outreach": 2,
-    "presentation sent": 3,
+    "active outreach": 3,
+    "re-price proposal": 4,
     "estimating & design": 5,
     "qualified lead": 4,
-    "closed won": 186,
+    "closed won": 187,
     "initial meeting booked": 1,
-    "declined_no proposal": 12,
+    "presentation sent": 2,
+    "declined_no proposal": 15,
     "meet/inspection completed": 2,
-    "done lost after proposal": 454,
-    "re-price proposal": 3,
-    "on hold drip feed": 15,
+    "done lost after proposal": 456,
     "re-present proposal": 1,
+    "on hold drip feed": 9,
     "(subtask) wip": 1
   },
   "byType": {
     "Joinery": {
       "total": 139,
       "won": 51,
-      "lost": 69,
-      "open": 19,
+      "lost": 73,
+      "open": 15,
       "ambiguous": 0,
-      "winRate": 0.425,
+      "winRate": 0.4112903225806452,
       "avgSalesCycleDays": 38,
       "avgWonValue": 22248.407450980387,
       "totalWonValue": 1134668.7799999998
@@ -114,14 +114,14 @@
     },
     "Hospitality Fitout": {
       "total": 26,
-      "won": 11,
-      "lost": 11,
-      "open": 4,
+      "won": 12,
+      "lost": 12,
+      "open": 2,
       "ambiguous": 0,
       "winRate": 0.5,
-      "avgSalesCycleDays": 61.63636363636363,
-      "avgWonValue": 140075.59545454546,
-      "totalWonValue": 1540831.55
+      "avgSalesCycleDays": 59,
+      "avgWonValue": 130768.71749999998,
+      "totalWonValue": 1569224.6099999999
     },
     "External ": {
       "total": 2,
@@ -179,12 +179,12 @@
       "totalWonValue": 205000
     },
     "(no type set)": {
-      "total": 370,
+      "total": 371,
       "won": 64,
-      "lost": 302,
+      "lost": 303,
       "open": 4,
       "ambiguous": 0,
-      "winRate": 0.17486338797814208,
+      "winRate": 0.17438692098092642,
       "avgSalesCycleDays": 32.403225806451616,
       "avgWonValue": 25945.22476190476,
       "totalWonValue": 1634549.16
@@ -192,26 +192,26 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 560,
+      "total": 561,
       "won": 143,
-      "lost": 391,
-      "open": 26,
+      "lost": 396,
+      "open": 22,
       "ambiguous": 0,
-      "winRate": 0.26779026217228463,
+      "winRate": 0.2653061224489796,
       "avgSalesCycleDays": 42.52272727272727,
       "avgWonValue": 29483.34142857143,
       "totalWonValue": 4127667.8000000003
     },
     "Existing Client": {
       "total": 31,
-      "won": 15,
+      "won": 16,
       "lost": 8,
-      "open": 8,
+      "open": 7,
       "ambiguous": 0,
-      "winRate": 0.6521739130434783,
-      "avgSalesCycleDays": 38.333333333333336,
-      "avgWonValue": 39844.722666666676,
-      "totalWonValue": 597670.8400000001
+      "winRate": 0.6666666666666666,
+      "avgSalesCycleDays": 37.8125,
+      "avgWonValue": 39128.99375,
+      "totalWonValue": 626063.9
     },
     "Search": {
       "total": 71,
@@ -611,6 +611,8 @@
     "86d379w1q": 9,
     "86d36t006": 1,
     "86d34tzj0": 7,
+    "86d33n5vj": 24,
+    "86d33n5dg": 24,
     "86d33bebv": 9,
     "86d32y8kd": 13,
     "86d3298z4": 15,
@@ -620,17 +622,21 @@
     "86d31yt6p": 9,
     "86d31mk74": 15,
     "86d317yud": 28,
+    "86d312dzf": 30,
     "86d30ap98": 5,
     "86d2z32bj": 13,
     "86d2ynpcf": 11,
     "86d2xuy50": 6,
     "86d2xtgtx": 0,
     "86d2xdb7a": 11,
+    "86d2xdb0w": 42,
     "86d2xd9u1": 11,
     "86d2x3n3q": 22,
     "86d2w0qrk": 11,
     "86d2udbck": 12,
     "86d2ty76r": 14,
+    "86d2rvjt3": 55,
+    "86d2ru7x5": 55,
     "86d2rtzzc": 14,
     "86d2rtzka": 31,
     "86d2r0p51": 16,
@@ -1262,6 +1268,18 @@
   },
   "deals": [
     {
+      "id": "86d3c69df",
+      "name": "TS260616 Jinish Varghese (Joinery Website)",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "ts260616 jinish varghese"
+    },
+    {
       "id": "86d3auvmp",
       "name": "Greg Golcman - (6xdraws/1xpanel/2xdoors)",
       "types": [
@@ -1277,7 +1295,7 @@
     },
     {
       "id": "86d3apza3",
-      "name": "Cassie Tofler (Joinery Website)",
+      "name": "TS260612 Cassie Tofler (Joinery Website)",
       "types": [
         "Joinery"
       ],
@@ -1287,7 +1305,7 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "cassie tofler"
+      "clientKey": "ts260612 cassie tofler"
     },
     {
       "id": "86d3aayvp",
@@ -1559,10 +1577,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 24,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "monica"
     },
@@ -1573,10 +1591,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 24,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "kate"
     },
@@ -1710,17 +1728,17 @@
     },
     {
       "id": "86d312dzf",
-      "name": "TS260518 Ambleside village- Morriset",
+      "name": "SOLD TS260518 Ambleside village- Morriset",
       "types": [
         "Hospitality Fitout"
       ],
       "leadSource": "Existing Client",
-      "outcome": "open",
-      "dealValue": 10000,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "outcome": "won",
+      "dealValue": 28393.06,
+      "salesCycleDays": 30,
+      "closeYear": 2026,
       "createYear": 2026,
-      "clientKey": "ts260518 ambleside village"
+      "clientKey": "sold ts260518 ambleside village"
     },
     {
       "id": "86d30uq49",
@@ -1833,10 +1851,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 42,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260510 stanley k"
     },
@@ -1936,10 +1954,10 @@
         "Hospitality Fitout"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": 50000,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 55,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260428 sustain"
     },
@@ -1948,10 +1966,10 @@
       "name": "Jeff @ Chittaway Bay (Laundry)",
       "types": [],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 55,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "jeff chittaway bay"
     },
@@ -4535,7 +4553,7 @@
     },
     {
       "id": "86cz3dvnx",
-      "name": "250522 BUILD Karuha Commercial Space",
+      "name": "250522 BUILD Karuah Commercial Space",
       "types": [
         "Hospitality Fitout"
       ],
@@ -4545,7 +4563,7 @@
       "salesCycleDays": 260,
       "closeYear": 2026,
       "createYear": 2025,
-      "clientKey": "250522 build karuha commercial space"
+      "clientKey": "250522 build karuah commercial space"
     },
     {
       "id": "86cz1ee5e",
