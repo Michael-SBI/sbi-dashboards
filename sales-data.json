@@ -1,39 +1,38 @@
 {
-  "generated": "2026-06-17T21:29:05.925Z",
-  "totalDeals": 692,
-  "wonCount": 187,
-  "lostCount": 471,
-  "openCount": 34,
+  "generated": "2026-06-18T21:34:24.089Z",
+  "totalDeals": 693,
+  "wonCount": 188,
+  "lostCount": 472,
+  "openCount": 33,
   "ambiguousCount": 0,
-  "overallWinRate": 0.28419452887537994,
-  "overallAvgSalesCycleDays": 45.25568181818182,
+  "overallWinRate": 0.28484848484848485,
+  "overallAvgSalesCycleDays": 45.045197740113,
   "byStatus": {
-    "inquiries recieved": 2,
+    "inquiries recieved": 3,
     "active outreach": 3,
-    "re-price proposal": 4,
-    "estimating & design": 5,
-    "qualified lead": 4,
-    "closed won": 187,
+    "closed won": 188,
+    "presentation sent": 3,
+    "qualified lead": 3,
     "initial meeting booked": 1,
-    "presentation sent": 2,
+    "estimating & design": 3,
+    "on hold drip feed": 11,
     "declined_no proposal": 15,
     "meet/inspection completed": 2,
-    "done lost after proposal": 456,
-    "re-present proposal": 1,
-    "on hold drip feed": 9,
+    "done lost after proposal": 457,
+    "re-price proposal": 3,
     "(subtask) wip": 1
   },
   "byType": {
     "Joinery": {
       "total": 139,
-      "won": 51,
-      "lost": 73,
-      "open": 15,
+      "won": 52,
+      "lost": 74,
+      "open": 13,
       "ambiguous": 0,
-      "winRate": 0.4112903225806452,
-      "avgSalesCycleDays": 38,
-      "avgWonValue": 22248.407450980387,
-      "totalWonValue": 1134668.7799999998
+      "winRate": 0.4126984126984127,
+      "avgSalesCycleDays": 37.38775510204081,
+      "avgWonValue": 22033.289423076923,
+      "totalWonValue": 1145731.05
     },
     "Residential": {
       "total": 8,
@@ -179,10 +178,10 @@
       "totalWonValue": 205000
     },
     "(no type set)": {
-      "total": 371,
+      "total": 372,
       "won": 64,
       "lost": 303,
-      "open": 4,
+      "open": 5,
       "ambiguous": 0,
       "winRate": 0.17438692098092642,
       "avgSalesCycleDays": 32.403225806451616,
@@ -194,10 +193,10 @@
     "(unknown)": {
       "total": 561,
       "won": 143,
-      "lost": 396,
-      "open": 22,
+      "lost": 397,
+      "open": 21,
       "ambiguous": 0,
-      "winRate": 0.2653061224489796,
+      "winRate": 0.26481481481481484,
       "avgSalesCycleDays": 42.52272727272727,
       "avgWonValue": 29483.34142857143,
       "totalWonValue": 4127667.8000000003
@@ -212,6 +211,17 @@
       "avgSalesCycleDays": 37.8125,
       "avgWonValue": 39128.99375,
       "totalWonValue": 626063.9
+    },
+    "1300 Number": {
+      "total": 8,
+      "won": 3,
+      "lost": 5,
+      "open": 0,
+      "ambiguous": 0,
+      "winRate": 0.375,
+      "avgSalesCycleDays": 37.666666666666664,
+      "avgWonValue": 75083.05333333333,
+      "totalWonValue": 225249.16
     },
     "Search": {
       "total": 71,
@@ -245,17 +255,6 @@
       "avgSalesCycleDays": null,
       "avgWonValue": null,
       "totalWonValue": 0
-    },
-    "1300 Number": {
-      "total": 7,
-      "won": 2,
-      "lost": 5,
-      "open": 0,
-      "ambiguous": 0,
-      "winRate": 0.2857142857142857,
-      "avgSalesCycleDays": 52.5,
-      "avgWonValue": 107093.445,
-      "totalWonValue": 214186.89
     },
     "Flyer": {
       "total": 1,
@@ -607,6 +606,7 @@
     }
   ],
   "perTaskSalesCycle": {
+    "86d3a42h5": 8,
     "86d38pdh5": 0,
     "86d379w1q": 9,
     "86d36t006": 1,
@@ -614,6 +614,7 @@
     "86d33n5vj": 24,
     "86d33n5dg": 24,
     "86d33bebv": 9,
+    "86d33bd3x": 26,
     "86d32y8kd": 13,
     "86d3298z4": 15,
     "86d322yyx": 6,
@@ -1268,6 +1269,18 @@
   },
   "deals": [
     {
+      "id": "86d3cyg9z",
+      "name": "partition wall in office - partition wall in office",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "partition wall in office"
+    },
+    {
       "id": "86d3c69df",
       "name": "TS260616 Jinish Varghese (Joinery Website)",
       "types": [],
@@ -1327,11 +1340,11 @@
       "types": [
         "Joinery"
       ],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "leadSource": "1300 Number",
+      "outcome": "won",
+      "dealValue": 11062.27,
+      "salesCycleDays": 8,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260612 zuber"
     },
@@ -1617,10 +1630,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 26,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260529 pino"
     },
