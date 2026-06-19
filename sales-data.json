@@ -1,14 +1,14 @@
 {
-  "generated": "2026-06-18T21:34:24.089Z",
-  "totalDeals": 693,
+  "generated": "2026-06-19T20:52:36.828Z",
+  "totalDeals": 694,
   "wonCount": 188,
   "lostCount": 472,
-  "openCount": 33,
+  "openCount": 34,
   "ambiguousCount": 0,
   "overallWinRate": 0.28484848484848485,
   "overallAvgSalesCycleDays": 45.045197740113,
   "byStatus": {
-    "inquiries recieved": 3,
+    "inquiries recieved": 4,
     "active outreach": 3,
     "closed won": 188,
     "presentation sent": 3,
@@ -178,10 +178,10 @@
       "totalWonValue": 205000
     },
     "(no type set)": {
-      "total": 372,
+      "total": 373,
       "won": 64,
       "lost": 303,
-      "open": 5,
+      "open": 6,
       "ambiguous": 0,
       "winRate": 0.17438692098092642,
       "avgSalesCycleDays": 32.403225806451616,
@@ -191,10 +191,10 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 561,
+      "total": 562,
       "won": 143,
       "lost": 397,
-      "open": 21,
+      "open": 22,
       "ambiguous": 0,
       "winRate": 0.26481481481481484,
       "avgSalesCycleDays": 42.52272727272727,
@@ -1269,8 +1269,8 @@
   },
   "deals": [
     {
-      "id": "86d3cyg9z",
-      "name": "partition wall in office - partition wall in office",
+      "id": "86d3dafnj",
+      "name": "commercial automatic sliding glass door",
       "types": [],
       "leadSource": null,
       "outcome": "open",
@@ -1278,7 +1278,19 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "partition wall in office"
+      "clientKey": "commercial automatic sliding glass door"
+    },
+    {
+      "id": "86d3cyg9z",
+      "name": "Kerrie Linton - partition wall in office",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "kerrie linton"
     },
     {
       "id": "86d3c69df",
@@ -1336,7 +1348,7 @@
     },
     {
       "id": "86d3a42h5",
-      "name": "TS260612 Zuber - Laundry",
+      "name": "SOLD TS260612 Zuber - Laundry",
       "types": [
         "Joinery"
       ],
@@ -1346,7 +1358,7 @@
       "salesCycleDays": 8,
       "closeYear": 2026,
       "createYear": 2026,
-      "clientKey": "ts260612 zuber"
+      "clientKey": "sold ts260612 zuber"
     },
     {
       "id": "86d39c8dj",
