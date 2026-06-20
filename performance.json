@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-19T20:52:36.965Z",
+  "generated": "2026-06-20T20:50:10.182Z",
   "jobCount": 27,
   "archivedCount": 14,
   "activeCount": 13,
@@ -870,7 +870,7 @@
     }
   ],
   "sales": {
-    "generated": "2026-06-19T20:52:36.828Z",
+    "generated": "2026-06-20T20:50:10.053Z",
     "totalDeals": 694,
     "wonCount": 188,
     "lostCount": 472,
