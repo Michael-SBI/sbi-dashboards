@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-20T20:50:10.053Z",
+  "generated": "2026-06-21T20:53:36.445Z",
   "totalDeals": 694,
   "wonCount": 188,
   "lostCount": 472,
@@ -13,11 +13,9 @@
     "closed won": 188,
     "presentation sent": 3,
     "qualified lead": 3,
-    "initial meeting booked": 1,
-    "estimating & design": 3,
+    "estimating & design": 6,
     "on hold drip feed": 11,
     "declined_no proposal": 15,
-    "meet/inspection completed": 2,
     "done lost after proposal": 457,
     "re-price proposal": 3,
     "(subtask) wip": 1
