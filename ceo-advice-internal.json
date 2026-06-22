@@ -1,143 +1,141 @@
 {
-  "generated": "2026-06-03T03:09:26.726Z",
+  "generated": "2026-06-22T21:39:33.845Z",
   "model": "claude-opus-4-7",
-  "promptTokens": 12216,
-  "completionTokens": 5355,
-  "weekCovered": "Week ending 3 Jun 2026",
-  "keyInsight": "Sunshine Kebabs is bleeding margin in real time (18.1% vs 22.8% planned, 7 variations, $37k labour overrun) — intervene this week before it becomes the next Fenwicks Marina.",
+  "promptTokens": 13799,
+  "completionTokens": 5119,
+  "weekCovered": "Week ending 22 Jun 2026",
+  "keyInsight": "Chadd Hoffner is single-point-of-failure: 6 active + 11 archived jobs, and the two biggest active builds (Sunshine Kebabs, Karuah Internal) are both bleeding labour past budget right now.",
   "recommendations": [
     {
-      "title": "Stop the bleed on Sunshine Kebabs East Maitland NOW",
+      "title": "Sunshine Kebabs is repeating the Fenwicks Marina pattern — intervene now",
       "category": "Margin Risk",
       "confidence": "high",
       "horizon": "this-week",
-      "evidence": "Sunshine Kebabs (#251206, $205k, Chadd Hoffner) is tracking at 18.1% actual margin vs 22.8% planned, with $37,036 labour overrun and 7 variations (9.9% of contract). This is the exact pattern that sunk Fenwicks Marina (#251012): planned 27.4%, landed 20.3%, $8.4k labour overrun, 3 variations. The hospitality fitout type wins 92% of bids but Sunshine is now mid-build and slipping.",
+      "evidence": "Sunshine Kebabs East Maitland (251206, $205k, Chadd Hoffner) is at 18.1% actual vs 22.8% planned with $37,036 labour overrun and 7 variations (9.9% of contract). That's the same fingerprint as archived Fenwicks Marina (251012, $78k) which finished 20.3% vs 27.4% planned, $8,376 labour overrun, 3 variations, 234 build days. Karuah Internal BUILD (250522, $176k) is showing the same trail: 17.1% vs 22.1%, $7,052 over, 4 variations.",
       "dataPoints": [
-        "Sunshine Kebabs: planned margin 22.8% vs actual 18.1%, labourOverrun $37,036",
-        "Sunshine Kebabs: 7 variations = 9.9% of contract — highest variation count in active book",
-        "Fenwicks Marina archived at -7.1 margin gap with $8,376 labour overrun and 234-day build cycle",
-        "Sold Dec 2025 — 6 months in-flight already"
+        "Sunshine Kebabs labourOverrun $37,036, 7 variations",
+        "Fenwicks Marina archived at 20.3% vs 27.4% planned, 234 build days",
+        "Karuah Internal BUILD labourOverrun $7,052, 4 variations, margin slipping 22.1%→17.1%",
+        "Both active jobs are Chadd Hoffner BUILDs >$150k"
       ],
-      "reasoning": "This single job is the largest active margin risk in the portfolio. The variation count is climbing AND labour is overrunning — that's a scope-control failure, not just a labour-tracking issue. If left to drift it could erase $20-30k of expected profit.",
-      "action": "Convene a Sunshine Kebabs scope-freeze meeting this week: lock remaining variations, re-forecast labour to completion, and decide which client-requested changes get billed vs absorbed.",
-      "impact": "Protect ~$20-30k of planned margin and prevent a 4-5pt margin miss on SBI's largest active hospitality job."
+      "reasoning": "SBI's biggest active jobs all carry the same warning signs that produced the only two materially negative archived margins on real builds. Variation creep + labour overrun + long cycles is the recurring failure mode on $150k+ builds.",
+      "action": "Freeze further variations on Sunshine Kebabs and Karuah Internal this week; do a labour-to-go forecast and lock a completion plan with Chadd by Friday.",
+      "impact": "Protect ~$10-20k of margin on the two largest active jobs before further slippage."
     },
     {
-      "title": "Chadd Hoffner is carrying 8 active jobs — overload risk is real",
+      "title": "Chadd Hoffner capacity is maxed — redistribute or triage",
       "category": "Capacity",
       "confidence": "high",
       "horizon": "this-week",
-      "evidence": "Chadd Hoffner is PM on 8 of 15 active jobs AND all 9 archived jobs, with avg build cycle of 105 days and avg variation pct of 3.6%. Every other named PM (Leah Procter, Leah Carraro, Gemma King, Chadd Yorston, Michael Cook) carries just 1 active job each. Job #260509 (John Dosanjh) has PM = 'TBC' and #251213 Mingara has PM = 'PM' — placeholder assignments suggesting overflow.",
+      "evidence": "Chadd Hoffner carries 6 of 13 active jobs AND 11 of 14 archived jobs, with avg build cycle 113 days and avg variation 3.6%. Every other PM has ≤2 active jobs. The two longest archived cycles in the dataset (Extend Rehab 333 days, Fenwicks Marina 234 days, Bozmik 229 days) are all his — and all three are the highest-variation jobs (9, 3, 4 variations).",
       "dataPoints": [
-        "Chadd Hoffner: 8 active + 9 archived jobs vs every other PM at 1",
-        "Active jobs unassigned: #260509 PM='TBC', #251213 PM='PM'",
-        "Coastal Physio (Hoffner) ran 333 build days with 9 variations and $13,906 labour overrun",
-        "Fenwicks Marina (Hoffner) ran 234 build days, -7.1 margin gap"
+        "Chadd Hoffner: 6 active + 11 archived",
+        "Extend Rehab 333 build days, 9 variations, $13,906 labour overrun",
+        "Fenwicks Marina 234 days, 3 variations",
+        "Other PMs (Leah Procter, Michael Cook, Gail Cook, Gemma King) hold 1-2 active each"
       ],
-      "reasoning": "The longest-running, most-variation-heavy archived jobs (Coastal Physio, Fenwicks, Bozmik 229 days) all sit with Hoffner. With 8 more active — including the $205k Sunshine Kebabs and $175k Karuah Internal — bandwidth is the single biggest threat to delivery margin in Q3.",
-      "action": "Reassign 2-3 smaller active jobs (Hungry Wolfs $3k, Taylors Conveyancing $20k, Wyoming Medical $4k) off Hoffner to Yorston or a Leah; formally allocate PM for #260509 and #251213 by Friday.",
-      "impact": "Free Hoffner to focus on $500k+ of larger high-margin work and shorten build cycles on smaller jobs."
+      "reasoning": "Build cycles and variation counts correlate directly with PM load. Chadd is the bottleneck producing the long-tail margin erosion; spreading mid-size work to Chadd Yorston/Leah Procter would shorten cycles and reduce variation drift.",
+      "action": "Reassign at least one mid-size active build (e.g. Hungry Wolfs Ourimbah or Wyoming Medical) off Chadd Hoffner to Chadd Yorston or Leah Procter this fortnight.",
+      "impact": "Free Chadd to focus on the two $150k+ at-risk jobs; cut average build cycle by 20-30 days on reassigned work."
     },
     {
-      "title": "Planned margin of 23.1% is a default — not an estimate",
+      "title": "Estimating standard of 23.1% margin is mechanical, not real",
       "category": "Estimating",
       "confidence": "high",
       "horizon": "this-quarter",
-      "evidence": "Seven jobs (Fletcher, Marine Rescue, Endo, Erina Sawmill, Display Cabinet, Hungry Wolfs, Natural Foot Podiatry, Lakehaven, Karuah Deck) all carry plannedMarginPct of exactly 23.1%. Yet actuals range from 22.5% (Display Cabinet) to 61.7% (Fletcher) and 35.9% (Endo). This isn't estimating — it's a copy-paste default that prevents real learning.",
+      "evidence": "Eight separate jobs carry an identical 23.1% planned margin: Taylors Conveyancing, Tracey Fletcher, Marine Rescue, Endo Water Damage, Erina Sawmill, Display Cabinet Adolphus, Hungry Wolfs, Lakehaven Post Office. Actuals range from 22.5% (Adolphus, near-miss) to 61.7% (Tracey Fletcher) — telling us estimating is using a default markup rather than job-specific cost modelling.",
       "dataPoints": [
-        "Tracey Fletcher: planned 23.1%, actual 61.7% (gap +38.6)",
-        "Marine Rescue: planned 23.1%, actual 54.1% (gap +31.0)",
-        "Display Cabinet Adolphus: planned 23.1%, actual 22.5% (gap -0.6)",
-        "Endo Water Damage: planned 23.1%, actual 35.9% (gap +12.8)",
-        "Hungry Wolfs, Natural Foot Podiatry, Lakehaven all also = 23.1% planned"
+        "8 jobs planned at exactly 23.1%",
+        "Tracey Fletcher actual 61.7% (gap +38.6)",
+        "Marine Rescue actual 54.1% (gap +31)",
+        "Adolphus Display Cabinet actual 22.5% (gap -0.6) — the only one that landed near plan"
       ],
-      "reasoning": "When every small-medium build defaults to 23.1%, leadership can't tell over-runs from under-pricing. The Fletcher/Marine Rescue +30pt 'wins' are almost certainly under-recorded labour, not real profit — meaning the company is congratulating itself on phantom margin.",
-      "action": "Replace the 23.1% default in the estimating template with a type-banded planned margin (Joinery, Small Build, Fitout, Design) and require estimator sign-off on any override.",
-      "impact": "Surfaces real margin variance, ends false-positive 'wins', and gives PMs a credible budget to defend."
+      "reasoning": "When the planned margin is a constant, every win is either accidentally underpriced (we leave money on the table) or accidentally fat. Tracey Fletcher's 38.6pt overshoot means we likely could have won a bigger scope; Adolphus shows the default is tight enough to lose money on the wrong job.",
+      "action": "Rebuild estimating templates by job type (small joinery, mid build, fitout >$75k) with separate labour-hour benchmarks; retire the flat 23.1% default this quarter.",
+      "impact": "Tighter quoting on small jobs (avoid Adolphus-style breakeven) and more competitive pricing on jobs we currently over-quote."
     },
     {
-      "title": "Coastal Physio's labour pattern is repeating on Karuah Internal",
-      "category": "Cycle Time",
-      "confidence": "medium",
-      "horizon": "this-week",
-      "evidence": "Coastal Physiotherapy (#240207) ran 333 build days, 9 variations, $13,906 labour overrun, sales cycle of 226 days — the longest in the book. Karuah Internal BUILD (#250522, $175k, Hoffner) sold May 2025 — now 372 days in-flight with 3 variations already and labour tracking $6,907 favourable (likely unrecorded). Bozmik Jillaby also ran 229 days.",
+      "title": "$75k–$300k win rate has collapsed — investigate the mid-band",
+      "category": "Sales Process",
+      "confidence": "high",
+      "horizon": "this-quarter",
+      "evidence": "Win rate by size band: <$25k = 51%, $25-75k = 43%, $75-150k = 29%, $150-300k = 23%, $300k+ = 44%. The mid-band ($75-300k, 47 lost vs 17 won) is where SBI is losing most badly — yet that's where Hospitality Fitout (avgWonValue $130k) and large Office Fitouts live. Meanwhile Search source converts only 27.5% (50 lost) despite avg won value $66k.",
       "dataPoints": [
-        "Coastal Physio: 333 build days, 9 variations, $13,906 labour overrun",
-        "Karuah Internal: sold 2025-05-27, still active 12+ months later, 3 variations",
-        "Bozmik Jillaby: 229 build days, 4 variations",
-        "Erina Sawmill: 127 build days, 60 site days, $2,996 labour overrun"
+        "$75-150k band: 29% win rate (10 won / 24 lost)",
+        "$150-300k band: 23% win rate (7 won / 23 lost)",
+        "Search source: 71 deals, 19 won, $66k avg",
+        "Existing Client source: 68% win rate, $37.5k avg"
       ],
-      "reasoning": "Long-tail jobs are where margin quietly evaporates — Hoffner's three longest jobs all overran labour. Karuah Internal is silently approaching the same cliff, and its 'too-good' actual margin (37.3% vs 22.3% planned) is the same labour-not-yet-coded signature.",
-      "action": "Schedule a hard milestone review on Karuah Internal this week: confirm completion date, true labour-to-go, and lock variation cutoff.",
-      "impact": "Avoid a repeat of the $14k Coastal Physio labour blowout on a job 23% larger."
+      "reasoning": "SBI wins small jobs (relationship + speed) and the occasional big one, but is uncompetitive in the meaty middle. This is likely a pricing or presentation problem — small enough that procurement matters, big enough that SBI isn't yet differentiated.",
+      "action": "Pull the last 10 lost $75-300k deals and have leadership review pricing vs winner where known; trial a structured presentation/proposal format for this band.",
+      "impact": "A 10pt lift in mid-band win rate adds ~5-6 wins/year at $100k+ each."
     },
     {
-      "title": "Pipeline is invisible — 29 deals worth $501k have no type tagged",
-      "category": "Pipeline Health",
+      "title": "Two archived jobs have catastrophic data integrity issues — fix before reporting",
+      "category": "Margin Risk",
       "confidence": "high",
       "horizon": "this-week",
-      "evidence": "Pipeline by stage shows '(no type)' holding 29 deals worth $501,000 — that's 73% of total pipeline value sitting untagged. Typed pipeline is thin: only $80k Joinery (4 deals), $100k Hospitality (2 deals), $10k Office Fitout (3 deals). Yet Hospitality Fitout has a 91.7% win rate at $140k avg — SBI's most lucrative segment.",
+      "evidence": "Mingara Club Small Office Fitout (251213, PM='PM', $88,668 rev) was planned at 92.3% margin with $0 labour budget, actualised at 27.1% with $20,818 labour overrun — a -65.2pt margin gap. John Dosanjh 45 Gordon (260509, PM='TBC') planned 100% / $0 cost, actual 13.8% — -86.2pt gap. Active job Lauren Moore Newcastle (260521) is currently planned at -25.6% margin, actual 100%, $10,065 labour 'overrun' negative.",
       "dataPoints": [
-        "(no type) pipeline: 29 deals, $501,000",
-        "Hospitality Fitout win rate 91.7%, avg won value $140,075",
-        "Office Fitout win rate 73.2%, avg won value $46,825",
-        "Only 2 active Hospitality pipeline deals worth $100k"
+        "Mingara Small Office Fitout: planned 92.3%, actual 27.1%, PM literally 'PM'",
+        "John Dosanjh: planned 100% margin, no PM assigned",
+        "Lauren Moore Newcastle active: planned margin -25.6%",
+        "Karuah Deck active showing 98.6% actual margin with $13k negative labour overrun"
       ],
-      "reasoning": "Leadership literally cannot tell what's in the pipeline. With Hospitality Fitout winning 11/12 bids at $140k each, even one untagged hospitality deal mis-prioritised is a $140k miss. The team is flying blind on the segment that pays best.",
-      "action": "Triage the 29 untyped pipeline deals this week — assign type to each, and immediately escalate any Hospitality or Office Fitout opportunities to closing focus.",
-      "impact": "Surface 2-4 hidden $100k+ opportunities and concentrate sales effort on highest-win-rate segments."
+      "reasoning": "These aren't real margins — they're un-estimated jobs being passed off as wins. They distort PM averages (the 'PM' row shows -65.2% gap; 'TBC' shows -86.2%) and make leadership think the business is healthier than it is.",
+      "action": "Assign a real PM and re-estimate the four flagged jobs this week; bar any new job from being sold without a populated plannedCost and labourBudget.",
+      "impact": "Restore reporting integrity; prevent recurrence on Do-and-Charge and small joinery jobs."
     },
     {
-      "title": "Search-sourced leads convert at 32% — half of Existing Client (68%)",
-      "category": "Sales Process",
+      "title": "Peninsula Villages pilot is the highest-leverage active job — protect it",
+      "category": "Pipeline Health",
       "confidence": "medium",
-      "horizon": "this-quarter",
-      "evidence": "Search source: 70 deals, 19 won, 41 lost = 31.7% win rate. Existing Client: 28 deals, 15 won = 68.2%. Referral: 46.2%. Yet Search delivers the highest avg won value ($65,894) outside the 1300 number. Web Form: 0 wins on 4 deals.",
+      "horizon": "this-week",
+      "evidence": "Peninsula Villages (260511) is tagged 'Joinery — Retirement Village (Pilot Room — ongoing 60+ rooms)' at only $7,585 but currently running 41.4% actual vs 10.6% planned. If the pilot converts to the 60-room programme, it's a ~$450k+ annuity. It's under Chadd Hoffner, who is already overloaded.",
       "dataPoints": [
-        "Search: 70 deals, 31.7% win rate, $65,894 avg won value",
-        "Existing Client: 28 deals, 68.2% win rate",
-        "Web Form: 4 deals, 0 won",
-        "Referral: 16 deals, 46.2% win rate"
+        "Peninsula Villages scope note: 'Pilot Room — ongoing 60+ rooms'",
+        "Current pilot: 41.4% actual vs 10.6% planned margin",
+        "PM is Chadd Hoffner (6 active jobs)",
+        "Pipeline Joinery stage: 15 deals / $30k total — small ticket"
       ],
-      "reasoning": "Search is SBI's largest top-of-funnel by volume but losing 2 of every 3 — and Web Form is 0-for-4. Either qualification is too loose (wasting estimating capacity) or the early-stage response/pitch isn't competitive. Meanwhile the existing-client channel is undermined.",
-      "action": "Add a 10-minute qualification call before any Search/Web-Form lead enters estimating; redirect saved capacity into proactive outreach to dormant Existing Clients.",
-      "impact": "Reduce estimating waste on the 41 Search losses and lift overall win-rate by 3-5 points."
+      "reasoning": "The pilot's strong margin masks the strategic importance — this is the only active job with an obvious multi-room expansion path, and it's sitting with the most-loaded PM. Joinery pipeline value is thin ($30k across 15 deals), so this client matters more than the job size suggests.",
+      "action": "Have Chadd Yorston or Leah Procter shadow Peninsula Villages now; confirm rollout commercials and lock a margin floor before the second room is quoted.",
+      "impact": "Secure a ~$450k recurring joinery programme and de-risk continuity if Chadd Hoffner is unavailable."
     },
     {
-      "title": "Top repeat clients have gone cold — Austral Herbs and Wyong Golf at risk",
+      "title": "Existing-client channel is your best ROI — but top clients are dormant",
       "category": "Client Concentration",
       "confidence": "medium",
       "horizon": "this-quarter",
-      "evidence": "Top client by value is Wyong Golf Club Fitout at $611,595 (1 deal). Austral Herbs Fountaindale is #2 at $527,872 across 2 deals. Neither appears in the active jobs list. Of 13 repeat clients, 7 have zero wins (Raine & Horne 4 deals 0 wins; McDonalds Morisset 3 deals 0 wins; OLG Planked Urban Oak 2/0; Cafe Fitout Newcastle 2/0).",
+      "evidence": "Existing Client source wins 68% at $37.5k avg (17/25). Yet the top historical clients — Wyong Golf Club ($611k, 1 deal), Banksia Paediatrics ($354k, 1 deal), Dinki Di ($351k, 1 deal), Geoff O'Reilly/Nash Allen ($267k, 1 deal) — show no repeat engagement. Repeat-client list is dominated by lost-tender entries (McDonalds Morisset 0/3, LAHC Adamstown 0/2, Awaba House 0/2).",
       "dataPoints": [
-        "Wyong Golf Club: $611,595 lifetime, not in active jobs",
-        "Austral Herbs: $527,872 across 2 deals, not in active jobs",
-        "Raine & Horne Rogers Group: 4 deals, 0 won",
-        "McDonalds Morisset Remodel: 3 deals, 0 won",
-        "Repeat clients with wins: only 4 of 13"
+        "Existing Client win rate 68% vs Search 27.5%",
+        "Wyong Golf Club $611k, 1 deal only",
+        "Banksia Paediatrics $354k, 1 deal only",
+        "Austral Herbs is the ONLY top-10 client with repeat wins (2 deals, $527k)"
       ],
-      "reasoning": "Two clients represent over $1.1M of historical revenue and neither has a current job. Meanwhile multi-deal prospects (Raine & Horne, McDonalds) keep bidding and never converting — that's a pitch/pricing pattern, not bad luck.",
-      "action": "Chadd to personally re-engage Wyong Golf and Austral Herbs this fortnight with a tailored scope idea; do a post-mortem on the Raine & Horne and McDonalds losses to find the common objection.",
-      "impact": "Re-open two $500k+ relationships and stop wasting estimating effort on serial-losing repeat bidders."
+      "reasoning": "SBI's highest-converting channel is starved while the team chases low-yield Search leads. The biggest past clients have not been re-touched — every one is a six-figure account collecting dust.",
+      "action": "Build a 'top 10 dormant accounts' callback list this week; have a director personally re-engage Wyong Golf, Banksia, Dinki Di, Geoff O'Reilly within 30 days.",
+      "impact": "Two reactivations at historical avg = $300-600k of high-margin work at 68% conversion odds."
     },
     {
-      "title": "Mid-size deals ($75k-$300k) are SBI's win-rate trough",
-      "category": "Sales Process",
-      "confidence": "medium",
+      "title": "Variation count is the leading indicator of margin loss — make it a gate",
+      "category": "Operations",
+      "confidence": "high",
       "horizon": "this-quarter",
-      "evidence": "Win rate by size: <$25k = 70%, $25-75k = 62%, $75-150k = 48%, $150-300k = 47%, $300k+ = 57%. The middle band is where SBI loses most — 19 losses across $75-300k vs 17 wins. Yet won jobs in this band include Erina Sawmill ($152k) and Bozmik ($119k), proving capability.",
+      "evidence": "Every archived job with negative or near-zero margin gap had variations: Adolphus Display (1 var, -0.6 gap), Fenwicks Marina (3 vars, -7.1 gap), Mingara Small Office (3 vars, -65.2 gap). Active Sunshine Kebabs already has 7 variations / 9.9% of contract with margin slipping 22.8%→18.1%. By contrast, zero-variation archived jobs averaged a +20pt positive margin gap.",
       "dataPoints": [
-        "$75k-150k: 10 won / 11 lost (48%)",
-        "$150k-300k: 7 won / 8 lost (47%)",
-        "<$25k: 133 won / 57 lost (70%)",
-        "$300k+: 4 won / 3 lost (57%) — better than mid-band"
+        "Fenwicks Marina: 3 variations, margin gap -7.1pt",
+        "Adolphus Display: 1 variation, margin gap -0.6pt",
+        "Sunshine Kebabs active: 7 variations, 9.9% of contract",
+        "All 5 zero-variation archived BUILD jobs landed at +8.3 to +38.6pt gap"
       ],
-      "reasoning": "SBI wins small and wins very large but stumbles in the middle — classic signal that mid-size bids face stronger competition and SBI's pitch isn't differentiating. With Sunshine Kebabs ($205k), Morisset ($166k) and Karuah ($175k) all in this band currently, fixing the mid-band pitch protects the next cohort.",
-      "action": "Run a loss-review on the 19 $75-300k losses from the last 12 months: identify the top 3 objections (price, timeline, references) and build a mid-band pitch deck addressing each.",
-      "impact": "Lift mid-band win rate from 47% toward 60% = ~4 extra wins/year at ~$120k average = $480k revenue."
+      "reasoning": "Variations aren't just admin — in SBI's data they are the strongest single predictor of margin erosion. The team currently treats them as ad-hoc add-ons rather than a margin event.",
+      "action": "Introduce a 'third variation' approval gate: any job exceeding 3 variations or 5% of contract value requires director sign-off and a margin re-forecast.",
+      "impact": "Catch margin erosion on big builds before it crystallises; protect 5-10pt of margin on multi-variation jobs."
     }
   ],
   "patternsObserved": {
-    "notes": "Default planned margin of 23.1% appears on at least 9 jobs — this is template noise, not estimation, and it's masking both real wins and real losses. Multiple 'too good to be true' active margins (Morisset 95.1%, Karuah Deck 98.6%, Wyoming Medical 95.8%, Lauren Moore 100%) almost certainly reflect un-coded labour rather than real performance; treat any active margin >50% as a data-quality flag, not a celebration. Chadd Hoffner's name on 17 of 24 jobs is a single-point-of-failure that will become acute if Sunshine Kebabs, Karuah Internal, and Morisset all hit crunch in the same fortnight. Finally, the $501k of untyped pipeline alongside a hot 92% Hospitality win rate suggests SBI may be sitting on its highest-value segment without realising it."
+    "notes": "Chadd Hoffner is the centre of gravity for delivery — 79% of archived jobs and 46% of active jobs sit with him, and the longest cycles, biggest labour overruns and highest variation counts all cluster around his largest builds. Estimating defaults to a 23.1% planned margin on roughly half of all build jobs, suggesting the quote engine isn't actually modelling cost; this hides both pricing-too-tight risks (Adolphus) and pricing-too-loose opportunities (Tracey Fletcher landed at 61.7%). The repeat-client list is alarming: the top four historical accounts by revenue ($1.6M combined) have not generated a second engagement, while the 'repeat' clients that do appear are largely lost-tender ghosts. Finally, variation count is emerging as a cleaner leading indicator of margin trouble than build days or job size — worth tracking weekly on active jobs."
   }
 }
