@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-21T20:53:36.582Z",
+  "generated": "2026-06-22T21:38:48.276Z",
   "jobCount": 27,
   "archivedCount": 14,
   "activeCount": 13,
@@ -116,11 +116,11 @@
       "siteDays": 0,
       "revenueExGST": 7585,
       "paidRevenueExGST": 4551,
-      "plannedCost": 5618,
+      "plannedCost": 6781,
       "actualCost": 4443,
-      "plannedMarginAmt": 1966,
+      "plannedMarginAmt": 804,
       "actualMarginAmt": 3142,
-      "plannedMarginPct": 25.9,
+      "plannedMarginPct": 10.6,
       "actualMarginPct": 41.4,
       "labourBudget": 3418,
       "labourActual": 2572,
@@ -175,9 +175,9 @@
       "soldDate": "2026-05-25",
       "completedDate": "2026-06-15",
       "siteStart": "2026-06-07",
-      "siteEnd": "2026-06-15",
+      "siteEnd": "2026-06-18",
       "buildCycleDays": 21,
-      "siteDays": 8,
+      "siteDays": 11,
       "revenueExGST": 166387,
       "paidRevenueExGST": 116471,
       "plannedCost": 117026,
@@ -192,7 +192,7 @@
       "variationCount": 0,
       "variationValueExGST": 0,
       "profitPerBuildDay": 5870,
-      "revenuePerSiteDay": 20798,
+      "revenuePerSiteDay": 15126,
       "salesCycleDays": 31,
       "variationPctOfContract": 0
     },
@@ -269,13 +269,13 @@
       "pm": "Chadd Hoffner",
       "client": "Christine",
       "soldDate": "2026-04-04",
-      "completedDate": "2026-04-15",
+      "completedDate": "2026-06-21",
       "siteStart": "2026-06-02",
       "siteEnd": "2026-06-02",
-      "buildCycleDays": 11,
+      "buildCycleDays": 78,
       "siteDays": 0,
       "revenueExGST": 3069,
-      "paidRevenueExGST": 1841,
+      "paidRevenueExGST": 3069,
       "plannedCost": 2361,
       "actualCost": 2489,
       "plannedMarginAmt": 708,
@@ -287,7 +287,7 @@
       "labourOverrun": 725,
       "variationCount": 0,
       "variationValueExGST": 0,
-      "profitPerBuildDay": 53,
+      "profitPerBuildDay": 7,
       "revenuePerSiteDay": null,
       "salesCycleDays": 18,
       "variationPctOfContract": 0
@@ -398,8 +398,8 @@
       "client": "Kevin Adolphus",
       "soldDate": "2026-06-01",
       "completedDate": "2026-03-04",
-      "siteStart": "2026-07-05",
-      "siteEnd": "2026-07-05",
+      "siteStart": "2026-06-28",
+      "siteEnd": "2026-06-28",
       "buildCycleDays": -89,
       "siteDays": 0,
       "revenueExGST": 22146,
@@ -781,13 +781,13 @@
       "pm": "Leah Procter",
       "client": "Peter Chapman (Bel and Marv Pty Ltd)",
       "soldDate": "2025-07-28",
-      "completedDate": "2025-07-28",
+      "completedDate": "2026-06-21",
       "siteStart": "2026-06-15",
       "siteEnd": "2026-07-07",
-      "buildCycleDays": 0,
+      "buildCycleDays": 328,
       "siteDays": 22,
       "revenueExGST": 23955,
-      "paidRevenueExGST": 0,
+      "paidRevenueExGST": 11977,
       "plannedCost": 18800,
       "actualCost": 17544,
       "plannedMarginAmt": 5155,
@@ -799,7 +799,7 @@
       "labourOverrun": -306,
       "variationCount": 0,
       "variationValueExGST": 0,
-      "profitPerBuildDay": null,
+      "profitPerBuildDay": 20,
       "revenuePerSiteDay": 1089,
       "salesCycleDays": 317,
       "variationPctOfContract": 0
@@ -818,23 +818,23 @@
       "siteEnd": null,
       "buildCycleDays": 365,
       "siteDays": null,
-      "revenueExGST": 176316,
+      "revenueExGST": 176390,
       "paidRevenueExGST": 122478,
-      "plannedCost": 136965,
+      "plannedCost": 137490,
       "actualCost": 146255,
-      "plannedMarginAmt": 39351,
-      "actualMarginAmt": 30061,
-      "plannedMarginPct": 22.3,
-      "actualMarginPct": 17,
+      "plannedMarginAmt": 38901,
+      "actualMarginAmt": 30135,
+      "plannedMarginPct": 22.1,
+      "actualMarginPct": 17.1,
       "labourBudget": 40793,
       "labourActual": 47845,
       "labourOverrun": 7052,
       "variationCount": 4,
-      "variationValueExGST": 4788,
-      "profitPerBuildDay": 82,
+      "variationValueExGST": 4862,
+      "profitPerBuildDay": 83,
       "revenuePerSiteDay": null,
       "salesCycleDays": 9,
-      "variationPctOfContract": 2.7
+      "variationPctOfContract": 2.8
     },
     {
       "slug": "extend-rehab-coastal-physiotherapy",
@@ -870,38 +870,61 @@
     }
   ],
   "sales": {
-    "generated": "2026-06-21T20:53:36.445Z",
-    "totalDeals": 694,
-    "wonCount": 188,
-    "lostCount": 472,
-    "openCount": 34,
+    "generated": "2026-06-22T21:38:48.150Z",
+    "totalDeals": 696,
+    "wonCount": 189,
+    "lostCount": 474,
+    "openCount": 33,
     "ambiguousCount": 0,
-    "overallWinRate": 0.28484848484848485,
-    "overallAvgSalesCycleDays": 45.045197740113,
+    "overallWinRate": 0.2850678733031674,
+    "overallAvgSalesCycleDays": 45.657303370786515,
     "byStatus": {
-      "inquiries recieved": 4,
+      "inquiries recieved": 5,
+      "declined_no proposal": 17,
       "active outreach": 3,
-      "closed won": 188,
-      "presentation sent": 3,
+      "closed won": 189,
+      "presentation sent": 1,
       "qualified lead": 3,
       "estimating & design": 6,
-      "on hold drip feed": 11,
-      "declined_no proposal": 15,
+      "re-present proposal": 1,
+      "on hold drip feed": 10,
       "done lost after proposal": 457,
       "re-price proposal": 3,
       "(subtask) wip": 1
     },
     "byType": {
       "Joinery": {
-        "total": 139,
+        "total": 141,
         "won": 52,
         "lost": 74,
-        "open": 13,
+        "open": 15,
         "ambiguous": 0,
         "winRate": 0.4126984126984127,
         "avgSalesCycleDays": 37.38775510204081,
         "avgWonValue": 22033.289423076923,
         "totalWonValue": 1145731.05
+      },
+      "Office Fitout": {
+        "total": 104,
+        "won": 41,
+        "lost": 55,
+        "open": 8,
+        "ambiguous": 0,
+        "winRate": 0.4270833333333333,
+        "avgSalesCycleDays": 68.64102564102564,
+        "avgWonValue": 46486.0955,
+        "totalWonValue": 1859443.82
+      },
+      "Mezzanine": {
+        "total": 3,
+        "won": 1,
+        "lost": 0,
+        "open": 2,
+        "ambiguous": 0,
+        "winRate": 1,
+        "avgSalesCycleDays": 317,
+        "avgWonValue": 26349.95,
+        "totalWonValue": 26349.95
       },
       "Residential": {
         "total": 8,
@@ -913,17 +936,6 @@
         "avgSalesCycleDays": 53.75,
         "avgWonValue": 34277.3075,
         "totalWonValue": 137109.23
-      },
-      "Mezzanine": {
-        "total": 2,
-        "won": 1,
-        "lost": 0,
-        "open": 1,
-        "ambiguous": 0,
-        "winRate": 1,
-        "avgSalesCycleDays": 317,
-        "avgWonValue": 26349.95,
-        "totalWonValue": 26349.95
       },
       "Other": {
         "total": 37,
@@ -947,24 +959,13 @@
         "avgWonValue": 33073.666666666664,
         "totalWonValue": 496105
       },
-      "Office Fitout": {
-        "total": 102,
-        "won": 40,
-        "lost": 55,
-        "open": 7,
-        "ambiguous": 0,
-        "winRate": 0.42105263157894735,
-        "avgSalesCycleDays": 66.39473684210526,
-        "avgWonValue": 47349.88205128205,
-        "totalWonValue": 1846645.4000000001
-      },
       "Retail Fitout": {
         "total": 28,
         "won": 8,
-        "lost": 17,
-        "open": 3,
+        "lost": 18,
+        "open": 2,
         "ambiguous": 0,
-        "winRate": 0.32,
+        "winRate": 0.3076923076923077,
         "avgSalesCycleDays": 43.25,
         "avgWonValue": 62564.30125,
         "totalWonValue": 500514.41
@@ -1047,12 +1048,12 @@
         "totalWonValue": 205000
       },
       "(no type set)": {
-        "total": 373,
+        "total": 371,
         "won": 64,
-        "lost": 303,
-        "open": 6,
+        "lost": 304,
+        "open": 3,
         "ambiguous": 0,
-        "winRate": 0.17438692098092642,
+        "winRate": 0.17391304347826086,
         "avgSalesCycleDays": 32.403225806451616,
         "avgWonValue": 25945.22476190476,
         "totalWonValue": 1634549.16
@@ -1060,26 +1061,26 @@
     },
     "byLeadSource": {
       "(unknown)": {
-        "total": 562,
+        "total": 564,
         "won": 143,
-        "lost": 397,
-        "open": 22,
+        "lost": 398,
+        "open": 23,
         "ambiguous": 0,
-        "winRate": 0.26481481481481484,
+        "winRate": 0.2643253234750462,
         "avgSalesCycleDays": 42.52272727272727,
         "avgWonValue": 29483.34142857143,
         "totalWonValue": 4127667.8000000003
       },
       "Existing Client": {
         "total": 31,
-        "won": 16,
+        "won": 17,
         "lost": 8,
-        "open": 7,
+        "open": 6,
         "ambiguous": 0,
-        "winRate": 0.6666666666666666,
-        "avgSalesCycleDays": 37.8125,
-        "avgWonValue": 39128.99375,
-        "totalWonValue": 626063.9
+        "winRate": 0.68,
+        "avgSalesCycleDays": 44.64705882352941,
+        "avgWonValue": 37580.13647058824,
+        "totalWonValue": 638862.3200000001
       },
       "1300 Number": {
         "total": 8,
@@ -1095,10 +1096,10 @@
       "Search": {
         "total": 71,
         "won": 19,
-        "lost": 49,
-        "open": 3,
+        "lost": 50,
+        "open": 2,
         "ambiguous": 0,
-        "winRate": 0.27941176470588236,
+        "winRate": 0.2753623188405797,
         "avgSalesCycleDays": 51.526315789473685,
         "avgWonValue": 66170.20368421053,
         "totalWonValue": 1257233.87
@@ -1242,6 +1243,31 @@
           {
             "id": "86cwgmg07",
             "name": "1694 - Awaba House - Spoke BI - Ceilings & Partitions RFT",
+            "status": "done lost after proposal",
+            "outcome": "lost",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "ben",
+        "displayName": "Ben- Mezzanine & fitout, Bennets Green",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 1,
+        "openCount": 1,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3dxkuv",
+            "name": "Ben- Mezzanine & fitout, Bennets Green",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "860r3ntpp",
+            "name": "Ben- Parts manufacture",
             "status": "done lost after proposal",
             "outcome": "lost",
             "dealValue": null
@@ -1475,6 +1501,7 @@
       }
     ],
     "perTaskSalesCycle": {
+      "86d3dafnj": 3,
       "86d3a42h5": 8,
       "86d38pdh5": 0,
       "86d379w1q": 9,
@@ -1504,6 +1531,7 @@
       "86d2x3n3q": 22,
       "86d2w0qrk": 11,
       "86d2udbck": 12,
+      "86d2tywu3": 55,
       "86d2ty76r": 14,
       "86d2rvjt3": 55,
       "86d2ru7x5": 55,
@@ -1574,6 +1602,7 @@
       "86d1ng7g2": 61,
       "86d1n07n7": 16,
       "86d1mmhb9": 9,
+      "86d1mkbhw": 154,
       "86d1kh6cv": 27,
       "86d1kax32": 1,
       "86d1k8uw9": 5,
@@ -2138,21 +2167,52 @@
     },
     "deals": [
       {
-        "id": "86d3dafnj",
-        "name": "commercial automatic sliding glass door",
-        "types": [],
+        "id": "86d3dxp1f",
+        "name": "Scott- TV unit (Local)",
+        "types": [
+          "Joinery"
+        ],
         "leadSource": null,
         "outcome": "open",
         "dealValue": null,
         "salesCycleDays": null,
         "closeYear": null,
         "createYear": 2026,
+        "clientKey": "scott"
+      },
+      {
+        "id": "86d3dxkuv",
+        "name": "Ben- Mezzanine & fitout, Bennets Green",
+        "types": [
+          "Office Fitout",
+          "Mezzanine"
+        ],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "ben"
+      },
+      {
+        "id": "86d3dafnj",
+        "name": "commercial automatic sliding glass door",
+        "types": [],
+        "leadSource": null,
+        "outcome": "lost",
+        "dealValue": null,
+        "salesCycleDays": 3,
+        "closeYear": 2026,
+        "createYear": 2026,
         "clientKey": "commercial automatic sliding glass door"
       },
       {
         "id": "86d3cyg9z",
         "name": "Kerrie Linton - partition wall in office",
-        "types": [],
+        "types": [
+          "Office Fitout"
+        ],
         "leadSource": null,
         "outcome": "open",
         "dealValue": null,
@@ -2164,7 +2224,9 @@
       {
         "id": "86d3c69df",
         "name": "TS260616 Jinish Varghese (Joinery Website)",
-        "types": [],
+        "types": [
+          "Joinery"
+        ],
         "leadSource": null,
         "outcome": "open",
         "dealValue": null,
@@ -2809,10 +2871,10 @@
           "Retail Fitout"
         ],
         "leadSource": "Search",
-        "outcome": "open",
+        "outcome": "lost",
         "dealValue": null,
-        "salesCycleDays": null,
-        "closeYear": null,
+        "salesCycleDays": 55,
+        "closeYear": 2026,
         "createYear": 2026,
         "clientKey": "ts260506 cessnock city council"
       },
@@ -3826,17 +3888,17 @@
       },
       {
         "id": "86d1mkbhw",
-        "name": "TS260126 Nash Allan LAWYERS- Office front upgrade",
+        "name": "SOLD TS260126 Nash Allan LAWYERS- Office front upgrade",
         "types": [
           "Office Fitout"
         ],
         "leadSource": "Existing Client",
-        "outcome": "open",
-        "dealValue": 10000,
-        "salesCycleDays": null,
-        "closeYear": null,
+        "outcome": "won",
+        "dealValue": 12798.42,
+        "salesCycleDays": 154,
+        "closeYear": 2026,
         "createYear": 2026,
-        "clientKey": "ts260126 nash allan lawyers"
+        "clientKey": "sold ts260126 nash allan lawyers"
       },
       {
         "id": "86d1kh6cv",
