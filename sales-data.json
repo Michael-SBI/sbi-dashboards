@@ -1,32 +1,66 @@
 {
-  "generated": "2026-06-22T21:38:13.019Z",
-  "totalDeals": 696,
+  "generated": "2026-06-23T21:18:20.874Z",
+  "totalDeals": 698,
   "wonCount": 189,
   "lostCount": 474,
-  "openCount": 33,
+  "openCount": 35,
   "ambiguousCount": 0,
   "overallWinRate": 0.2850678733031674,
   "overallAvgSalesCycleDays": 45.657303370786515,
   "byStatus": {
-    "inquiries recieved": 5,
+    "inquiries recieved": 3,
+    "active outreach": 4,
+    "estimating & design": 5,
     "declined_no proposal": 17,
-    "active outreach": 3,
+    "on hold drip feed": 12,
     "closed won": 189,
     "presentation sent": 1,
     "qualified lead": 3,
-    "estimating & design": 6,
+    "re-price proposal": 4,
     "re-present proposal": 1,
-    "on hold drip feed": 10,
     "done lost after proposal": 457,
-    "re-price proposal": 3,
+    "presentation meeting": 1,
     "(subtask) wip": 1
   },
   "byType": {
+    "Plumbing": {
+      "total": 6,
+      "won": 3,
+      "lost": 2,
+      "open": 1,
+      "ambiguous": 0,
+      "winRate": 0.6,
+      "avgSalesCycleDays": 70,
+      "avgWonValue": 79147.66666666667,
+      "totalWonValue": 237443
+    },
+    "Electrical": {
+      "total": 5,
+      "won": 2,
+      "lost": 2,
+      "open": 1,
+      "ambiguous": 0,
+      "winRate": 0.5,
+      "avgSalesCycleDays": 59.5,
+      "avgWonValue": 102500,
+      "totalWonValue": 205000
+    },
+    "Partitions": {
+      "total": 7,
+      "won": 3,
+      "lost": 3,
+      "open": 1,
+      "ambiguous": 0,
+      "winRate": 0.5,
+      "avgSalesCycleDays": 21,
+      "avgWonValue": 42408.700000000004,
+      "totalWonValue": 127226.1
+    },
     "Joinery": {
-      "total": 141,
+      "total": 142,
       "won": 52,
       "lost": 74,
-      "open": 15,
+      "open": 16,
       "ambiguous": 0,
       "winRate": 0.4126984126984127,
       "avgSalesCycleDays": 37.38775510204081,
@@ -99,17 +133,6 @@
       "avgWonValue": 62564.30125,
       "totalWonValue": 500514.41
     },
-    "Plumbing": {
-      "total": 5,
-      "won": 3,
-      "lost": 2,
-      "open": 0,
-      "ambiguous": 0,
-      "winRate": 0.6,
-      "avgSalesCycleDays": 70,
-      "avgWonValue": 79147.66666666667,
-      "totalWonValue": 237443
-    },
     "Hospitality Fitout": {
       "total": 26,
       "won": 12,
@@ -131,17 +154,6 @@
       "avgSalesCycleDays": 217,
       "avgWonValue": 155197.9,
       "totalWonValue": 155197.9
-    },
-    "Partitions": {
-      "total": 6,
-      "won": 3,
-      "lost": 3,
-      "open": 0,
-      "ambiguous": 0,
-      "winRate": 0.5,
-      "avgSalesCycleDays": 21,
-      "avgWonValue": 42408.700000000004,
-      "totalWonValue": 127226.1
     },
     "Painting": {
       "total": 8,
@@ -165,22 +177,11 @@
       "avgWonValue": 81779.63,
       "totalWonValue": 245338.89
     },
-    "Electrical": {
-      "total": 4,
-      "won": 2,
-      "lost": 2,
-      "open": 0,
-      "ambiguous": 0,
-      "winRate": 0.5,
-      "avgSalesCycleDays": 59.5,
-      "avgWonValue": 102500,
-      "totalWonValue": 205000
-    },
     "(no type set)": {
-      "total": 371,
+      "total": 372,
       "won": 64,
       "lost": 304,
-      "open": 3,
+      "open": 4,
       "ambiguous": 0,
       "winRate": 0.17391304347826086,
       "avgSalesCycleDays": 32.403225806451616,
@@ -189,11 +190,22 @@
     }
   },
   "byLeadSource": {
+    "Referral": {
+      "total": 18,
+      "won": 6,
+      "lost": 9,
+      "open": 3,
+      "ambiguous": 0,
+      "winRate": 0.4,
+      "avgSalesCycleDays": 57.666666666666664,
+      "avgWonValue": 12528.99,
+      "totalWonValue": 75173.94
+    },
     "(unknown)": {
-      "total": 564,
+      "total": 565,
       "won": 143,
       "lost": 398,
-      "open": 23,
+      "open": 24,
       "ambiguous": 0,
       "winRate": 0.2643253234750462,
       "avgSalesCycleDays": 42.52272727272727,
@@ -232,17 +244,6 @@
       "avgSalesCycleDays": 51.526315789473685,
       "avgWonValue": 66170.20368421053,
       "totalWonValue": 1257233.87
-    },
-    "Referral": {
-      "total": 17,
-      "won": 6,
-      "lost": 9,
-      "open": 2,
-      "ambiguous": 0,
-      "winRate": 0.4,
-      "avgSalesCycleDays": 57.666666666666664,
-      "avgWonValue": 12528.99,
-      "totalWonValue": 75173.94
     },
     "Web Form": {
       "total": 4,
@@ -390,7 +391,7 @@
         {
           "id": "86d3dxkuv",
           "name": "Ben- Mezzanine & fitout, Bennets Green",
-          "status": "inquiries recieved",
+          "status": "estimating & design",
           "outcome": "open",
           "dealValue": null
         },
@@ -1295,6 +1296,35 @@
     "1ua20qm": 473
   },
   "deals": [
+    {
+      "id": "86d3ekek2",
+      "name": "Christines Mum’s kitchen (Hungry Wolf Wyoming)",
+      "types": [],
+      "leadSource": "Referral",
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "christines mums kitchen"
+    },
+    {
+      "id": "86d3ekahf",
+      "name": "N6144 - SLR Newcastle - 840 Hunter Street",
+      "types": [
+        "Plumbing",
+        "Electrical",
+        "Partitions",
+        "Joinery"
+      ],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "n6144"
+    },
     {
       "id": "86d3dxp1f",
       "name": "Scott- TV unit (Local)",
