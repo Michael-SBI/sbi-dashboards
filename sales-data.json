@@ -1,26 +1,39 @@
 {
-  "generated": "2026-06-24T21:10:06.505Z",
-  "totalDeals": 699,
+  "generated": "2026-06-25T21:11:59.729Z",
+  "totalDeals": 703,
   "wonCount": 189,
   "lostCount": 475,
-  "openCount": 35,
+  "openCount": 39,
   "ambiguousCount": 0,
   "overallWinRate": 0.28463855421686746,
   "overallAvgSalesCycleDays": 45.657303370786515,
   "byStatus": {
-    "active outreach": 5,
-    "qualified lead": 3,
-    "estimating & design": 3,
-    "presentation meeting": 4,
+    "inquiries recieved": 4,
+    "active outreach": 3,
+    "qualified lead": 4,
+    "presentation sent": 3,
+    "presentation meeting": 2,
     "declined_no proposal": 18,
     "closed won": 189,
     "re-price proposal": 5,
     "on hold drip feed": 13,
+    "estimating & design": 3,
     "re-present proposal": 1,
     "done lost after proposal": 457,
     "(subtask) wip": 1
   },
   "byType": {
+    "Retail Fitout": {
+      "total": 29,
+      "won": 8,
+      "lost": 18,
+      "open": 3,
+      "ambiguous": 0,
+      "winRate": 0.3076923076923077,
+      "avgSalesCycleDays": 43.25,
+      "avgWonValue": 62564.30125,
+      "totalWonValue": 500514.41
+    },
     "Plumbing": {
       "total": 6,
       "won": 3,
@@ -120,17 +133,6 @@
       "avgWonValue": 33073.666666666664,
       "totalWonValue": 496105
     },
-    "Retail Fitout": {
-      "total": 28,
-      "won": 8,
-      "lost": 18,
-      "open": 2,
-      "ambiguous": 0,
-      "winRate": 0.3076923076923077,
-      "avgSalesCycleDays": 43.25,
-      "avgWonValue": 62564.30125,
-      "totalWonValue": 500514.41
-    },
     "Hospitality Fitout": {
       "total": 26,
       "won": 12,
@@ -176,10 +178,10 @@
       "totalWonValue": 245338.89
     },
     "(no type set)": {
-      "total": 373,
+      "total": 376,
       "won": 64,
       "lost": 304,
-      "open": 5,
+      "open": 8,
       "ambiguous": 0,
       "winRate": 0.17391304347826086,
       "avgSalesCycleDays": 32.403225806451616,
@@ -189,10 +191,10 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 566,
+      "total": 570,
       "won": 143,
       "lost": 399,
-      "open": 24,
+      "open": 28,
       "ambiguous": 0,
       "winRate": 0.26383763837638374,
       "avgSalesCycleDays": 42.52272727272727,
@@ -371,31 +373,6 @@
         {
           "id": "86cwgmg07",
           "name": "1694 - Awaba House - Spoke BI - Ceilings & Partitions RFT",
-          "status": "done lost after proposal",
-          "outcome": "lost",
-          "dealValue": null
-        }
-      ]
-    },
-    {
-      "clientKey": "ben",
-      "displayName": "Ben- Mezzanine & fitout, Bennets Green",
-      "dealCount": 2,
-      "wonCount": 0,
-      "lostCount": 1,
-      "openCount": 1,
-      "totalWonValue": 0,
-      "deals": [
-        {
-          "id": "86d3dxkuv",
-          "name": "Ben- Mezzanine & fitout, Bennets Green",
-          "status": "presentation meeting",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "860r3ntpp",
-          "name": "Ben- Parts manufacture",
           "status": "done lost after proposal",
           "outcome": "lost",
           "dealValue": null
@@ -1296,6 +1273,56 @@
   },
   "deals": [
     {
+      "id": "86d3feghc",
+      "name": "Arik Levi (Joinery Website)",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "arik levi"
+    },
+    {
+      "id": "86d3fb08b",
+      "name": "Zamili Pty Ltd Joinery Package",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "zamili pty ltd"
+    },
+    {
+      "id": "86d3f91yq",
+      "name": "Pioneer Ave- Mezzanine extension by 1-1.5m",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "pioneer ave"
+    },
+    {
+      "id": "86d3f6x9z",
+      "name": "Street front fashion boutique fitout quote ",
+      "types": [
+        "Retail Fitout"
+      ],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": 20000,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "street front fashion boutique"
+    },
+    {
       "id": "86d3eraza",
       "name": "Darcy- cupboard",
       "types": [],
@@ -1338,7 +1365,7 @@
     },
     {
       "id": "86d3dxp1f",
-      "name": "Scott- TV unit (Local)",
+      "name": "Rev1 TS260625 Scott- TV unit (Local)",
       "types": [
         "Joinery"
       ],
@@ -1348,11 +1375,11 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "scott"
+      "clientKey": "rev1 ts260625 scott"
     },
     {
       "id": "86d3dxkuv",
-      "name": "Ben- Mezzanine & fitout, Bennets Green",
+      "name": "TS260625 Ben- Mezzanine & fitout, Bennets Green",
       "types": [
         "Office Fitout",
         "Mezzanine"
@@ -1363,7 +1390,7 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "ben"
+      "clientKey": "ts260625 ben"
     },
     {
       "id": "86d3dafnj",
@@ -1379,7 +1406,7 @@
     },
     {
       "id": "86d3cyg9z",
-      "name": "Kerrie Linton - partition wall in office",
+      "name": "TS260625 Kerrie Linton - partition wall in office",
       "types": [
         "Office Fitout"
       ],
@@ -1389,7 +1416,7 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "kerrie linton"
+      "clientKey": "ts260625 kerrie linton"
     },
     {
       "id": "86d3c69df",
