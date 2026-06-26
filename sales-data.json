@@ -1,18 +1,18 @@
 {
-  "generated": "2026-06-25T21:11:59.729Z",
-  "totalDeals": 703,
+  "generated": "2026-06-26T21:05:37.530Z",
+  "totalDeals": 707,
   "wonCount": 189,
   "lostCount": 475,
-  "openCount": 39,
+  "openCount": 43,
   "ambiguousCount": 0,
   "overallWinRate": 0.28463855421686746,
   "overallAvgSalesCycleDays": 45.657303370786515,
   "byStatus": {
-    "inquiries recieved": 4,
+    "inquiries recieved": 8,
     "active outreach": 3,
     "qualified lead": 4,
-    "presentation sent": 3,
-    "presentation meeting": 2,
+    "presentation sent": 4,
+    "presentation meeting": 1,
     "declined_no proposal": 18,
     "closed won": 189,
     "re-price proposal": 5,
@@ -23,6 +23,17 @@
     "(subtask) wip": 1
   },
   "byType": {
+    "Mezzanine": {
+      "total": 4,
+      "won": 1,
+      "lost": 0,
+      "open": 3,
+      "ambiguous": 0,
+      "winRate": 1,
+      "avgSalesCycleDays": 317,
+      "avgWonValue": 26349.95,
+      "totalWonValue": 26349.95
+    },
     "Retail Fitout": {
       "total": 29,
       "won": 8,
@@ -88,17 +99,6 @@
       "avgSalesCycleDays": 68.64102564102564,
       "avgWonValue": 46486.0955,
       "totalWonValue": 1859443.82
-    },
-    "Mezzanine": {
-      "total": 3,
-      "won": 1,
-      "lost": 0,
-      "open": 2,
-      "ambiguous": 0,
-      "winRate": 1,
-      "avgSalesCycleDays": 317,
-      "avgWonValue": 26349.95,
-      "totalWonValue": 26349.95
     },
     "Residential": {
       "total": 8,
@@ -178,10 +178,10 @@
       "totalWonValue": 245338.89
     },
     "(no type set)": {
-      "total": 376,
+      "total": 379,
       "won": 64,
       "lost": 304,
-      "open": 8,
+      "open": 11,
       "ambiguous": 0,
       "winRate": 0.17391304347826086,
       "avgSalesCycleDays": 32.403225806451616,
@@ -191,10 +191,10 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 570,
+      "total": 574,
       "won": 143,
       "lost": 399,
-      "open": 28,
+      "open": 32,
       "ambiguous": 0,
       "winRate": 0.26383763837638374,
       "avgSalesCycleDays": 42.52272727272727,
@@ -318,6 +318,45 @@
           "name": "SBI Sales Task Template",
           "status": "done lost after proposal",
           "outcome": "lost",
+          "dealValue": null
+        }
+      ]
+    },
+    {
+      "clientKey": "the base warehouse",
+      "displayName": "The base Warehouse ",
+      "dealCount": 4,
+      "wonCount": 0,
+      "lostCount": 0,
+      "openCount": 4,
+      "totalWonValue": 0,
+      "deals": [
+        {
+          "id": "86d3fmuac",
+          "name": "The base Warehouse ",
+          "status": "inquiries recieved",
+          "outcome": "open",
+          "dealValue": null
+        },
+        {
+          "id": "86d3fmu6v",
+          "name": "The base Warehouse ",
+          "status": "inquiries recieved",
+          "outcome": "open",
+          "dealValue": null
+        },
+        {
+          "id": "86d3fmu3m",
+          "name": "The base Warehouse ",
+          "status": "inquiries recieved",
+          "outcome": "open",
+          "dealValue": null
+        },
+        {
+          "id": "86d3fmu3e",
+          "name": "The base Warehouse ",
+          "status": "inquiries recieved",
+          "outcome": "open",
           "dealValue": null
         }
       ]
@@ -1272,6 +1311,56 @@
     "1ua20qm": 473
   },
   "deals": [
+    {
+      "id": "86d3fmuac",
+      "name": "The base Warehouse ",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "the base warehouse"
+    },
+    {
+      "id": "86d3fmu6v",
+      "name": "The base Warehouse ",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "the base warehouse"
+    },
+    {
+      "id": "86d3fmu3m",
+      "name": "The base Warehouse ",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "the base warehouse"
+    },
+    {
+      "id": "86d3fmu3e",
+      "name": "The base Warehouse ",
+      "types": [
+        "Mezzanine"
+      ],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "the base warehouse"
+    },
     {
       "id": "86d3feghc",
       "name": "Arik Levi (Joinery Website)",
