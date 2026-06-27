@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-26T21:05:37.671Z",
+  "generated": "2026-06-27T20:37:45.754Z",
   "jobCount": 29,
   "archivedCount": 15,
   "activeCount": 14,
@@ -934,16 +934,16 @@
     }
   ],
   "sales": {
-    "generated": "2026-06-26T21:05:37.530Z",
-    "totalDeals": 707,
+    "generated": "2026-06-27T20:37:45.616Z",
+    "totalDeals": 708,
     "wonCount": 189,
     "lostCount": 475,
-    "openCount": 43,
+    "openCount": 44,
     "ambiguousCount": 0,
     "overallWinRate": 0.28463855421686746,
     "overallAvgSalesCycleDays": 45.657303370786515,
     "byStatus": {
-      "inquiries recieved": 8,
+      "inquiries recieved": 9,
       "active outreach": 3,
       "qualified lead": 4,
       "presentation sent": 4,
@@ -1113,10 +1113,10 @@
         "totalWonValue": 245338.89
       },
       "(no type set)": {
-        "total": 379,
+        "total": 380,
         "won": 64,
         "lost": 304,
-        "open": 11,
+        "open": 12,
         "ambiguous": 0,
         "winRate": 0.17391304347826086,
         "avgSalesCycleDays": 32.403225806451616,
@@ -1126,10 +1126,10 @@
     },
     "byLeadSource": {
       "(unknown)": {
-        "total": 574,
+        "total": 575,
         "won": 143,
         "lost": 399,
-        "open": 32,
+        "open": 33,
         "ambiguous": 0,
         "winRate": 0.26383763837638374,
         "avgSalesCycleDays": 42.52272727272727,
@@ -2246,6 +2246,18 @@
       "1ua20qm": 473
     },
     "deals": [
+      {
+        "id": "86d3fzgxh",
+        "name": "Danny Emanuel (joinery website)",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "danny emanuel"
+      },
       {
         "id": "86d3fmuac",
         "name": "The base Warehouse ",
