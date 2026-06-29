@@ -1,28 +1,42 @@
 {
-  "generated": "2026-06-28T20:41:40.550Z",
-  "totalDeals": 708,
+  "generated": "2026-06-29T21:07:52.735Z",
+  "totalDeals": 714,
   "wonCount": 189,
   "lostCount": 475,
-  "openCount": 44,
+  "openCount": 50,
   "ambiguousCount": 0,
   "overallWinRate": 0.28463855421686746,
   "overallAvgSalesCycleDays": 45.657303370786515,
   "byStatus": {
-    "inquiries recieved": 9,
-    "active outreach": 3,
-    "qualified lead": 4,
-    "presentation sent": 4,
+    "inquiries recieved": 8,
+    "initial meeting booked": 4,
+    "not applicable": 4,
+    "active outreach": 2,
+    "qualified lead": 2,
+    "meet/inspection completed": 1,
+    "on hold drip feed": 15,
     "presentation meeting": 1,
     "declined_no proposal": 18,
+    "presentation sent": 3,
     "closed won": 189,
     "re-price proposal": 5,
-    "on hold drip feed": 13,
     "estimating & design": 3,
     "re-present proposal": 1,
     "done lost after proposal": 457,
     "(subtask) wip": 1
   },
   "byType": {
+    "Retail Fitout": {
+      "total": 30,
+      "won": 8,
+      "lost": 18,
+      "open": 4,
+      "ambiguous": 0,
+      "winRate": 0.3076923076923077,
+      "avgSalesCycleDays": 43.25,
+      "avgWonValue": 62564.30125,
+      "totalWonValue": 500514.41
+    },
     "Mezzanine": {
       "total": 4,
       "won": 1,
@@ -33,17 +47,6 @@
       "avgSalesCycleDays": 317,
       "avgWonValue": 26349.95,
       "totalWonValue": 26349.95
-    },
-    "Retail Fitout": {
-      "total": 29,
-      "won": 8,
-      "lost": 18,
-      "open": 3,
-      "ambiguous": 0,
-      "winRate": 0.3076923076923077,
-      "avgSalesCycleDays": 43.25,
-      "avgWonValue": 62564.30125,
-      "totalWonValue": 500514.41
     },
     "Plumbing": {
       "total": 6,
@@ -178,10 +181,10 @@
       "totalWonValue": 245338.89
     },
     "(no type set)": {
-      "total": 380,
+      "total": 385,
       "won": 64,
       "lost": 304,
-      "open": 12,
+      "open": 17,
       "ambiguous": 0,
       "winRate": 0.17391304347826086,
       "avgSalesCycleDays": 32.403225806451616,
@@ -191,10 +194,10 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 575,
+      "total": 581,
       "won": 143,
       "lost": 399,
-      "open": 33,
+      "open": 39,
       "ambiguous": 0,
       "winRate": 0.26383763837638374,
       "avgSalesCycleDays": 42.52272727272727,
@@ -323,6 +326,45 @@
       ]
     },
     {
+      "clientKey": "starsfade",
+      "displayName": "Starsfade ",
+      "dealCount": 4,
+      "wonCount": 0,
+      "lostCount": 0,
+      "openCount": 4,
+      "totalWonValue": 0,
+      "deals": [
+        {
+          "id": "86d3gn8r6",
+          "name": "Starsfade ",
+          "status": "inquiries recieved",
+          "outcome": "open",
+          "dealValue": null
+        },
+        {
+          "id": "86d3gn8m4",
+          "name": "Starsfade ",
+          "status": "inquiries recieved",
+          "outcome": "open",
+          "dealValue": null
+        },
+        {
+          "id": "86d3gn8gq",
+          "name": "Starsfade ",
+          "status": "inquiries recieved",
+          "outcome": "open",
+          "dealValue": null
+        },
+        {
+          "id": "86d3gn8gm",
+          "name": "Starsfade ",
+          "status": "inquiries recieved",
+          "outcome": "open",
+          "dealValue": 35000
+        }
+      ]
+    },
+    {
       "clientKey": "the base warehouse",
       "displayName": "The base Warehouse ",
       "dealCount": 4,
@@ -334,28 +376,28 @@
         {
           "id": "86d3fmuac",
           "name": "The base Warehouse ",
-          "status": "inquiries recieved",
+          "status": "not applicable",
           "outcome": "open",
           "dealValue": null
         },
         {
           "id": "86d3fmu6v",
           "name": "The base Warehouse ",
-          "status": "inquiries recieved",
+          "status": "not applicable",
           "outcome": "open",
           "dealValue": null
         },
         {
           "id": "86d3fmu3m",
           "name": "The base Warehouse ",
-          "status": "inquiries recieved",
+          "status": "not applicable",
           "outcome": "open",
           "dealValue": null
         },
         {
           "id": "86d3fmu3e",
           "name": "The base Warehouse ",
-          "status": "inquiries recieved",
+          "status": "initial meeting booked",
           "outcome": "open",
           "dealValue": null
         }
@@ -1312,6 +1354,80 @@
   },
   "deals": [
     {
+      "id": "86d3gn8r6",
+      "name": "Starsfade ",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "starsfade"
+    },
+    {
+      "id": "86d3gn8m4",
+      "name": "Starsfade ",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "starsfade"
+    },
+    {
+      "id": "86d3gn8gq",
+      "name": "Starsfade ",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "starsfade"
+    },
+    {
+      "id": "86d3gn8gm",
+      "name": "Starsfade ",
+      "types": [
+        "Retail Fitout"
+      ],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": 35000,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "starsfade"
+    },
+    {
+      "id": "86d3gdhnq",
+      "name": "Maria Pasten",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "maria pasten"
+    },
+    {
+      "id": "86d3gcxp2",
+      "name": "Emily (Joinery Website)",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "emily"
+    },
+    {
       "id": "86d3fzgxh",
       "name": "Danny Emanuel (joinery website)",
       "types": [],
@@ -1331,7 +1447,7 @@
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
-      "closeYear": null,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "the base warehouse"
     },
@@ -1343,7 +1459,7 @@
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
-      "closeYear": null,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "the base warehouse"
     },
@@ -1355,7 +1471,7 @@
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
-      "closeYear": null,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "the base warehouse"
     },
@@ -1381,7 +1497,7 @@
       "outcome": "open",
       "dealValue": null,
       "salesCycleDays": null,
-      "closeYear": null,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "arik levi"
     },
@@ -1466,7 +1582,7 @@
     },
     {
       "id": "86d3dxp1f",
-      "name": "Rev1 TS260625 Scott- TV unit (Local)",
+      "name": "Rev1 TS260625 Scotch- TV unit (Local)",
       "types": [
         "Joinery"
       ],
@@ -1476,7 +1592,7 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "rev1 ts260625 scott"
+      "clientKey": "rev1 ts260625 scotch"
     },
     {
       "id": "86d3dxkuv",
