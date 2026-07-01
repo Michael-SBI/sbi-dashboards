@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-30T21:14:59.535Z",
+  "generated": "2026-07-01T21:05:24.640Z",
   "jobCount": 29,
   "archivedCount": 15,
   "activeCount": 14,
@@ -207,26 +207,26 @@
       "soldDate": "2026-05-25",
       "completedDate": "2026-06-15",
       "siteStart": "2026-06-07",
-      "siteEnd": "2026-06-22",
+      "siteEnd": "2026-06-28",
       "buildCycleDays": 21,
-      "siteDays": 15,
-      "revenueExGST": 166387,
+      "siteDays": 21,
+      "revenueExGST": 167956,
       "paidRevenueExGST": 116471,
       "plannedCost": 117026,
       "actualCost": 65453,
-      "plannedMarginAmt": 49360,
-      "actualMarginAmt": 100934,
-      "plannedMarginPct": 29.7,
-      "actualMarginPct": 60.7,
+      "plannedMarginAmt": 50930,
+      "actualMarginAmt": 102503,
+      "plannedMarginPct": 30.3,
+      "actualMarginPct": 61,
       "labourBudget": 41411,
       "labourActual": 17559,
       "labourOverrun": -23852,
-      "variationCount": 0,
-      "variationValueExGST": 0,
-      "profitPerBuildDay": 4806,
-      "revenuePerSiteDay": 11092,
+      "variationCount": 1,
+      "variationValueExGST": 1569,
+      "profitPerBuildDay": 4881,
+      "revenuePerSiteDay": 7998,
       "salesCycleDays": 31,
-      "variationPctOfContract": 0
+      "variationPctOfContract": 0.9
     },
     {
       "slug": "taylors-conveyancing-gosford",
@@ -934,28 +934,27 @@
     }
   ],
   "sales": {
-    "generated": "2026-06-30T21:14:59.403Z",
-    "totalDeals": 712,
+    "generated": "2026-07-01T21:05:24.512Z",
+    "totalDeals": 713,
     "wonCount": 189,
     "lostCount": 476,
-    "openCount": 47,
+    "openCount": 48,
     "ambiguousCount": 0,
     "overallWinRate": 0.28421052631578947,
     "overallAvgSalesCycleDays": 45.657303370786515,
     "byStatus": {
-      "inquiries recieved": 5,
-      "initial meeting booked": 4,
+      "inquiries recieved": 6,
+      "initial meeting booked": 3,
       "not applicable": 4,
       "declined_no proposal": 19,
       "active outreach": 2,
       "qualified lead": 2,
       "meet/inspection completed": 1,
       "on hold drip feed": 15,
-      "presentation meeting": 1,
-      "presentation sent": 3,
+      "presentation sent": 4,
+      "estimating & design": 4,
       "closed won": 189,
       "re-price proposal": 5,
-      "estimating & design": 3,
       "re-present proposal": 1,
       "done lost after proposal": 457,
       "(subtask) wip": 1
@@ -1116,10 +1115,10 @@
         "totalWonValue": 245338.89
       },
       "(no type set)": {
-        "total": 383,
+        "total": 384,
         "won": 64,
         "lost": 305,
-        "open": 14,
+        "open": 15,
         "ambiguous": 0,
         "winRate": 0.17344173441734417,
         "avgSalesCycleDays": 32.403225806451616,
@@ -1129,10 +1128,10 @@
     },
     "byLeadSource": {
       "(unknown)": {
-        "total": 579,
+        "total": 580,
         "won": 143,
         "lost": 400,
-        "open": 36,
+        "open": 37,
         "ambiguous": 0,
         "winRate": 0.26335174953959484,
         "avgSalesCycleDays": 42.52272727272727,
@@ -2251,6 +2250,18 @@
     },
     "deals": [
       {
+        "id": "86d3hbkwd",
+        "name": "Daryl_Avoca- New Kitchen",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "darylavoca"
+      },
+      {
         "id": "86d3gxfar",
         "name": "Michael Little- Joinery",
         "types": [],
@@ -2469,7 +2480,7 @@
       },
       {
         "id": "86d3dxkuv",
-        "name": "TS260625 Ben- Mezzanine & fitout, Bennets Green",
+        "name": "TS260625 Ben McElwain- Mezzanine & fitout, Bennets Green",
         "types": [
           "Office Fitout",
           "Mezzanine"
@@ -2480,7 +2491,7 @@
         "salesCycleDays": null,
         "closeYear": null,
         "createYear": 2026,
-        "clientKey": "ts260625 ben"
+        "clientKey": "ts260625 ben mcelwain"
       },
       {
         "id": "86d3dafnj",
