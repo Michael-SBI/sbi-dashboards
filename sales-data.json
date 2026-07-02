@@ -1,27 +1,28 @@
 {
-  "generated": "2026-07-01T21:05:24.512Z",
+  "generated": "2026-07-02T20:41:43.093Z",
   "totalDeals": 713,
   "wonCount": 189,
-  "lostCount": 476,
-  "openCount": 48,
+  "lostCount": 478,
+  "openCount": 46,
   "ambiguousCount": 0,
-  "overallWinRate": 0.28421052631578947,
+  "overallWinRate": 0.28335832083958024,
   "overallAvgSalesCycleDays": 45.657303370786515,
   "byStatus": {
-    "inquiries recieved": 6,
-    "initial meeting booked": 3,
+    "active outreach": 3,
+    "estimating & design": 2,
+    "inquiries recieved": 3,
+    "initial meeting booked": 2,
+    "on hold drip feed": 17,
     "not applicable": 4,
     "declined_no proposal": 19,
-    "active outreach": 2,
     "qualified lead": 2,
     "meet/inspection completed": 1,
-    "on hold drip feed": 15,
     "presentation sent": 4,
-    "estimating & design": 4,
     "closed won": 189,
+    "done lost after proposal": 459,
     "re-price proposal": 5,
     "re-present proposal": 1,
-    "done lost after proposal": 457,
+    "presentation meeting": 1,
     "(subtask) wip": 1
   },
   "byType": {
@@ -83,10 +84,10 @@
     "Joinery": {
       "total": 142,
       "won": 52,
-      "lost": 75,
-      "open": 15,
+      "lost": 77,
+      "open": 13,
       "ambiguous": 0,
-      "winRate": 0.4094488188976378,
+      "winRate": 0.40310077519379844,
       "avgSalesCycleDays": 37.38775510204081,
       "avgWonValue": 22033.289423076923,
       "totalWonValue": 1145731.05
@@ -195,10 +196,10 @@
     "(unknown)": {
       "total": 580,
       "won": 143,
-      "lost": 400,
-      "open": 37,
+      "lost": 402,
+      "open": 35,
       "ambiguous": 0,
-      "winRate": 0.26335174953959484,
+      "winRate": 0.26238532110091745,
       "avgSalesCycleDays": 42.52272727272727,
       "avgWonValue": 29483.34142857143,
       "totalWonValue": 4127667.8000000003
@@ -651,6 +652,7 @@
     "86d3dafnj": 3,
     "86d3auvmp": 12,
     "86d3a42h5": 8,
+    "86d39c8dj": 23,
     "86d38pdh5": 0,
     "86d379w1q": 9,
     "86d36t006": 1,
@@ -668,6 +670,7 @@
     "86d31mk74": 15,
     "86d317yud": 28,
     "86d312dzf": 30,
+    "86d30uq49": 47,
     "86d30ap98": 5,
     "86d2z32bj": 13,
     "86d2ynpcf": 11,
@@ -1490,7 +1493,7 @@
     },
     {
       "id": "86d3eraza",
-      "name": "Darcy- cupboard",
+      "name": "TS260624 Darcy - Cupboard",
       "types": [],
       "leadSource": null,
       "outcome": "open",
@@ -1498,7 +1501,7 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "darcy"
+      "clientKey": "ts260624 darcy"
     },
     {
       "id": "86d3ekek2",
@@ -1661,10 +1664,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 23,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260609 wadalba school"
     },
@@ -2066,10 +2069,10 @@
         "Joinery"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 47,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260530 rochelle polley"
     },
