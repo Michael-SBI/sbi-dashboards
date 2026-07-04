@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-03T20:38:17.994Z",
+  "generated": "2026-07-04T20:29:46.167Z",
   "jobCount": 29,
   "archivedCount": 16,
   "activeCount": 13,
@@ -934,7 +934,7 @@
     }
   ],
   "sales": {
-    "generated": "2026-07-03T20:38:17.854Z",
+    "generated": "2026-07-04T20:29:46.028Z",
     "totalDeals": 713,
     "wonCount": 189,
     "lostCount": 479,
@@ -952,11 +952,11 @@
       "declined_no proposal": 19,
       "qualified lead": 2,
       "meet/inspection completed": 1,
-      "presentation sent": 3,
+      "contracts requested": 2,
       "done lost after proposal": 460,
       "closed won": 189,
+      "presentation sent": 2,
       "re-price proposal": 5,
-      "re-present proposal": 1,
       "presentation meeting": 1,
       "(subtask) wip": 1
     },
@@ -973,10 +973,10 @@
         "totalWonValue": 500514.41
       },
       "Joinery": {
-        "total": 143,
+        "total": 144,
         "won": 52,
         "lost": 77,
-        "open": 14,
+        "open": 15,
         "ambiguous": 0,
         "winRate": 0.40310077519379844,
         "avgSalesCycleDays": 37.38775510204081,
@@ -2482,11 +2482,12 @@
         "name": "TS260625 Ben McElwain- Mezzanine & fitout, Bennets Green",
         "types": [
           "Office Fitout",
-          "Mezzanine"
+          "Mezzanine",
+          "Joinery"
         ],
         "leadSource": null,
         "outcome": "open",
-        "dealValue": null,
+        "dealValue": 125021.66,
         "salesCycleDays": null,
         "closeYear": null,
         "createYear": 2026,
