@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-04T20:29:46.167Z",
+  "generated": "2026-07-05T20:36:41.536Z",
   "jobCount": 29,
   "archivedCount": 16,
   "activeCount": 13,
@@ -934,14 +934,14 @@
     }
   ],
   "sales": {
-    "generated": "2026-07-04T20:29:46.028Z",
+    "generated": "2026-07-05T20:36:41.403Z",
     "totalDeals": 713,
-    "wonCount": 189,
+    "wonCount": 190,
     "lostCount": 479,
-    "openCount": 45,
+    "openCount": 44,
     "ambiguousCount": 0,
-    "overallWinRate": 0.28293413173652693,
-    "overallAvgSalesCycleDays": 45.657303370786515,
+    "overallWinRate": 0.28400597907324365,
+    "overallAvgSalesCycleDays": 45.47486033519553,
     "byStatus": {
       "active outreach": 3,
       "estimating & design": 2,
@@ -952,11 +952,11 @@
       "declined_no proposal": 19,
       "qualified lead": 2,
       "meet/inspection completed": 1,
-      "contracts requested": 2,
+      "closed won": 190,
       "done lost after proposal": 460,
-      "closed won": 189,
       "presentation sent": 2,
       "re-price proposal": 5,
+      "contracts requested": 1,
       "presentation meeting": 1,
       "(subtask) wip": 1
     },
@@ -974,25 +974,25 @@
       },
       "Joinery": {
         "total": 144,
-        "won": 52,
+        "won": 53,
         "lost": 77,
-        "open": 15,
+        "open": 14,
         "ambiguous": 0,
-        "winRate": 0.40310077519379844,
-        "avgSalesCycleDays": 37.38775510204081,
-        "avgWonValue": 22033.289423076923,
-        "totalWonValue": 1145731.05
+        "winRate": 0.4076923076923077,
+        "avgSalesCycleDays": 36.9,
+        "avgWonValue": 23976.466226415094,
+        "totalWonValue": 1270752.71
       },
       "Mezzanine": {
         "total": 4,
-        "won": 1,
+        "won": 2,
         "lost": 0,
-        "open": 3,
+        "open": 2,
         "ambiguous": 0,
         "winRate": 1,
-        "avgSalesCycleDays": 317,
-        "avgWonValue": 26349.95,
-        "totalWonValue": 26349.95
+        "avgSalesCycleDays": 165,
+        "avgWonValue": 75685.80500000001,
+        "totalWonValue": 151371.61000000002
       },
       "Plumbing": {
         "total": 6,
@@ -1029,14 +1029,14 @@
       },
       "Office Fitout": {
         "total": 104,
-        "won": 41,
+        "won": 42,
         "lost": 56,
-        "open": 7,
+        "open": 6,
         "ambiguous": 0,
-        "winRate": 0.422680412371134,
-        "avgSalesCycleDays": 68.64102564102564,
-        "avgWonValue": 46486.0955,
-        "totalWonValue": 1859443.82
+        "winRate": 0.42857142857142855,
+        "avgSalesCycleDays": 67.25,
+        "avgWonValue": 48401.597073170735,
+        "totalWonValue": 1984465.48
       },
       "Residential": {
         "total": 8,
@@ -1129,10 +1129,10 @@
     },
     "byLeadSource": {
       "(unknown)": {
-        "total": 580,
+        "total": 579,
         "won": 143,
         "lost": 403,
-        "open": 34,
+        "open": 33,
         "ambiguous": 0,
         "winRate": 0.2619047619047619,
         "avgSalesCycleDays": 42.52272727272727,
@@ -1149,6 +1149,17 @@
         "avgSalesCycleDays": 57.666666666666664,
         "avgWonValue": 12528.99,
         "totalWonValue": 75173.94
+      },
+      "Search": {
+        "total": 72,
+        "won": 20,
+        "lost": 50,
+        "open": 2,
+        "ambiguous": 0,
+        "winRate": 0.2857142857142857,
+        "avgSalesCycleDays": 49.6,
+        "avgWonValue": 69112.7765,
+        "totalWonValue": 1382255.53
       },
       "Existing Client": {
         "total": 31,
@@ -1171,17 +1182,6 @@
         "avgSalesCycleDays": 37.666666666666664,
         "avgWonValue": 75083.05333333333,
         "totalWonValue": 225249.16
-      },
-      "Search": {
-        "total": 71,
-        "won": 19,
-        "lost": 50,
-        "open": 2,
-        "ambiguous": 0,
-        "winRate": 0.2753623188405797,
-        "avgSalesCycleDays": 51.526315789473685,
-        "avgWonValue": 66170.20368421053,
-        "totalWonValue": 1257233.87
       },
       "Web Form": {
         "total": 4,
@@ -1577,6 +1577,7 @@
     ],
     "perTaskSalesCycle": {
       "86d3fb08b": 5,
+      "86d3dxkuv": 13,
       "86d3dafnj": 3,
       "86d3cyg9z": 15,
       "86d3auvmp": 12,
@@ -2485,11 +2486,11 @@
           "Mezzanine",
           "Joinery"
         ],
-        "leadSource": null,
-        "outcome": "open",
+        "leadSource": "Search",
+        "outcome": "won",
         "dealValue": 125021.66,
-        "salesCycleDays": null,
-        "closeYear": null,
+        "salesCycleDays": 13,
+        "closeYear": 2026,
         "createYear": 2026,
         "clientKey": "ts260625 ben mcelwain"
       },
