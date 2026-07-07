@@ -1,19 +1,19 @@
 {
-  "generated": "2026-07-06T21:10:01.838Z",
-  "totalDeals": 719,
+  "generated": "2026-07-07T21:06:13.952Z",
+  "totalDeals": 710,
   "wonCount": 190,
   "lostCount": 479,
-  "openCount": 50,
+  "openCount": 41,
   "ambiguousCount": 0,
   "overallWinRate": 0.28400597907324365,
   "overallAvgSalesCycleDays": 45.47486033519553,
   "byStatus": {
-    "inquiries recieved": 9,
     "active outreach": 3,
     "estimating & design": 3,
+    "inquiries recieved": 3,
     "on hold drip feed": 17,
-    "not applicable": 4,
     "initial meeting booked": 1,
+    "not applicable": 1,
     "declined_no proposal": 19,
     "qualified lead": 2,
     "presentation meeting": 1,
@@ -180,10 +180,10 @@
       "totalWonValue": 245338.89
     },
     "(no type set)": {
-      "total": 389,
+      "total": 380,
       "won": 64,
       "lost": 305,
-      "open": 20,
+      "open": 11,
       "ambiguous": 0,
       "winRate": 0.17344173441734417,
       "avgSalesCycleDays": 32.403225806451616,
@@ -193,10 +193,10 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 585,
+      "total": 576,
       "won": 143,
       "lost": 403,
-      "open": 39,
+      "open": 30,
       "ambiguous": 0,
       "winRate": 0.2619047619047619,
       "avgSalesCycleDays": 42.52272727272727,
@@ -272,59 +272,6 @@
   },
   "repeatClients": [
     {
-      "clientKey": "team update",
-      "displayName": "🔔 Team Update — Leah",
-      "dealCount": 6,
-      "wonCount": 0,
-      "lostCount": 0,
-      "openCount": 6,
-      "totalWonValue": 0,
-      "deals": [
-        {
-          "id": "86d3k7432",
-          "name": "🔔 Team Update — Leah",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d3k7368",
-          "name": "🔔 Team Update — Leah",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d3k6z47",
-          "name": "🔔 Team Update — Chloe",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d3k6z20",
-          "name": "🔔 Team Update — Chloe",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d3k6yzh",
-          "name": "🔔 Team Update — Chloe",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d3k6yz6",
-          "name": "🔔 Team Update — Chloe",
-          "status": "inquiries recieved",
-          "outcome": "open",
-          "dealValue": null
-        }
-      ]
-    },
-    {
       "clientKey": "sbi sales task template",
       "displayName": "SBI Sales Task Template (incl won task checklist)",
       "dealCount": 6,
@@ -373,38 +320,6 @@
           "name": "SBI Sales Task Template",
           "status": "done lost after proposal",
           "outcome": "lost",
-          "dealValue": null
-        }
-      ]
-    },
-    {
-      "clientKey": "the base warehouse",
-      "displayName": "The base Warehouse ",
-      "dealCount": 3,
-      "wonCount": 0,
-      "lostCount": 0,
-      "openCount": 3,
-      "totalWonValue": 0,
-      "deals": [
-        {
-          "id": "86d3fmuac",
-          "name": "The base Warehouse ",
-          "status": "not applicable",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d3fmu6v",
-          "name": "The base Warehouse ",
-          "status": "not applicable",
-          "outcome": "open",
-          "dealValue": null
-        },
-        {
-          "id": "86d3fmu3m",
-          "name": "The base Warehouse ",
-          "status": "not applicable",
-          "outcome": "open",
           "dealValue": null
         }
       ]
@@ -1365,78 +1280,6 @@
   },
   "deals": [
     {
-      "id": "86d3k7432",
-      "name": "🔔 Team Update — Leah",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
-      "createYear": 2026,
-      "clientKey": "team update"
-    },
-    {
-      "id": "86d3k7368",
-      "name": "🔔 Team Update — Leah",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
-      "createYear": 2026,
-      "clientKey": "team update"
-    },
-    {
-      "id": "86d3k6z47",
-      "name": "🔔 Team Update — Chloe",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
-      "createYear": 2026,
-      "clientKey": "team update"
-    },
-    {
-      "id": "86d3k6z20",
-      "name": "🔔 Team Update — Chloe",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
-      "createYear": 2026,
-      "clientKey": "team update"
-    },
-    {
-      "id": "86d3k6yzh",
-      "name": "🔔 Team Update — Chloe",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
-      "createYear": 2026,
-      "clientKey": "team update"
-    },
-    {
-      "id": "86d3k6yz6",
-      "name": "🔔 Team Update — Chloe",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
-      "createYear": 2026,
-      "clientKey": "team update"
-    },
-    {
       "id": "86d3hbkwd",
       "name": "Daryl_Avoca- New Kitchen",
       "types": [],
@@ -1511,42 +1354,6 @@
       "closeYear": null,
       "createYear": 2026,
       "clientKey": "danny emanuel"
-    },
-    {
-      "id": "86d3fmuac",
-      "name": "The base Warehouse ",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": 2026,
-      "createYear": 2026,
-      "clientKey": "the base warehouse"
-    },
-    {
-      "id": "86d3fmu6v",
-      "name": "The base Warehouse ",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": 2026,
-      "createYear": 2026,
-      "clientKey": "the base warehouse"
-    },
-    {
-      "id": "86d3fmu3m",
-      "name": "The base Warehouse ",
-      "types": [],
-      "leadSource": null,
-      "outcome": "open",
-      "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": 2026,
-      "createYear": 2026,
-      "clientKey": "the base warehouse"
     },
     {
       "id": "86d3fmu3e",
