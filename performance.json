@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-08T20:43:43.657Z",
+  "generated": "2026-07-09T21:03:02.154Z",
   "jobCount": 30,
   "archivedCount": 16,
   "activeCount": 14,
@@ -239,9 +239,9 @@
       "soldDate": "2026-05-25",
       "completedDate": "2026-06-15",
       "siteStart": "2026-06-07",
-      "siteEnd": "2026-06-30",
+      "siteEnd": "2026-07-06",
       "buildCycleDays": 21,
-      "siteDays": 23,
+      "siteDays": 29,
       "revenueExGST": 167956,
       "paidRevenueExGST": 116471,
       "plannedCost": 118235,
@@ -256,7 +256,7 @@
       "variationCount": 1,
       "variationValueExGST": 1569,
       "profitPerBuildDay": 4320,
-      "revenuePerSiteDay": 7302,
+      "revenuePerSiteDay": 5792,
       "salesCycleDays": 31,
       "variationPctOfContract": 0.9
     },
@@ -966,27 +966,27 @@
     }
   ],
   "sales": {
-    "generated": "2026-07-08T20:43:43.523Z",
-    "totalDeals": 710,
-    "wonCount": 190,
-    "lostCount": 479,
+    "generated": "2026-07-09T21:03:02.014Z",
+    "totalDeals": 712,
+    "wonCount": 191,
+    "lostCount": 480,
     "openCount": 41,
     "ambiguousCount": 0,
-    "overallWinRate": 0.28400597907324365,
-    "overallAvgSalesCycleDays": 45.47486033519553,
+    "overallWinRate": 0.2846497764530551,
+    "overallAvgSalesCycleDays": 45.422222222222224,
     "byStatus": {
+      "inquiries recieved": 2,
       "active outreach": 5,
       "estimating & design": 5,
       "on hold drip feed": 18,
       "not applicable": 1,
       "declined_no proposal": 19,
       "presentation meeting": 1,
-      "closed won": 190,
-      "done lost after proposal": 460,
+      "closed won": 191,
+      "done lost after proposal": 461,
       "qualified lead": 1,
       "client ghosting": 2,
-      "re-price proposal": 4,
-      "contracts requested": 1,
+      "re-price proposal": 3,
       "presentation sent": 2,
       "(subtask) wip": 1
     },
@@ -1004,14 +1004,14 @@
       },
       "Joinery": {
         "total": 144,
-        "won": 53,
-        "lost": 77,
-        "open": 14,
+        "won": 54,
+        "lost": 78,
+        "open": 12,
         "ambiguous": 0,
-        "winRate": 0.4076923076923077,
-        "avgSalesCycleDays": 36.9,
-        "avgWonValue": 23976.466226415094,
-        "totalWonValue": 1270752.71
+        "winRate": 0.4090909090909091,
+        "avgSalesCycleDays": 36.88235294117647,
+        "avgWonValue": 23925.608518518515,
+        "totalWonValue": 1291982.8599999999
       },
       "Mezzanine": {
         "total": 4,
@@ -1146,10 +1146,10 @@
         "totalWonValue": 245338.89
       },
       "(no type set)": {
-        "total": 380,
+        "total": 382,
         "won": 64,
         "lost": 305,
-        "open": 11,
+        "open": 13,
         "ambiguous": 0,
         "winRate": 0.17344173441734417,
         "avgSalesCycleDays": 32.403225806451616,
@@ -1159,12 +1159,12 @@
     },
     "byLeadSource": {
       "(unknown)": {
-        "total": 576,
+        "total": 577,
         "won": 143,
-        "lost": 403,
+        "lost": 404,
         "open": 30,
         "ambiguous": 0,
-        "winRate": 0.2619047619047619,
+        "winRate": 0.26142595978062155,
         "avgSalesCycleDays": 42.52272727272727,
         "avgWonValue": 29483.34142857143,
         "totalWonValue": 4127667.8000000003
@@ -1212,6 +1212,17 @@
         "avgSalesCycleDays": 37.666666666666664,
         "avgWonValue": 75083.05333333333,
         "totalWonValue": 225249.16
+      },
+      "Social Media": {
+        "total": 1,
+        "won": 1,
+        "lost": 0,
+        "open": 0,
+        "ambiguous": 0,
+        "winRate": 1,
+        "avgSalesCycleDays": 36,
+        "avgWonValue": 21230.15,
+        "totalWonValue": 21230.15
       },
       "Web Form": {
         "total": 4,
@@ -1582,6 +1593,8 @@
       "86d3a42h5": 8,
       "86d39c8dj": 23,
       "86d38pdh5": 0,
+      "86d37bub7": 36,
+      "86d37an4c": 36,
       "86d379w1q": 9,
       "86d36t006": 1,
       "86d34tzj0": 7,
@@ -2246,6 +2259,30 @@
     },
     "deals": [
       {
+        "id": "86d3mv96q",
+        "name": "JAAM-0458 | PVT WORKS | 43 kenthurst rd, Kenthurst, NSW 2156",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "jaam"
+      },
+      {
+        "id": "86d3mv8nd",
+        "name": "Spencer Marenya (Joinery Website)",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "spencer marenya"
+      },
+      {
         "id": "86d3hbkwd",
         "name": "Daryl_Avoca- New Kitchen",
         "types": [],
@@ -2643,26 +2680,26 @@
           "Joinery"
         ],
         "leadSource": null,
-        "outcome": "open",
+        "outcome": "lost",
         "dealValue": null,
-        "salesCycleDays": null,
-        "closeYear": null,
+        "salesCycleDays": 36,
+        "closeYear": 2026,
         "createYear": 2026,
         "clientKey": "ts260609 liesha hanekroot"
       },
       {
         "id": "86d37an4c",
-        "name": "TS260604 James Sackett Ocean Landscapes",
+        "name": "SOLD TS260604 James Sackett Ocean Landscapes",
         "types": [
           "Joinery"
         ],
-        "leadSource": null,
-        "outcome": "open",
-        "dealValue": null,
-        "salesCycleDays": null,
-        "closeYear": null,
+        "leadSource": "Social Media",
+        "outcome": "won",
+        "dealValue": 21230.15,
+        "salesCycleDays": 36,
+        "closeYear": 2026,
         "createYear": 2026,
-        "clientKey": "ts260604 james sackett ocean landscapes"
+        "clientKey": "sold ts260604 james sackett ocean landscapes"
       },
       {
         "id": "86d37a4gq",
