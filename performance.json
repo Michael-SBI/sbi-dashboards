@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-11T20:23:29.988Z",
+  "generated": "2026-07-12T20:13:50.709Z",
   "jobCount": 31,
   "archivedCount": 16,
   "activeCount": 15,
@@ -998,16 +998,16 @@
     }
   ],
   "sales": {
-    "generated": "2026-07-11T20:23:29.844Z",
-    "totalDeals": 714,
+    "generated": "2026-07-12T20:13:50.566Z",
+    "totalDeals": 734,
     "wonCount": 191,
     "lostCount": 480,
-    "openCount": 43,
+    "openCount": 63,
     "ambiguousCount": 0,
     "overallWinRate": 0.2846497764530551,
     "overallAvgSalesCycleDays": 45.422222222222224,
     "byStatus": {
-      "inquiries recieved": 4,
+      "inquiries recieved": 24,
       "on hold drip feed": 23,
       "client ghosting": 4,
       "estimating & design": 3,
@@ -1177,10 +1177,10 @@
         "totalWonValue": 245338.89
       },
       "(no type set)": {
-        "total": 384,
+        "total": 404,
         "won": 64,
         "lost": 305,
-        "open": 15,
+        "open": 35,
         "ambiguous": 0,
         "winRate": 0.17344173441734417,
         "avgSalesCycleDays": 32.403225806451616,
@@ -1190,10 +1190,10 @@
     },
     "byLeadSource": {
       "(unknown)": {
-        "total": 579,
+        "total": 599,
         "won": 143,
         "lost": 404,
-        "open": 32,
+        "open": 52,
         "ambiguous": 0,
         "winRate": 0.26142595978062155,
         "avgSalesCycleDays": 42.52272727272727,
@@ -1333,6 +1333,77 @@
         ]
       },
       {
+        "clientKey": "timber shelves",
+        "displayName": "Timber shelves",
+        "dealCount": 4,
+        "wonCount": 0,
+        "lostCount": 1,
+        "openCount": 3,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt7q",
+            "name": "Timber shelves",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt4a",
+            "name": "Timber shelves",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt45",
+            "name": "Timber shelves",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d2ha001",
+            "name": "Timber shelves",
+            "status": "done lost after proposal",
+            "outcome": "lost",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "63 webb street",
+        "displayName": "63 Webb street",
+        "dealCount": 3,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 3,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt87",
+            "name": "63 Webb street",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt4g",
+            "name": "63 Webb street",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt48",
+            "name": "63 Webb street",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          }
+        ]
+      },
+      {
         "clientKey": "rfq",
         "displayName": "RFQ- McDonalds Morisset Remodel",
         "dealCount": 3,
@@ -1385,6 +1456,181 @@
             "name": "1694 - Awaba House - Spoke BI - Ceilings & Partitions RFT",
             "status": "done lost after proposal",
             "outcome": "lost",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "darcy",
+        "displayName": "Darcy- cupboard",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 2,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntta0",
+            "name": "Darcy- cupboard",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt92",
+            "name": "Darcy- cupboard",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "zuber",
+        "displayName": "Zuber- Laundry",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 2,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt8q",
+            "name": "Zuber- Laundry",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt88",
+            "name": "Zuber- Laundry",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "new enquiry",
+        "displayName": "New enquiry- call back requested",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 2,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt86",
+            "name": "New enquiry- call back requested",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt7n",
+            "name": "New enquiry- call back requested",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "secret door",
+        "displayName": "Secret door- smoke shop",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 2,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt7v",
+            "name": "Secret door- smoke shop",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt74",
+            "name": "Secret door- smoke shop",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "joinery modification lead",
+        "displayName": "Joinery modification lead.",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 2,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt67",
+            "name": "Joinery modification lead.",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt53",
+            "name": "Joinery modification lead.",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "7 burnet rd warnervale",
+        "displayName": "7 Burnet Rd Warnervale",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 2,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt4v",
+            "name": "7 Burnet Rd Warnervale",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt4f",
+            "name": "7 Burnet Rd Warnervale",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          }
+        ]
+      },
+      {
+        "clientKey": "wyoming medical",
+        "displayName": "Wyoming medical.",
+        "dealCount": 2,
+        "wonCount": 0,
+        "lostCount": 0,
+        "openCount": 2,
+        "totalWonValue": 0,
+        "deals": [
+          {
+            "id": "86d3ntt4j",
+            "name": "Wyoming medical.",
+            "status": "inquiries recieved",
+            "outcome": "open",
+            "dealValue": null
+          },
+          {
+            "id": "86d3ntt4e",
+            "name": "Wyoming medical.",
+            "status": "inquiries recieved",
+            "outcome": "open",
             "dealValue": null
           }
         ]
@@ -2289,6 +2535,246 @@
       "1ua20qm": 473
     },
     "deals": [
+      {
+        "id": "86d3ntta0",
+        "name": "Darcy- cupboard",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "darcy"
+      },
+      {
+        "id": "86d3ntt92",
+        "name": "Darcy- cupboard",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "darcy"
+      },
+      {
+        "id": "86d3ntt8q",
+        "name": "Zuber- Laundry",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "zuber"
+      },
+      {
+        "id": "86d3ntt88",
+        "name": "Zuber- Laundry",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "zuber"
+      },
+      {
+        "id": "86d3ntt87",
+        "name": "63 Webb street",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "63 webb street"
+      },
+      {
+        "id": "86d3ntt86",
+        "name": "New enquiry- call back requested",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "new enquiry"
+      },
+      {
+        "id": "86d3ntt7v",
+        "name": "Secret door- smoke shop",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "secret door"
+      },
+      {
+        "id": "86d3ntt7q",
+        "name": "Timber shelves",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "timber shelves"
+      },
+      {
+        "id": "86d3ntt7n",
+        "name": "New enquiry- call back requested",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "new enquiry"
+      },
+      {
+        "id": "86d3ntt74",
+        "name": "Secret door- smoke shop",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "secret door"
+      },
+      {
+        "id": "86d3ntt67",
+        "name": "Joinery modification lead.",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "joinery modification lead"
+      },
+      {
+        "id": "86d3ntt53",
+        "name": "Joinery modification lead.",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "joinery modification lead"
+      },
+      {
+        "id": "86d3ntt4v",
+        "name": "7 Burnet Rd Warnervale",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "7 burnet rd warnervale"
+      },
+      {
+        "id": "86d3ntt4j",
+        "name": "Wyoming medical.",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "wyoming medical"
+      },
+      {
+        "id": "86d3ntt4f",
+        "name": "7 Burnet Rd Warnervale",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "7 burnet rd warnervale"
+      },
+      {
+        "id": "86d3ntt4g",
+        "name": "63 Webb street",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "63 webb street"
+      },
+      {
+        "id": "86d3ntt4e",
+        "name": "Wyoming medical.",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "wyoming medical"
+      },
+      {
+        "id": "86d3ntt4a",
+        "name": "Timber shelves",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "timber shelves"
+      },
+      {
+        "id": "86d3ntt48",
+        "name": "63 Webb street",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "63 webb street"
+      },
+      {
+        "id": "86d3ntt45",
+        "name": "Timber shelves",
+        "types": [],
+        "leadSource": null,
+        "outcome": "open",
+        "dealValue": null,
+        "salesCycleDays": null,
+        "closeYear": null,
+        "createYear": 2026,
+        "clientKey": "timber shelves"
+      },
       {
         "id": "86d3ne8rh",
         "name": "Renovation of Commercial Premises Toronto",
