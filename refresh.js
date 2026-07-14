@@ -220,10 +220,22 @@ function discoverProjects() {
       const block = findJsonBlock(html, 'project-data');
       if (!block) { warn(`${entry.name}: no project-data block, skipping`); continue; }
       const data = JSON.parse(block.content);
-      const folderId = data.project?.folderId;
+      // Resolve the folder id defensively. Canonical key is `folderId`, but some
+      // older/one-off dashboards stored it as `id`. Falling back here stops a valid
+      // active job from silently vanishing from the index on the nightly refresh.
+      const folderId = data.project?.folderId || data.project?.id || null;
       const jobNumber = data.project?.jobNumber;
       const projectName = data.project?.name;
-      if (!folderId) { warn(`${entry.name}: no folderId in project-data, skipping`); continue; }
+      // A dashboard with neither a folderId nor a jobNumber can't be placed — skip it.
+      // But if it has a jobNumber we KEEP it (even with folderId null) so the active/
+      // archived split can still match it by job number against the live ClickUp folders.
+      if (!folderId && !jobNumber) {
+        warn(`${entry.name}: no folderId and no jobNumber in project-data, skipping`);
+        continue;
+      }
+      if (!folderId) {
+        warn(`${entry.name}: no folderId in project-data — will match by jobNumber ${jobNumber}`);
+      }
       projects.push({
         slug: entry.name,
         indexPath,
@@ -311,10 +323,20 @@ async function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
   }
 
   const activeFolderIds = new Set(activeCuFolders.map(f => String(f.id)));
+  const activeJobNumbers = new Set(activeCuFolders.map(f => f.jobNumber).filter(Boolean));
   const activeProjects = [];
   const archivedProjects = [];
   for (const p of allProjects) {
-    if (activeFolderIds.has(String(p.folderId))) activeProjects.push(p);
+    // When the dashboard has a folder id, trust it: active iff it matches a live
+    // (non-archived) ClickUp folder. Only when the folder id is genuinely absent do we
+    // fall back to matching the 6-digit job number, so a folderId-less dashboard is still
+    // placed rather than silently dropped. The fallback is guarded to the no-folderId case
+    // because job numbers are NOT unique across dashboards (an archived job can share a
+    // number with a live one), so an unconditional jobNumber match would mis-activate them.
+    const isActive = p.folderId
+      ? activeFolderIds.has(String(p.folderId))
+      : (p.jobNumber && activeJobNumbers.has(String(p.jobNumber)));
+    if (isActive) activeProjects.push(p);
     else archivedProjects.push(p);
   }
 
