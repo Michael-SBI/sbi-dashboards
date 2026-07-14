@@ -307,6 +307,16 @@ function shortType(typeStr) {
 }
 
 function renderCard(project) {
+  // Fallback card for a live ClickUp folder that has no dashboard yet — links to the
+  // ClickUp folder so the project is still present in the view (invariant), not dropped.
+  if (project.fallbackFolder) {
+    const f = project.fallbackFolder;
+    const jn = project.jobNumber || '';
+    const name = f.name.replace(/^\d{6}\s*/, '').trim() || f.name;
+    const url = `https://app.clickup.com/36601479/v/f/${f.id}/${SBI_PROJECTS_SPACE}`;
+    const typeLine = jn + ' - SETUP PENDING';
+    return `<a class="card" href="${escapeHtml(url)}"><h2>${escapeHtml(name)}</h2><div class="type">${escapeHtml(typeLine)}</div><div class="updated">Dashboard not built yet — open in ClickUp →</div></a>`;
+  }
   const slug = project.slug;
   const data = project.existingData?.project || {};
   const name = data.name || project.projectName || slug;
@@ -322,23 +332,46 @@ async function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
     return;
   }
 
-  const activeFolderIds = new Set(activeCuFolders.map(f => String(f.id)));
-  const activeJobNumbers = new Set(activeCuFolders.map(f => f.jobNumber).filter(Boolean));
-  const activeProjects = [];
-  const archivedProjects = [];
+  // ── THE INVARIANT ──────────────────────────────────────────────────────────
+  // Every non-archived folder in the SBI PROJECTS space that carries a 6-digit job
+  // number MUST appear in the Active view. So the Active section is driven by the LIVE
+  // ClickUp folder list (activeCuFolders — the source of truth), NOT by which dashboards
+  // happen to exist in the repo. Each active folder is matched to its dashboard by folder
+  // id first (authoritative), then by job number as a fallback for a dashboard with a
+  // missing/mis-keyed folderId. A folder with no dashboard yet still gets a fallback card
+  // so it is never silently missing. Result: Active count == number of active job folders.
+  const byFolder = new Map();
+  const byJob = new Map();
   for (const p of allProjects) {
-    // When the dashboard has a folder id, trust it: active iff it matches a live
-    // (non-archived) ClickUp folder. Only when the folder id is genuinely absent do we
-    // fall back to matching the 6-digit job number, so a folderId-less dashboard is still
-    // placed rather than silently dropped. The fallback is guarded to the no-folderId case
-    // because job numbers are NOT unique across dashboards (an archived job can share a
-    // number with a live one), so an unconditional jobNumber match would mis-activate them.
-    const isActive = p.folderId
-      ? activeFolderIds.has(String(p.folderId))
-      : (p.jobNumber && activeJobNumbers.has(String(p.jobNumber)));
-    if (isActive) activeProjects.push(p);
-    else archivedProjects.push(p);
+    if (p.folderId) byFolder.set(String(p.folderId), p);
+    if (p.jobNumber && !byJob.has(String(p.jobNumber))) byJob.set(String(p.jobNumber), p);
   }
+
+  const activeProjects = [];
+  const matchedSlugs = new Set();
+  const fallbacks = [];
+  for (const f of activeCuFolders) {
+    let p = byFolder.get(String(f.id));
+    // Only fall back to job-number matching when no dashboard claims this folder id.
+    // Job numbers are NOT unique across dashboards, but the folder-id match runs first,
+    // so an archived dashboard sharing a number can't hijack a live folder that has its own.
+    if (!p && f.jobNumber) p = byJob.get(String(f.jobNumber));
+    if (p) {
+      matchedSlugs.add(p.slug);
+      activeProjects.push(p);
+    } else {
+      const fb = { slug: `cu-${f.id}`, folderId: String(f.id), jobNumber: f.jobNumber, projectName: f.name, fallbackFolder: f };
+      activeProjects.push(fb);
+      fallbacks.push(fb);
+    }
+  }
+  if (fallbacks.length) {
+    warn(`${fallbacks.length} active folder(s) have NO dashboard — rendered as SETUP PENDING cards linking to ClickUp:`);
+    fallbacks.forEach(fb => warn(`  - ${fb.jobNumber} ${fb.projectName}`));
+  }
+
+  // Archived = every repo dashboard NOT matched into the active set above.
+  const archivedProjects = allProjects.filter(p => !matchedSlugs.has(p.slug));
 
   // Active: ascending by LIVE Date Sold (sales-task field) — oldest project first.
   // Falls back to the job-number date only when the sold date can't be resolved.
