@@ -1,14 +1,15 @@
 {
-  "generated": "2026-07-13T20:38:58.029Z",
-  "totalDeals": 715,
+  "generated": "2026-07-14T20:38:17.253Z",
+  "totalDeals": 716,
   "wonCount": 191,
   "lostCount": 480,
-  "openCount": 44,
+  "openCount": 45,
   "ambiguousCount": 0,
   "overallWinRate": 0.2846497764530551,
   "overallAvgSalesCycleDays": 45.422222222222224,
   "byStatus": {
     "inquiries recieved": 4,
+    "qualified lead": 2,
     "estimating & design": 4,
     "on hold drip feed": 23,
     "client ghosting": 4,
@@ -18,7 +19,6 @@
     "closed won": 191,
     "done lost after proposal": 461,
     "presentation meeting": 1,
-    "qualified lead": 1,
     "re-present proposal": 2,
     "(subtask) wip": 1
   },
@@ -178,10 +178,10 @@
       "totalWonValue": 245338.89
     },
     "(no type set)": {
-      "total": 385,
+      "total": 386,
       "won": 64,
       "lost": 305,
-      "open": 16,
+      "open": 17,
       "ambiguous": 0,
       "winRate": 0.17344173441734417,
       "avgSalesCycleDays": 32.403225806451616,
@@ -191,10 +191,10 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 580,
+      "total": 581,
       "won": 143,
       "lost": 404,
-      "open": 33,
+      "open": 34,
       "ambiguous": 0,
       "winRate": 0.26142595978062155,
       "avgSalesCycleDays": 42.52272727272727,
@@ -1291,8 +1291,20 @@
   },
   "deals": [
     {
+      "id": "86d3pcr46",
+      "name": "Wayne (Joinery Website)",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "wayne"
+    },
+    {
       "id": "86d3nyrxm",
-      "name": "Kirsty, factory in Somersby, office fitout, on a deadline. 43409001 will email through initial brief today.",
+      "name": "Kirsty, factory in Somersby, office fitout",
       "types": [],
       "leadSource": null,
       "outcome": "open",
