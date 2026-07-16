@@ -1,15 +1,15 @@
 {
-  "generated": "2026-07-15T20:33:06.697Z",
-  "totalDeals": 716,
+  "generated": "2026-07-16T20:26:48.918Z",
+  "totalDeals": 717,
   "wonCount": 191,
   "lostCount": 489,
-  "openCount": 36,
+  "openCount": 37,
   "ambiguousCount": 0,
   "overallWinRate": 0.28088235294117647,
   "overallAvgSalesCycleDays": 45.422222222222224,
   "byStatus": {
+    "qualified lead": 4,
     "active outreach": 7,
-    "qualified lead": 3,
     "estimating & design": 2,
     "declined_no proposal": 28,
     "client ghosting": 4,
@@ -179,10 +179,10 @@
       "totalWonValue": 245338.89
     },
     "(no type set)": {
-      "total": 386,
+      "total": 387,
       "won": 64,
       "lost": 309,
-      "open": 13,
+      "open": 14,
       "ambiguous": 0,
       "winRate": 0.17158176943699732,
       "avgSalesCycleDays": 32.403225806451616,
@@ -192,10 +192,10 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 581,
+      "total": 582,
       "won": 143,
       "lost": 412,
-      "open": 26,
+      "open": 27,
       "ambiguous": 0,
       "winRate": 0.25765765765765763,
       "avgSalesCycleDays": 42.52272727272727,
@@ -1300,6 +1300,18 @@
     "1ua20qm": 473
   },
   "deals": [
+    {
+      "id": "86d3q5tpm",
+      "name": "TS260716 Richard- Gavenlock Rd (fitout existing Mezzanine)",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "ts260716 richard"
+    },
     {
       "id": "86d3pcr46",
       "name": "Wayne (Joinery Website)",
