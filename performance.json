@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-18T20:13:15.976Z",
+  "generated": "2026-07-19T20:15:40.136Z",
   "jobCount": 31,
   "archivedCount": 16,
   "activeCount": 15,
@@ -998,7 +998,7 @@
     }
   ],
   "sales": {
-    "generated": "2026-07-18T20:13:15.846Z",
+    "generated": "2026-07-19T20:15:39.996Z",
     "totalDeals": 718,
     "wonCount": 191,
     "lostCount": 490,
@@ -1007,9 +1007,9 @@
     "overallWinRate": 0.28046989720998533,
     "overallAvgSalesCycleDays": 45.422222222222224,
     "byStatus": {
-      "estimating & design": 3,
-      "qualified lead": 4,
+      "estimating & design": 4,
       "active outreach": 7,
+      "qualified lead": 3,
       "declined_no proposal": 29,
       "client ghosting": 4,
       "presentation meeting": 1,
