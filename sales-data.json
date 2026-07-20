@@ -1,28 +1,41 @@
 {
-  "generated": "2026-07-19T20:15:39.996Z",
-  "totalDeals": 718,
+  "generated": "2026-07-20T20:49:06.040Z",
+  "totalDeals": 722,
   "wonCount": 191,
-  "lostCount": 490,
-  "openCount": 37,
+  "lostCount": 493,
+  "openCount": 38,
   "ambiguousCount": 0,
-  "overallWinRate": 0.28046989720998533,
+  "overallWinRate": 0.27923976608187134,
   "overallAvgSalesCycleDays": 45.422222222222224,
   "byStatus": {
+    "inquiries recieved": 2,
+    "qualified lead": 4,
     "estimating & design": 4,
-    "active outreach": 7,
-    "qualified lead": 3,
-    "declined_no proposal": 29,
+    "presentation meeting": 2,
+    "active outreach": 5,
+    "initial meeting booked": 1,
+    "on hold drip feed": 8,
+    "declined_no proposal": 31,
     "client ghosting": 4,
-    "presentation meeting": 1,
-    "re-price proposal": 3,
-    "on hold drip feed": 11,
+    "re-price proposal": 4,
     "closed won": 191,
-    "done lost after proposal": 461,
-    "contracts requested": 1,
+    "done lost after proposal": 462,
     "re-present proposal": 2,
+    "contracts requested": 1,
     "(subtask) wip": 1
   },
   "byType": {
+    "Joinery": {
+      "total": 145,
+      "won": 54,
+      "lost": 81,
+      "open": 10,
+      "ambiguous": 0,
+      "winRate": 0.4,
+      "avgSalesCycleDays": 36.88235294117647,
+      "avgWonValue": 23925.608518518515,
+      "totalWonValue": 1291982.8599999999
+    },
     "Retail Fitout": {
       "total": 30,
       "won": 8,
@@ -33,17 +46,6 @@
       "avgSalesCycleDays": 43.25,
       "avgWonValue": 62564.30125,
       "totalWonValue": 500514.41
-    },
-    "Joinery": {
-      "total": 144,
-      "won": 54,
-      "lost": 80,
-      "open": 10,
-      "ambiguous": 0,
-      "winRate": 0.40298507462686567,
-      "avgSalesCycleDays": 36.88235294117647,
-      "avgWonValue": 23925.608518518515,
-      "totalWonValue": 1291982.8599999999
     },
     "Mezzanine": {
       "total": 4,
@@ -92,10 +94,10 @@
     "Office Fitout": {
       "total": 104,
       "won": 42,
-      "lost": 56,
-      "open": 6,
+      "lost": 57,
+      "open": 5,
       "ambiguous": 0,
-      "winRate": 0.42857142857142855,
+      "winRate": 0.42424242424242425,
       "avgSalesCycleDays": 67.25,
       "avgWonValue": 48401.597073170735,
       "totalWonValue": 1984465.48
@@ -114,10 +116,10 @@
     "Other": {
       "total": 37,
       "won": 19,
-      "lost": 17,
-      "open": 1,
+      "lost": 18,
+      "open": 0,
       "ambiguous": 0,
-      "winRate": 0.5277777777777778,
+      "winRate": 0.5135135135135135,
       "avgSalesCycleDays": 19.5,
       "avgWonValue": 11611.885555555556,
       "totalWonValue": 209013.94
@@ -178,10 +180,10 @@
       "totalWonValue": 245338.89
     },
     "(no type set)": {
-      "total": 388,
+      "total": 391,
       "won": 64,
       "lost": 310,
-      "open": 14,
+      "open": 17,
       "ambiguous": 0,
       "winRate": 0.1711229946524064,
       "avgSalesCycleDays": 32.403225806451616,
@@ -191,12 +193,12 @@
   },
   "byLeadSource": {
     "(unknown)": {
-      "total": 583,
+      "total": 587,
       "won": 143,
-      "lost": 413,
-      "open": 27,
+      "lost": 414,
+      "open": 30,
       "ambiguous": 0,
-      "winRate": 0.25719424460431656,
+      "winRate": 0.25673249551166966,
       "avgSalesCycleDays": 42.52272727272727,
       "avgWonValue": 29483.34142857143,
       "totalWonValue": 4127667.8000000003
@@ -226,10 +228,10 @@
     "Existing Client": {
       "total": 31,
       "won": 17,
-      "lost": 9,
-      "open": 5,
+      "lost": 11,
+      "open": 3,
       "ambiguous": 0,
-      "winRate": 0.6538461538461539,
+      "winRate": 0.6071428571428571,
       "avgSalesCycleDays": 44.64705882352941,
       "avgWonValue": 37580.13647058824,
       "totalWonValue": 638862.3200000001
@@ -632,6 +634,7 @@
     "86d3a42h5": 8,
     "86d39c8dj": 23,
     "86d392hp1": 37,
+    "86d38v0n3": 42,
     "86d38pdh5": 0,
     "86d37bub7": 36,
     "86d37an4c": 36,
@@ -677,6 +680,7 @@
     "86d2pr71t": 15,
     "86d2n81vh": 7,
     "86d2n81c0": 39,
+    "86d2n80yn": 96,
     "86d2jtttq": 7,
     "86d2ha001": 6,
     "86d2fhy37": 31,
@@ -753,6 +757,7 @@
     "86d19dg09": 17,
     "86d198cbf": 22,
     "86d17hb75": 9,
+    "86d17haey": 223,
     "86d16bv5d": 3,
     "86d15zea6": 48,
     "86d15z5tm": 67,
@@ -1301,8 +1306,8 @@
   },
   "deals": [
     {
-      "id": "86d3qr8y0",
-      "name": "markup revA-Construction kenthurst",
+      "id": "86d3r8ftk",
+      "name": "Restaurant Fitout Williamtown",
       "types": [],
       "leadSource": null,
       "outcome": "open",
@@ -1310,7 +1315,57 @@
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
-      "clientKey": "markup reva"
+      "clientKey": "restaurant"
+    },
+    {
+      "id": "86d3r7cdz",
+      "name": "Ambleside Kitchen Replacement Unit 1",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "ambleside kitchen replacement unit 1"
+    },
+    {
+      "id": "86d3r6ntg",
+      "name": "Rick- Mezzanine Stockyard place West Gosford",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "rick"
+    },
+    {
+      "id": "86d3r54c8",
+      "name": "Rachel Jones",
+      "types": [],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "rachel jones"
+    },
+    {
+      "id": "86d3r4p4h",
+      "name": "Jon Burton Coastline Building - laundry",
+      "types": [
+        "Joinery"
+      ],
+      "leadSource": null,
+      "outcome": "open",
+      "dealValue": null,
+      "salesCycleDays": null,
+      "closeYear": null,
+      "createYear": 2026,
+      "clientKey": "jon burton coastline building"
     },
     {
       "id": "86d3q5tpm",
@@ -1474,7 +1529,7 @@
     },
     {
       "id": "86d3fmu3e",
-      "name": "TS260703 The base Warehouse",
+      "name": "TS260703 The Base Warehouse",
       "types": [
         "Mezzanine"
       ],
@@ -1738,10 +1793,10 @@
         "Other"
       ],
       "leadSource": "Existing Client",
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 42,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260608 ashs pet kennel"
     },
@@ -1876,7 +1931,7 @@
       ],
       "leadSource": "Existing Client",
       "outcome": "open",
-      "dealValue": null,
+      "dealValue": 7481.18,
       "salesCycleDays": null,
       "closeYear": null,
       "createYear": 2026,
@@ -2475,10 +2530,10 @@
         "Office Fitout"
       ],
       "leadSource": null,
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": null,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 96,
+      "closeYear": 2026,
       "createYear": 2026,
       "clientKey": "ts260504 63 webb street"
     },
@@ -3528,10 +3583,10 @@
         "Joinery"
       ],
       "leadSource": "Existing Client",
-      "outcome": "open",
+      "outcome": "lost",
       "dealValue": 5000,
-      "salesCycleDays": null,
-      "closeYear": null,
+      "salesCycleDays": 223,
+      "closeYear": 2026,
       "createYear": 2025,
       "clientKey": "ts251211 recalibrate pilates ourimbah"
     },
