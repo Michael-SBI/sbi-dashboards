@@ -1060,8 +1060,12 @@ async function main() {
   await runPostProcess([
     { name: 'fetch-sales-data',  script: 'fetch-sales-data.js',     requires: ['CLICKUP_API_TOKEN'] },
     { name: 'performance',       script: 'performance.js',          requires: [] },
-    { name: 'ceo-internal',      script: 'ceo-advice-internal.js',  requires: ['ANTHROPIC_API_KEY'] },
-    { name: 'ceo-external',      script: 'ceo-advice.js',           requires: ['ANTHROPIC_API_KEY'] },
+    // 2026-07-21 — CEO Lens (Opus 4.7) RETIRED from the nightly refresh to stop
+    // paid-API credit burn. The nightly Opus calls were the top credit consumer.
+    // Concept to be reborn as an on-demand skill surfaced on the SBI Hub (habit-forming,
+    // shows how/why). To revive nightly, un-comment these two lines.
+    // { name: 'ceo-internal',      script: 'ceo-advice-internal.js',  requires: ['ANTHROPIC_API_KEY'] },
+    // { name: 'ceo-external',      script: 'ceo-advice.js',           requires: ['ANTHROPIC_API_KEY'] },
     { name: 'performance-final', script: 'performance.js',          requires: [] },
   ]);
 
