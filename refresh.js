@@ -1047,58 +1047,15 @@ async function main() {
     missingDashboards,
   }, null, 2), 'utf8');
 
-  // ─── Performance dashboard pipeline ────────────────────────
-  // After the per-project refresh + index rebuild, regenerate the
-  // performance page and (weekly internal / monthly external) CEO Lens
-  // advice. Order matters:
-  //   1. fetch-sales-data — fresh deals list
-  //   2. performance      — produces performance.json (input for CEO lenses)
-  //   3. ceo-internal     — self-skips if <7d old (weekly cadence)
-  //   4. ceo-external     — self-skips if <28d old (monthly cadence)
-  //   5. performance-final — re-render so HTML picks up any new ceo-*.json
-  // Each step is isolated — failure in one does not block the others.
-  await runPostProcess([
-    { name: 'fetch-sales-data',  script: 'fetch-sales-data.js',     requires: ['CLICKUP_API_TOKEN'] },
-    { name: 'performance',       script: 'performance.js',          requires: [] },
-    // 2026-07-21 — CEO Lens (Opus 4.7) RETIRED from the nightly refresh to stop
-    // paid-API credit burn. The nightly Opus calls were the top credit consumer.
-    // Concept to be reborn as an on-demand skill surfaced on the SBI Hub (habit-forming,
-    // shows how/why). To revive nightly, un-comment these two lines.
-    // { name: 'ceo-internal',      script: 'ceo-advice-internal.js',  requires: ['ANTHROPIC_API_KEY'] },
-    // { name: 'ceo-external',      script: 'ceo-advice.js',           requires: ['ANTHROPIC_API_KEY'] },
-    { name: 'performance-final', script: 'performance.js',          requires: [] },
-  ]);
+  // ─── Performance Review pipeline REMOVED 2026-07-21 ────────────────────────
+  // The Performance Review dashboard (performance.html) + the nightly CEO Lens
+  // (Opus 4.7, top API-credit consumer) were retired. The CEO-advice concept moves
+  // to an on-demand `ceo-lens` skill surfaced on the SBI Hub — regenerated when
+  // requested, in-session (on the subscription), not nightly on the paid API.
+  // The deterministic data-prep scripts (fetch-sales-data.js, performance.js) are
+  // KEPT for that skill to call on demand; they're just no longer run here.
 
   process.exit(failures.length ? 1 : 0);
-}
-
-async function runPostProcess(steps) {
-  const { spawnSync } = require('child_process');
-  console.log('\n────────── PERFORMANCE PIPELINE ──────────');
-  for (const step of steps) {
-    const missing = step.requires.filter(k => !process.env[k]);
-    if (missing.length) {
-      warn(`${step.name}: skipped — env var${missing.length > 1 ? 's' : ''} ${missing.join(', ')} not set`);
-      continue;
-    }
-    const t0 = Date.now();
-    log(`${step.name}: starting…`);
-    try {
-      const r = spawnSync(process.execPath, [path.join(REPO_ROOT, step.script)], {
-        stdio: 'inherit',
-        env: process.env,
-        cwd: REPO_ROOT,
-      });
-      const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
-      if (r.status === 0) {
-        log(`${step.name}: ✅ ${elapsed}s`);
-      } else {
-        warn(`${step.name}: ⚠️ exit ${r.status} after ${elapsed}s — continuing`);
-      }
-    } catch (e) {
-      warn(`${step.name}: ❌ spawn error — ${e.message}`);
-    }
-  }
 }
 
 main().catch(e => {
