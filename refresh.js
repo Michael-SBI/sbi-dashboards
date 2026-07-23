@@ -10,10 +10,26 @@
  * from the existing dashboard via the `{...existing}` spread in the merge below
  * — they are populated by the engine (project-health-check html mode), not here.
  *
+ * NEW-PROJECT AUTO-CREATION (added 2026-07-23)
+ * --------------------------------------------
+ * When an active ClickUp job folder has no dashboard yet, this worker now SEEDS
+ * one from TEMPLATE.html (vendored alongside this script) using the same
+ * deterministic ClickUp pull, then refreshes + indexes it in the same run — so a
+ * newly-won project gets a live dashboard on the next ~06:30 refresh instead of a
+ * "SETUP PENDING" placeholder card. The seed carries the template's safe empty
+ * defaults for the narrative/health fields; those are enriched later by the
+ * project-health-check engine (html mode) exactly as for any existing dashboard.
+ * Seeding respects the project filter (only seeds folders matching the filter, or
+ * all of them on a full run), skips empty (0-task) folders, and is disabled by
+ * --no-create and in --index-only mode. A folder that fails to seed falls back to
+ * the SETUP PENDING card as before.
+ *
  * Usage:
- *   node refresh.js                       # refresh all projects
+ *   node refresh.js                       # refresh all projects + seed any new ones
  *   node refresh.js hungry-wolfs,natural  # refresh by slug (substring match)
  *   node refresh.js 260306,260325         # refresh by job number
+ *   node refresh.js --no-create           # refresh only; never seed new dashboards
+ *   node refresh.js --index-only          # rebuild index.html only (no refresh/seed)
  *
  * Environment:
  *   CLICKUP_API_TOKEN (required)
@@ -36,6 +52,21 @@ const path = require('path');
 const CLICKUP_API = 'https://api.clickup.com/api/v2';
 const TOKEN = process.env.CLICKUP_API_TOKEN || process.env.CLICKUP_TOKEN;
 const REPO_ROOT = path.resolve(__dirname);
+
+// Vendored copy of the project-dashboard skill's TEMPLATE.html. Used to seed a
+// brand-new dashboard for an active ClickUp folder that doesn't have one yet.
+// It's a plain file at the repo root (not a directory), so discoverProjects()
+// ignores it. Kept in sync manually — it only needs to be structurally valid;
+// the deterministic refresh + the engine repopulate the data.
+const SEED_TEMPLATE_PATH = path.join(REPO_ROOT, 'TEMPLATE.html');
+
+// Leading type keywords that may prefix a folder/deal name (e.g. "260415 BUILD
+// Wyoming Medical - Door"). Longest-first so multi-word heads match before their
+// prefixes. Used to split a seed's project.type from project.name.
+const TYPE_HEADS = [
+  'CERT & DESIGN', 'SUPPLY & INSTALL', 'DO & CHARGE',
+  'BUILD', 'DESIGN', 'JOINERY', 'CERT', 'SUPPLY', 'MAINTENANCE',
+];
 
 const SBI_PROJECTS_SPACE = '54603442';
 const DEALS_LIST = '900301389267';
@@ -272,9 +303,16 @@ function computeMissingDashboards(discovered, cuFolders) {
   );
 }
 
-function filterProjects(projects, args) {
-  if (!args || args.length === 0 || args[0] === 'all' || args[0] === '') return projects;
+// Parse the CLI filter into a list of lowercase match tokens, or null for "all".
+function parseFilterTokens(args) {
+  if (!args || args.length === 0 || args[0] === 'all' || args[0] === '') return null;
   const tokens = args.flatMap(a => a.split(',')).map(s => s.trim().toLowerCase()).filter(Boolean);
+  return tokens.length ? tokens : null;
+}
+
+function filterProjects(projects, args) {
+  const tokens = parseFilterTokens(args);
+  if (!tokens) return projects;
   return projects.filter(p =>
     tokens.some(t =>
       p.slug.toLowerCase().includes(t) ||
@@ -282,6 +320,179 @@ function filterProjects(projects, args) {
       (p.projectName || '').toLowerCase().includes(t)
     )
   );
+}
+
+// ─────────────────────────────────────────────────────────────
+// NEW-PROJECT SEEDING
+// ─────────────────────────────────────────────────────────────
+
+function slugify(s) {
+  return String(s == null ? '' : s)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+// Split a folder/deal name (already stripped of its 6-digit job number) into a
+// { type, name } pair. "BUILD Wyoming Medical - Door" → { type: "BUILD",
+// name: "Wyoming Medical - Door" }. "BUILD — Door supply..." → { type: "BUILD",
+// name: "Door supply..." }. No recognised head → { type: "", name: <remainder> }.
+function deriveTypeAndName(folderName) {
+  const remainder = String(folderName || '').replace(/^\d{6}\s*/, '').trim();
+  for (const head of TYPE_HEADS) {
+    const re = new RegExp('^' + head.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i');
+    if (re.test(remainder)) {
+      const rest = remainder.slice(head.length).replace(/^\s*[—–:-]?\s*/, '').trim();
+      return { type: head.toUpperCase(), name: rest || remainder };
+    }
+  }
+  return { type: '', name: remainder };
+}
+
+function formatSoldDate(epochMs) {
+  if (!epochMs) return '';
+  try {
+    const parts = new Intl.DateTimeFormat('en-AU', {
+      timeZone: 'Australia/Sydney', day: 'numeric', month: 'short', year: 'numeric',
+    }).formatToParts(new Date(Number(epochMs)));
+    const get = t => parts.find(p => p.type === t)?.value || '';
+    return `${get('day')} ${get('month')} ${get('year')}`.trim();
+  } catch { return ''; }
+}
+
+// Page the Deals list once and return Map(jobNumber -> won task) for the requested
+// job numbers. Only WON/SOLD tasks count — mirrors resolveSoldDates so a lost deal
+// sharing a job number can't supply bogus seed metadata. Fault-tolerant: returns
+// whatever it found (empty map on failure).
+async function fetchWonDealsByJob(jobNumbers) {
+  const want = new Set((jobNumbers || []).filter(Boolean).map(String));
+  const out = new Map();
+  if (!want.size) return out;
+  try {
+    for (let page = 0; page < 6; page++) {
+      const data = await clickup(`/list/${DEALS_LIST}/task?include_closed=true&subtasks=false&page=${page}`);
+      const tasks = data.tasks || [];
+      for (const t of tasks) {
+        const jn = (t.name.match(/(\d{6})/) || [])[1];
+        if (!jn || !want.has(jn) || !isWonStatus(t.status?.status)) continue;
+        if (!out.has(jn)) out.set(jn, t);
+      }
+      if (data.last_page) break;
+    }
+  } catch (e) {
+    warn(`Deals-list seed lookup failed: ${e.message}`);
+  }
+  return out;
+}
+
+// Create a brand-new dashboard for an active ClickUp folder that has none yet.
+// Writes <slug>/index.html from the seed template with a populated `project`
+// block; every other section keeps the template's safe empty defaults and is
+// filled by the deterministic refresh (immediately after) + the engine (later).
+// Returns a project object shaped like discoverProjects() entries, or null on
+// failure (caller leaves the folder as a SETUP PENDING card).
+function seedNewDashboard(folder, dealTask, templateHtml, templateProjectData) {
+  const jobNumber = folder.jobNumber || (folder.name.match(/(\d{6})/) || [])[1] || '';
+  const { type, name } = deriveTypeAndName(folder.name);
+  const displayName = name || folder.name;
+  const slug = [jobNumber, slugify(displayName)].filter(Boolean).join('-') || `cu-${folder.id}`;
+  const dir = path.join(REPO_ROOT, slug);
+  const indexPath = path.join(dir, 'index.html');
+
+  if (fs.existsSync(indexPath)) {
+    warn(`seed: ${slug}/index.html already exists — not overwriting`);
+    return null;
+  }
+
+  // Deep-clone the template's default project-data and populate the project block.
+  const pd = JSON.parse(JSON.stringify(templateProjectData));
+  pd.project = { ...(pd.project || {}) };
+  pd.project.jobNumber = jobNumber;
+  pd.project.folderId = String(folder.id);
+  pd.project.name = displayName;
+  pd.project.type = type;
+  // Blank the template's placeholder identity fields so a seeded dashboard shows
+  // empty (honest) rather than fake "Client Name" / "PM Name" until the engine
+  // fills them in from the sales task + health read.
+  pd.project.client = '';
+  pd.project.pm = '';
+  if (dealTask) {
+    pd.project.salesTaskUrl = `https://app.clickup.com/t/${dealTask.id}`;
+    const sold = wonDate(dealTask);
+    if (sold) pd.project.dateSold = formatSoldDate(sold);
+  }
+
+  let html = replaceJsonBlock(templateHtml, 'project-data', pd);
+  html = html.replace(
+    /<title>[\s\S]*?<\/title>/i,
+    `<title>Project Status — ${escapeHtml(displayName)} | SBI</title>`
+  );
+
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(indexPath, html, 'utf8');
+  log(`  🌱 seeded new dashboard: ${slug} (folder ${folder.id}, ${folder.taskCount} tasks)`);
+
+  return {
+    slug,
+    indexPath,
+    folderId: pd.project.folderId,
+    jobNumber,
+    projectName: displayName,
+    existingData: pd,
+    seeded: true,
+  };
+}
+
+// Seed dashboards for every active folder that has none yet (respecting the
+// filter). Returns the list of newly-created project objects (empty if none).
+async function seedMissingDashboards(missingDashboards, args) {
+  if (!missingDashboards || !missingDashboards.length) return [];
+  if (!fs.existsSync(SEED_TEMPLATE_PATH)) {
+    warn(`seed template not found at ${SEED_TEMPLATE_PATH} — cannot auto-create new dashboards`);
+    return [];
+  }
+
+  const filterTokens = parseFilterTokens(args);
+  const candidates = missingDashboards.filter(f => {
+    if (!f.jobNumber) return false;              // can't place a dashboard without a job number
+    if ((f.taskCount || 0) === 0) {              // empty shell — leave as SETUP PENDING for now
+      warn(`seed: skipping ${f.jobNumber} ${f.name} (0 tasks — folder not set up yet)`);
+      return false;
+    }
+    if (!filterTokens) return true;              // full run → seed all
+    return filterTokens.some(t =>
+      (f.jobNumber || '').toLowerCase().includes(t) || (f.name || '').toLowerCase().includes(t)
+    );
+  });
+  if (!candidates.length) return [];
+
+  const templateHtml = fs.readFileSync(SEED_TEMPLATE_PATH, 'utf8');
+  const tplBlock = findJsonBlock(templateHtml, 'project-data');
+  if (!tplBlock) {
+    warn(`seed template ${SEED_TEMPLATE_PATH} has no project-data block — cannot seed`);
+    return [];
+  }
+  let templateProjectData;
+  try {
+    templateProjectData = JSON.parse(tplBlock.content);
+  } catch (e) {
+    warn(`seed template project-data is not valid JSON: ${e.message}`);
+    return [];
+  }
+
+  log(`Seeding ${candidates.length} new dashboard(s) for active folders without one...`);
+  const deals = await fetchWonDealsByJob(candidates.map(f => f.jobNumber));
+
+  const created = [];
+  for (const folder of candidates) {
+    try {
+      const p = seedNewDashboard(folder, deals.get(String(folder.jobNumber)), templateHtml, templateProjectData);
+      if (p) created.push(p);
+    } catch (e) {
+      warn(`seed failed for ${folder.jobNumber} ${folder.name}: ${e.message}`);
+    }
+  }
+  return created;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -928,6 +1139,7 @@ async function refreshProject(project) {
     slug: project.slug,
     jobNumber: project.jobNumber,
     projectName: project.projectName,
+    firstTime: !!project.seeded,   // true when this dashboard was auto-created this run
     contractValue: newData.metrics.contractValue.value,
     siteWorksProgress: newData.metrics.siteWorks.value,
     counts: {
@@ -952,10 +1164,11 @@ async function main() {
 
   const rawArgs = process.argv.slice(2);
   const indexOnly = rawArgs.includes('--index-only');
-  const args = rawArgs.filter(a => a !== '--index-only');
+  const noCreate = rawArgs.includes('--no-create');
+  const args = rawArgs.filter(a => a !== '--index-only' && a !== '--no-create');
   log('args:', JSON.stringify(rawArgs));
 
-  const allProjects = discoverProjects();
+  let allProjects = discoverProjects();
   log(`discovered ${allProjects.length} dashboards in sbi-dashboards/:`, allProjects.map(p => p.slug).join(', '));
 
   let activeCuFolders = [];
@@ -974,6 +1187,26 @@ async function main() {
     }
   } catch (e) {
     warn(`Failed to enumerate ClickUp active folders: ${e.message}`);
+  }
+
+  // Auto-seed a dashboard for any active folder that doesn't have one yet, so a
+  // newly-won project appears with live data on this run instead of a SETUP
+  // PENDING placeholder. Skipped in --index-only, when --no-create is passed, or
+  // if the ClickUp folder fetch failed (we can't know what's missing).
+  if (folderFetchOk && !indexOnly && !noCreate) {
+    try {
+      const seeded = await seedMissingDashboards(missingDashboards, args);
+      if (seeded.length) {
+        allProjects = allProjects.concat(seeded);
+        // Recompute so the summary/index no longer report the seeded ones as missing.
+        missingDashboards = computeMissingDashboards(allProjects, activeCuFolders);
+        log(`Seeded ${seeded.length} new dashboard(s): ${seeded.map(p => p.slug).join(', ')}`);
+      }
+    } catch (e) {
+      warn(`New-project seeding step failed: ${e.message}`);
+    }
+  } else if (folderFetchOk && noCreate && missingDashboards.length) {
+    log(`--no-create: leaving ${missingDashboards.length} dashboard-less folder(s) as SETUP PENDING.`);
   }
 
   if (indexOnly) {
@@ -1009,12 +1242,13 @@ async function main() {
   }
 
   // Summary
+  const newlyCreated = successes.filter(s => s.firstTime);
   console.log('\n────────── SUMMARY ──────────');
-  console.log(`Total: ${targets.length}  |  Success: ${successes.length}  |  Failed: ${failures.length}`);
+  console.log(`Total: ${targets.length}  |  Success: ${successes.length}  |  Failed: ${failures.length}  |  New: ${newlyCreated.length}`);
   if (successes.length) {
     console.log('\nRefreshed:');
     for (const s of successes) {
-      console.log(`  ✅ ${s.slug.padEnd(40)} contract=${s.contractValue.padEnd(12)} site=${s.siteWorksProgress}`);
+      console.log(`  ${s.firstTime ? '🌱' : '✅'} ${s.slug.padEnd(40)} contract=${s.contractValue.padEnd(12)} site=${s.siteWorksProgress}`);
     }
   }
   if (failures.length) {
@@ -1043,6 +1277,7 @@ async function main() {
     total: targets.length,
     successes,
     failures,
+    newDashboards: newlyCreated.map(s => ({ slug: s.slug, jobNumber: s.jobNumber, projectName: s.projectName })),
     activeCuFolders: activeCuFolders.length,
     missingDashboards,
   }, null, 2), 'utf8');

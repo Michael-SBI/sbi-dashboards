@@ -5,6 +5,14 @@ name: Refresh Dashboards
 #   - Manual run from the GitHub Actions UI
 #   - Daily cron: ~06:30 AEST (19:30 UTC; GitHub may delay scheduled runs up to ~1h)
 #
+# What it does:
+#   - Refreshes deterministic data on every existing project dashboard, AND
+#   - Auto-creates (seeds) a dashboard for any active ClickUp job folder that
+#     doesn't have one yet — so a newly-won project appears with live data on the
+#     morning refresh instead of a "SETUP PENDING" placeholder. New dashboards
+#     carry the template's default narrative fields until the project-health-check
+#     engine enriches them. (Added 2026-07-23.)
+#
 # Optional payload (repository_dispatch):
 #   { "event_type": "refresh", "client_payload": { "projects": "hungry-wolfs,marine-rescue" } }
 #
@@ -122,10 +130,20 @@ jobs:
               const lines = [];
               lines.push(`📊 **Dashboard refresh** — ${summary.successes.length}/${summary.total} succeeded`);
               lines.push('');
+              const newDashboards = summary.newDashboards || [];
+              if (newDashboards.length) {
+                lines.push(`**🌱 New dashboards created (${newDashboards.length}):**`);
+                for (const n of newDashboards) {
+                  const slug = n.slug;
+                  lines.push(`  🌱 ${n.projectName || slug} — https://michael-sbi.github.io/sbi-dashboards/${slug}/`);
+                }
+                lines.push('');
+              }
               if (summary.successes.length) {
                 lines.push('**Refreshed:**');
                 for (const s of summary.successes) {
-                  lines.push(`  ✅ ${s.projectName || s.slug} — contract ${s.contractValue}, site ${s.siteWorksProgress}`);
+                  const badge = s.firstTime ? '🌱' : '✅';
+                  lines.push(`  ${badge} ${s.projectName || s.slug} — contract ${s.contractValue}, site ${s.siteWorksProgress}`);
                 }
               }
               if (summary.failures.length) {
