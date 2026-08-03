@@ -295,12 +295,41 @@ async function fetchActiveClickUpFolders() {
     .filter(f => f.jobNumber);
 }
 
+// Match each live ClickUp job folder to at most ONE dashboard. Folder id is
+// authoritative and is resolved for every folder first; the job-number fallback
+// (for a dashboard with a missing/mis-keyed folderId) then only gets to claim
+// dashboards nothing else already took. Job numbers are NOT unique across folders
+// — two jobs sold the same day share one, e.g. 260604 is both "James Sackett Ocean
+// Landscapes JOINERY" and "BUILD Trend Pac". Without this two-pass order the second
+// folder re-claims the first folder's dashboard: the card renders twice on the index
+// and the second job disappears from the view (and from the missing-dashboard list,
+// so it never gets seeded either).
+function resolveFoldersToDashboards(discovered, cuFolders) {
+  const byFolder = new Map();
+  const byJob = new Map();
+  for (const p of discovered) {
+    if (p.folderId) byFolder.set(String(p.folderId), p);
+    if (p.jobNumber && !byJob.has(String(p.jobNumber))) byJob.set(String(p.jobNumber), p);
+  }
+
+  const resolved = new Map(); // folder id → dashboard project
+  const claimed = new Set();  // dashboard slugs already spoken for
+
+  for (const f of cuFolders) {
+    const p = byFolder.get(String(f.id));
+    if (p) { resolved.set(String(f.id), p); claimed.add(p.slug); }
+  }
+  for (const f of cuFolders) {
+    if (resolved.has(String(f.id)) || !f.jobNumber) continue;
+    const p = byJob.get(String(f.jobNumber));
+    if (p && !claimed.has(p.slug)) { resolved.set(String(f.id), p); claimed.add(p.slug); }
+  }
+  return { resolved, claimed };
+}
+
 function computeMissingDashboards(discovered, cuFolders) {
-  const dashboardJobs = new Set(discovered.map(p => p.jobNumber).filter(Boolean));
-  const dashboardFolderIds = new Set(discovered.map(p => String(p.folderId)).filter(Boolean));
-  return cuFolders.filter(f =>
-    !dashboardJobs.has(f.jobNumber) && !dashboardFolderIds.has(String(f.id))
-  );
+  const { resolved } = resolveFoldersToDashboards(discovered, cuFolders);
+  return cuFolders.filter(f => !resolved.has(String(f.id)));
 }
 
 // Parse the CLI filter into a list of lowercase match tokens, or null for "all".
@@ -549,26 +578,16 @@ async function rebuildIndexPage(allProjects, activeCuFolders, indexPath) {
   // ClickUp folder list (activeCuFolders — the source of truth), NOT by which dashboards
   // happen to exist in the repo. Each active folder is matched to its dashboard by folder
   // id first (authoritative), then by job number as a fallback for a dashboard with a
-  // missing/mis-keyed folderId. A folder with no dashboard yet still gets a fallback card
+  // missing/mis-keyed folderId — see resolveFoldersToDashboards for why that fallback is
+  // one-dashboard-per-folder. A folder with no dashboard yet still gets a fallback card
   // so it is never silently missing. Result: Active count == number of active job folders.
-  const byFolder = new Map();
-  const byJob = new Map();
-  for (const p of allProjects) {
-    if (p.folderId) byFolder.set(String(p.folderId), p);
-    if (p.jobNumber && !byJob.has(String(p.jobNumber))) byJob.set(String(p.jobNumber), p);
-  }
+  const { resolved, claimed: matchedSlugs } = resolveFoldersToDashboards(allProjects, activeCuFolders);
 
   const activeProjects = [];
-  const matchedSlugs = new Set();
   const fallbacks = [];
   for (const f of activeCuFolders) {
-    let p = byFolder.get(String(f.id));
-    // Only fall back to job-number matching when no dashboard claims this folder id.
-    // Job numbers are NOT unique across dashboards, but the folder-id match runs first,
-    // so an archived dashboard sharing a number can't hijack a live folder that has its own.
-    if (!p && f.jobNumber) p = byJob.get(String(f.jobNumber));
+    const p = resolved.get(String(f.id));
     if (p) {
-      matchedSlugs.add(p.slug);
       activeProjects.push(p);
     } else {
       const fb = { slug: `cu-${f.id}`, folderId: String(f.id), jobNumber: f.jobNumber, projectName: f.name, fallbackFolder: f };
